@@ -4,14 +4,18 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 
 //
+const { hashPass } = require("../helper/utlis");
+
+//
 //create / regester- user
 router.post("/register", async (req, res) => {
   //
   try {
+    const hashedValue = await hashPass(req.body.password);
     //
     const newUser = new User({
       username: req.body.username,
-      password: req.body.password,
+      password: hashedValue,
     });
     //
     const user = await newUser.save();
