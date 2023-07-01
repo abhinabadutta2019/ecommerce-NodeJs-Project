@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 //
 
 const User = require("../models/User");
@@ -75,10 +77,25 @@ router.post("/login", async (req, res) => {
       return res.json({ message: "password not matched" });
     }
 
-    console.log(match, "match");
+    // console.log(match, "match");
+
+    // console.log(user, "user");
+    //getting payload
+    const payload = { _id: user._id.toString() };
+
+    //creating token
+    const token = jwt.sign({ payload: payload }, process.env.JWT_SECRET);
+
+    console.log(token, "token");
+
+    // const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+    // console.log(decode.payload._id, "decode.payload.id");
+
+    res.cookie("loginToken", token);
 
     //
-    res.json({ user: user, message: "login success" });
+    res.json({ token: token, message: "login success", user: user });
     // res.json()
     //
   } catch (err) {
