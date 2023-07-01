@@ -1,13 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
+const cookieParser = require("cookie-parser");
 //
 const authRoutes = require("./routes/auth");
 //
 const app = express();
 app.use(express.json());
-
+//cokkie-parser
+app.use(cookieParser());
 //
 //
 dotenv.config();
@@ -19,6 +20,22 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+//testing cookie
+// app.get("/", function (req, res) {
+//   //
+//   //set req.cookies
+//   // req.cookies.title = "abhinabaTesting";
+//   // console.log("Cookies: ", req.cookies);
+
+//   const id = "raja1";
+
+//   res.cookie("abhi-cookie", id);
+
+//   console.log(id);
+
+//   res.json({ id: id });
+// });
 
 //
 app.listen(process.env.PORT, () => {
