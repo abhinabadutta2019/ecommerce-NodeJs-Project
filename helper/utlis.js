@@ -4,12 +4,13 @@ const bcrypt = require("bcryptjs");
 
 // let hashedPassword;
 
-let hashPass = async (passString) => {
+const hashPass = async (passString) => {
   //
-  let stringPassword = passString.toString();
-  let saltRounds = 10;
+  const stringPassword = passString.toString();
+  const saltRounds = 10;
   //
-  let hashedPassword = await bcrypt.hash(stringPassword, saltRounds);
+  const hashedPassword = await bcrypt.hash(stringPassword, saltRounds);
+  //
   console.log(hashedPassword, "--hashedPassword");
 
   return hashedPassword;

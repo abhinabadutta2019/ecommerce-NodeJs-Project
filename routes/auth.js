@@ -16,6 +16,12 @@ const { hashPass } = require("../helper/utlis");
 router.post("/register", async (req, res) => {
   //
   try {
+    //
+    if (req.body.password.length < 3 || req.body.username.length < 3) {
+      return res.json({ message: " username or password length is too small" });
+    }
+
+    //
     const hashedValue = await hashPass(req.body.password);
     //
     const newUser = new User({
@@ -26,6 +32,11 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
     res.json({ user: user, message: "registration success" });
   } catch (err) {
+    // console.log(err.code);
+    if (err.code == 11000) {
+      return res.json({ message: "duplicate username" });
+    }
+    //
     console.log(err);
     res.json(err);
   }
@@ -48,13 +59,14 @@ router.post("/login", async (req, res) => {
       username: inputUsername,
     });
 
-    // console.log(user, "user");
-    const hashedPassFromDB = user.password;
-
     // chaek if username found
     if (!user) {
       return res.json({ message: "Username not in database" });
     }
+
+    // console.log(user, "user");
+    const hashedPassFromDB = user.password;
+
     //
     const match = await bcrypt.compare(stringPassword, hashedPassFromDB);
 
