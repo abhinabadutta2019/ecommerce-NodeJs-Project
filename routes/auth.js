@@ -7,9 +7,10 @@ const jwt = require("jsonwebtoken");
 //
 
 const User = require("../models/User");
-
 //
-
+const {
+  postmanAuthMiddleware,
+} = require("../middleware/postmanAuthMiddleware");
 //
 const { hashPass } = require("../helper/utlis");
 
@@ -86,18 +87,34 @@ router.post("/login", async (req, res) => {
     //creating token
     const token = jwt.sign({ payload: payload }, process.env.JWT_SECRET);
 
-    console.log(token, "token");
+    // console.log(token, "token");
 
     // const decode = jwt.verify(token, process.env.JWT_SECRET);
 
     // console.log(decode.payload._id, "decode.payload.id");
 
-    res.cookie("loginToken", token);
+    //setting token
+    res.cookie("token", token);
 
     //
     res.json({ token: token, message: "login success", user: user });
     // res.json()
     //
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
+router.get("/test", postmanAuthMiddleware, (req, res) => {
+  //
+  try {
+    //
+    const user = req.user;
+    // console.log(token, "token");
+    //
+    res.json(user);
   } catch (err) {
     console.log(err);
     res.json(err);
