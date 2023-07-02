@@ -4,13 +4,13 @@ const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
       minlength: 3,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
       minlength: 3,
     },
     isAdmin: {

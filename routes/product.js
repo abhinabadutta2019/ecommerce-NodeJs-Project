@@ -12,16 +12,15 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 router.post("/createProduct", postmanAdmin, async (req, res) => {
   //
   try {
-    console.log(req.body.categoriesArray, "req.body.categoriesArray");
-
     //
+    // console.log(req.body.categories, "req.body.categories");
 
     const newProduct = new Product({
       title: req.body.title,
       productLeft: req.body.productLeft,
       price: req.body.price,
       //
-      categories: req.body.categoriesArray,
+      categories: req.body.categories,
     });
 
     //
