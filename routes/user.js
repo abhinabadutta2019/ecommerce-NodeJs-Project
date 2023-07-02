@@ -66,5 +66,45 @@ router.delete("/deleteUser", postmanUser, async (req, res) => {
 });
 
 //
+router.get("/getAllUser", postmanAdmin, async (req, res) => {
+  try {
+    //
+    const admin = req.user;
+    //
+    const getAll = await User.find({});
+    // console.log(getAll, "getAll");
+    res.json({ getAllUser: getAll });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
+router.get("/getOneUser/:id", postmanAdmin, async (req, res) => {
+  //
+  try {
+    //
+    console.log(req.params, "req.params");
+    //
+    if (!req.params.id) {
+      return res.json({ message: "no id passed with params" });
+    }
+    //
+    const admin = req.user;
+    //
+    const user = await User.findById(req.params.id);
+    //
+    if (!user) {
+      return res.json({ message: "user not found in database" });
+    }
+    //
+    res.json({ user: user });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //
 module.exports = router;
