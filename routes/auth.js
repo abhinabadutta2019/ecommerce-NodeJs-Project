@@ -8,9 +8,9 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 //
-const {
-  postmanAuthMiddleware,
-} = require("../middleware/postmanAuthMiddleware");
+const { postmanUser } = require("../middleware/postmanUser");
+//
+const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
 const { hashPass } = require("../helper/utlis");
 
@@ -106,8 +106,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//
-router.get("/test", postmanAuthMiddleware, (req, res) => {
+//test route to check- login
+router.get("/test", postmanAdmin, (req, res) => {
   //
   try {
     //

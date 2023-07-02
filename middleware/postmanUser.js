@@ -3,7 +3,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 //
-const postmanAuthMiddleware = async (req, res, next) => {
+const postmanUser = async (req, res, next) => {
   try {
     //
 
@@ -38,4 +38,4 @@ const postmanAuthMiddleware = async (req, res, next) => {
 };
 
 //
-module.exports = { postmanAuthMiddleware };
+module.exports = { postmanUser };
