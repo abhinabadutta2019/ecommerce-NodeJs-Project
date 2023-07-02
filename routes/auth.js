@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
 
     //
-    console.log(user, "user");
+    // console.log(user, "user");
 
     //
     //getting payload
@@ -122,7 +122,7 @@ router.post("/login", async (req, res) => {
 });
 
 //test route to check- login
-router.get("/test", postmanUser, (req, res) => {
+router.get("/test", postmanAdmin, (req, res) => {
   //
   try {
     //

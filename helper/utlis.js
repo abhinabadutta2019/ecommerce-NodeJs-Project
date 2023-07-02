@@ -11,7 +11,7 @@ const hashPass = async (passString) => {
   //
   const hashedPassword = await bcrypt.hash(stringPassword, saltRounds);
   //
-  console.log(hashedPassword, "--hashedPassword");
+  console.log(hashedPassword, "--hashedPassword from utils");
 
   return hashedPassword;
 };

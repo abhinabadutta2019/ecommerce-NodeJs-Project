@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 //
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 //
 const app = express();
 app.use(express.json());
@@ -44,3 +45,4 @@ app.listen(process.env.PORT, () => {
 
 //
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
