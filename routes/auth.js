@@ -30,10 +30,25 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       username: req.body.username,
       password: hashedValue,
+      //
+      isAdmin: req.body.isAdmin,
     });
     //
     const user = await newUser.save();
-    res.json({ user: user, message: "registration success" });
+
+    //
+    console.log(user, "user");
+
+    //
+    //getting payload
+    const payload = { _id: user._id.toString() };
+    //
+    const token = jwt.sign({ payload: payload }, process.env.JWT_SECRET);
+    //
+    //setting token in browser
+    res.cookie("token", token);
+    //
+    res.json({ token: token, message: "registration success", user: user });
   } catch (err) {
     // console.log(err.code);
     if (err.code == 11000) {
@@ -93,7 +108,7 @@ router.post("/login", async (req, res) => {
 
     // console.log(decode.payload._id, "decode.payload.id");
 
-    //setting token
+    //setting token in browser
     res.cookie("token", token);
 
     //
@@ -107,7 +122,7 @@ router.post("/login", async (req, res) => {
 });
 
 //test route to check- login
-router.get("/test", postmanAdmin, (req, res) => {
+router.get("/test", postmanUser, (req, res) => {
   //
   try {
     //
