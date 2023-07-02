@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 //
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const productRoutes = require("./routes/product");
 //
 const app = express();
 app.use(express.json());
@@ -46,3 +47,4 @@ app.listen(process.env.PORT, () => {
 //
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/product", productRoutes);

@@ -8,10 +8,6 @@ const productSchema = new mongoose.Schema(
       require: true,
       unique: true,
     },
-    description: {
-      type: String,
-      require: true,
-    },
     productLeft: {
       type: Number,
       require: true,
