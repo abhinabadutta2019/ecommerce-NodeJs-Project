@@ -39,5 +39,35 @@ router.post("/createProduct", postmanAdmin, async (req, res) => {
   }
 });
 
+//update all details (except imagepath)
+router.put("/update/:id", postmanAdmin, async (req, res) => {
+  //
+  try {
+    const product = await Product.findById(req.params.id);
+    //
+
+    if (!product) {
+      return res.json({ message: "product not present in database" });
+    }
+
+    //
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    res.json({ updatedProduct: updatedProduct });
+  } catch (err) {
+    //
+    if (err.code == 11000) {
+      return res.json({ message: "duplicate product title" });
+    }
+    console.log(err);
+    res.json(err);
+  }
+});
 //
 module.exports = router;
