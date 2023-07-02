@@ -50,5 +50,21 @@ router.put("/updatePassword", postmanUser, async (req, res) => {
 });
 
 //
+router.delete("/deleteUser", postmanUser, async (req, res) => {
+  //
+  try {
+    //
+    const user = req.user;
+    // console.log(user, "user");
+    const deletedUser = await User.findByIdAndDelete(user._id);
+    //
+    res.json({ message: "user deleted", deletedUser: deletedUser });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
 //
 module.exports = router;
