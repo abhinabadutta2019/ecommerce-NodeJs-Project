@@ -94,6 +94,19 @@ router.delete("/delete/:id", postmanAdmin, async (req, res) => {
     res.json(err);
   }
 });
+//get All Products
+router.get("/getAllProducts", postmanUser, async (req, res) => {
+  //
+  try {
+    //
+    const allProducts = await Product.find({});
+
+    res.json({ allProducts: allProducts });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
 
 //
 module.exports = router;
