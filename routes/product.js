@@ -69,5 +69,31 @@ router.put("/update/:id", postmanAdmin, async (req, res) => {
     res.json(err);
   }
 });
+
+//delete a product
+router.delete("/delete/:id", postmanAdmin, async (req, res) => {
+  //
+  try {
+    //
+    // console.log(req.params.id, "req.params.id");
+    //
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    //
+
+    if (!deletedProduct) {
+      //
+      return res.json({
+        message: "this product not found in database to delete",
+      });
+    }
+
+    res.json({ message: "product deleted", deletedProduct: deletedProduct });
+    //
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //
 module.exports = router;
