@@ -109,4 +109,25 @@ router.get("/getAllProducts", postmanUser, async (req, res) => {
 });
 
 //
+router.get("/getOneProduct/:id", postmanUser, async (req, res) => {
+  //
+  try {
+    if (!req.params.id) {
+      return res.json({ message: "no id passed with params" });
+    }
+    //
+    const product = await Product.findById(req.params.id);
+    //
+    if (!product) {
+      return res.json({ message: "product not found in database" });
+    }
+    //
+    res.json({ product: product });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
 module.exports = router;
