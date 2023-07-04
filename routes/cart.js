@@ -54,6 +54,10 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
   try {
     // console.log(req.params.id, "req.params.id");
 
+    //count(number) of product to add to cart
+    const quantityToAdd = req.body.counted || 1;
+
+    //
     const product = await Product.findOne({ _id: req.params.id });
 
     if (!product) {
@@ -84,29 +88,16 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       if (element.productId.toString() == req.params.id) {
         // console.log(user._id, "user._id");
 
-        //works
-        // const cartHere = await Cart.findOne({
-        //   userId: user._id,
-        // });
-        // console.log(cartHere, "cartHere");
-
-        //works too
-        // const cartProd = await Cart.findOne({
-        //   userId: user._id,
-        //   "products.productId": element.productId,
-        // });
-        // console.log(cartProd, "cartProd");
-
         //
         const cartProd = await Cart.findOneAndUpdate(
           {
             userId: user._id,
             "products.productId": element.productId,
           },
-          { $inc: { "products.$.quantity": 2 } },
+          { $inc: { "products.$.quantity": quantityToAdd } },
           { returnOriginal: false }
         );
-        console.log(cartProd, "cartProd");
+        // console.log(cartProd, "cartProd");
       }
     }
 
