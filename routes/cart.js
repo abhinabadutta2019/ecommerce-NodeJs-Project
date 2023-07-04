@@ -55,7 +55,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     // console.log(req.params.id, "req.params.id");
 
     //count(number) of product to add to cart
-    const quantityToAdd = req.body.counted || 1;
+    const quantityToAdd = req.body.quantity || 1;
 
     //
     const product = await Product.findOne({ _id: req.params.id });
@@ -112,6 +112,19 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //   { $push: { products: { productId: req.params.id } } },
     //   { returnOriginal: false }
     // );
+    //
+    //
+    ////try push + set
+    //
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId: user._id },
+      {
+        $push: {
+          products: { productId: req.params.id, quantity: quantityToAdd },
+        },
+      },
+      { returnOriginal: false }
+    );
 
     /////////////////////////////////////////////////
     // tested populated
