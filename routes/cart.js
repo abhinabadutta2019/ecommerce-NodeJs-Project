@@ -65,25 +65,18 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         message: "product not in database, so cant add to cart",
       });
     }
-
     //
     const user = req.user;
 
     //
     const checkUserCart = await Cart.findOne({ userId: user._id });
 
-    //cart e adready thakle--quantity increase hobe(notun kore add hobena)
-    //
-
-    // console.log(checkUserCart.products, "checkUserCart.products");
+    //cart e already thakle--quantity increase hobe(notun kore add hobena)
 
     //
     for (let i = 0; i < checkUserCart.products.length; i++) {
       //
       const element = checkUserCart.products[i];
-      //
-      //   console.log(element.productId.toString(), "element");
-      //
       //
 
       if (element.productId.toString() == req.params.id) {
@@ -100,22 +93,19 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         )
           .populate("userId")
           .populate("products.productId");
+        //
 
-        // console.log(presentQuantityIncreased, "presentQuantityIncreased");
-
+        //getting car owner value
         const cartOwner = presentQuantityIncreased.userId.username;
-
         //
         const cartProducts = presentQuantityIncreased.products;
-
-        // console.log(cartProducts, "cartProducts");
 
         let cartArray = [];
         //
         for (let j = 0; j < cartProducts.length; j++) {
           const eachProd = cartProducts[j];
 
-          console.log(eachProd, "eachProd");
+          //   console.log(eachProd, "eachProd");
           const prodObj = {
             title: eachProd.productId.title,
             quantity: eachProd.quantity,
@@ -124,9 +114,6 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           //
           cartArray.push(prodObj);
         }
-
-        //
-
         //
         return res.json({
           message: "already present item, quantity increased",
@@ -147,6 +134,8 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       },
       { returnOriginal: false }
     );
+
+    //
 
     //
 
