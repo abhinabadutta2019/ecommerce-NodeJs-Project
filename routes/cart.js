@@ -68,7 +68,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //
     const user = req.user;
 
-    //
+    //get user's cart from , Cart collection
     const checkUserCart = await Cart.findOne({ userId: user._id });
 
     //cart e already thakle--quantity increase hobe(notun kore add hobena)
