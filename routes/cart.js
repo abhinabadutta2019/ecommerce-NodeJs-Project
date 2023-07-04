@@ -46,5 +46,19 @@ router.post("/createCart", postmanUser, async (req, res) => {
     res.json(err);
   }
 });
+
+//add product to cart
+
+router.put("/addToCart", postmanUser, (req, res) => {
+  //
+  try {
+    const user = req.user;
+    res.json({ message: "user hERE", user: user });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //
 module.exports = router;
