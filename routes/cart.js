@@ -73,21 +73,41 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
 
     console.log(checkUserCart.products, "checkUserCart.products");
 
-    //check with includes
-    //complex map function used
-    if (
-      checkUserCart.products
-        .map((product) => product.productId.toString())
-        .includes(req.params.id)
-    ) {
-      //   console.log("Hi");
+    //
+    for (let i = 0; i < checkUserCart.products.length; i++) {
+      const element = checkUserCart.products[i];
       //
-      const amount = 3;
+      //   console.log(element.productId.toString(), "element");
       //
-      const updateQuantity = await Cart.findOneAndUpdate(
-        { userId: user._id, "products.productId": req.params.id },
-        { $inc: { "products.quantity": { quantity: amount } } }
-      );
+      //
+
+      if (element.productId.toString() == req.params.id) {
+        // console.log(user._id, "user._id");
+
+        //works
+        // const cartHere = await Cart.findOne({
+        //   userId: user._id,
+        // });
+        // console.log(cartHere, "cartHere");
+
+        //works too
+        // const cartProd = await Cart.findOne({
+        //   userId: user._id,
+        //   "products.productId": element.productId,
+        // });
+        // console.log(cartProd, "cartProd");
+
+        //
+        const cartProd = await Cart.findOneAndUpdate(
+          {
+            userId: user._id,
+            "products.productId": element.productId,
+          },
+          { $inc: { "products.quantity": 2 } },
+          { returnOriginal: false }
+        );
+        console.log(cartProd, "cartProd");
+      }
     }
 
     //bhabo cart e 1ta kore add kobo
@@ -108,7 +128,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     ////////////////////////////////////////////////
 
     //
-    res.json({ message: "user cart found", cart: checkUserCart });
+    res.json({ message: "user cart found" });
   } catch (err) {
     console.log(err);
     res.json(err);
