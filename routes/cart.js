@@ -49,21 +49,47 @@ router.post("/createCart", postmanUser, async (req, res) => {
 
 //add product to cart
 
-router.put("/addToCart", postmanUser, async (req, res) => {
+router.put("/addToCart/:id", postmanUser, async (req, res) => {
   //
   try {
+    // console.log(req.params.id, "req.params.id");
+
+    const product = await Product.findOne({ _id: req.params.id });
+
+    if (!product) {
+      return res.json({
+        message: "product not in database, so cant add to cart",
+      });
+    }
+
+    //
+
     const user = req.user;
 
     //
     const checkUserCart = await Cart.findOne({ userId: user._id });
 
+    //cart e adready thakle--quantity increase hobe(notun kore add hobena)
+    //
+
+    //bhabo cart e 1ta kore add kobo
+    //product id pabo --- req.params.id theke
+    //returnOriginal: false -- to get the updated version
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId: user._id },
+      { $push: { products: { productId: req.params.id } } },
+      { returnOriginal: false }
+    );
+
+    /////////////////////////////////////////////////
     // tested populated
-    const checkUserCartPopulate = await Cart.findOne({
-      userId: user._id,
-    }).populate("userId");
+    // const checkUserCartPopulate = await Cart.findOne({
+    //   userId: user._id,
+    // }).populate("userId");
+    ////////////////////////////////////////////////
 
     //
-    res.json({ message: "user cart found", cart: checkUserCartPopulate });
+    res.json({ message: "user cart found", cart: updatedCart });
   } catch (err) {
     console.log(err);
     res.json(err);
