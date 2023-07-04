@@ -89,7 +89,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         // console.log(user._id, "user._id");
 
         //
-        const cartProd = await Cart.findOneAndUpdate(
+        const presentQuantityIncreased = await Cart.findOneAndUpdate(
           {
             userId: user._id,
             "products.productId": element.productId,
@@ -97,7 +97,13 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           { $inc: { "products.$.quantity": quantityToAdd } },
           { returnOriginal: false }
         );
-        // console.log(cartProd, "cartProd");
+        // console.log(presentQuantityIncreased, "presentQuantityIncreased");
+
+        //
+        return res.json({
+          message: "already present item, quantity increased",
+          cart: presentQuantityIncreased,
+        });
       }
     }
 
@@ -115,6 +121,9 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //
     //
     ////try push + set
+
+    // if (condition) {
+    // }
     //
     const updatedCart = await Cart.findOneAndUpdate(
       { userId: user._id },
@@ -136,7 +145,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     ////////////////////////////////////////////////
 
     //
-    res.json({ message: "user cart found" });
+    res.json({ message: "new item added to cart", cart: updatedCart });
   } catch (err) {
     console.log(err);
     res.json(err);
