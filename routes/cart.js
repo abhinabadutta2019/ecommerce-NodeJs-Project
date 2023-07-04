@@ -95,8 +95,6 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           .populate("products.productId");
         //
 
-        //getting car owner value
-        const cartOwner = presentQuantityIncreased.userId.username;
         //
         const cartProducts = presentQuantityIncreased.products;
 
@@ -114,6 +112,8 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           //
           cartArray.push(prodObj);
         }
+        //getting car owner value
+        const cartOwner = presentQuantityIncreased.userId.username;
         //
         return res.json({
           message: "already present item, quantity increased",
@@ -133,11 +133,29 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         },
       },
       { returnOriginal: false }
-    );
+    )
+      .populate("userId")
+      .populate("products.productId");
 
     //
+    const cartProducts = updatedCart.products;
 
+    // console.log(cartProducts, "cartProducts");
     //
+
+    let cartArray = [];
+    //
+    for (let k = 0; k < cartProducts.length; k++) {
+      const eachProd = cartProducts[k];
+      console.log(eachProd, "eachProd");
+      //
+      const prodObj = {
+        title: eachProd.productId.title,
+        quantity: eachProd.quantity,
+      };
+      //
+      cartArray.push(prodObj);
+    }
 
     /////////////////////////////////////////////////
     // tested populated
@@ -147,9 +165,14 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
 
     // console.log(checkUserCartPopulate, "checkUserCartPopulate");
     ////////////////////////////////////////////////
-
+    //to add cart owner
+    const cartOwner = updatedCart.userId.username;
     //
-    res.json({ message: "new item added to cart", cart: updatedCart });
+    res.json({
+      message: "new item added to cart",
+      cartOwner: cartOwner,
+      cart: cartArray,
+    });
   } catch (err) {
     console.log(err);
     res.json(err);
