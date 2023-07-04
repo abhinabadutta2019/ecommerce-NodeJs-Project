@@ -97,8 +97,11 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           },
           { $inc: { "products.$.quantity": quantityToAdd } },
           { returnOriginal: false }
-        );
-        // console.log(presentQuantityIncreased, "presentQuantityIncreased");
+        )
+          .populate("userId")
+          .populate("products.productId");
+
+        console.log(presentQuantityIncreased, "presentQuantityIncreased");
 
         //
         return res.json({
@@ -119,6 +122,8 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       },
       { returnOriginal: false }
     );
+
+    //
 
     /////////////////////////////////////////////////
     // tested populated
