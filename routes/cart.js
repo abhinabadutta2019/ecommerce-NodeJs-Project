@@ -79,6 +79,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
 
     //
     for (let i = 0; i < checkUserCart.products.length; i++) {
+      //
       const element = checkUserCart.products[i];
       //
       //   console.log(element.productId.toString(), "element");
@@ -108,23 +109,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     }
 
     /////////////////////////////////////////////////////
-    /////////////////////this works//////////////////
-    //bhabo cart e 1ta kore add kobo
-    //product id pabo --- req.params.id theke
-    //returnOriginal: false -- to get the updated version
-    //
-    // const updatedCart = await Cart.findOneAndUpdate(
-    //   { userId: user._id },
-    //   { $push: { products: { productId: req.params.id } } },
-    //   { returnOriginal: false }
-    // );
-    //
-    //
-    ////try push + set
-
-    // if (condition) {
-    // }
-    //
+    //if item not present already, tokhon etai asbe
     const updatedCart = await Cart.findOneAndUpdate(
       { userId: user._id },
       {
