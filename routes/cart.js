@@ -75,7 +75,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //cart e adready thakle--quantity increase hobe(notun kore add hobena)
     //
 
-    console.log(checkUserCart.products, "checkUserCart.products");
+    // console.log(checkUserCart.products, "checkUserCart.products");
 
     //
     for (let i = 0; i < checkUserCart.products.length; i++) {
@@ -105,13 +105,33 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
 
         const cartOwner = presentQuantityIncreased.userId.username;
 
-        // console.log(cartOwner);
+        //
+        const cartProducts = presentQuantityIncreased.products;
+
+        // console.log(cartProducts, "cartProducts");
+
+        let cartArray = [];
+        //
+        for (let j = 0; j < cartProducts.length; j++) {
+          const eachProd = cartProducts[j];
+
+          console.log(eachProd, "eachProd");
+          const prodObj = {
+            title: eachProd.productId.title,
+            quantity: eachProd.quantity,
+          };
+          //   console.log(prodObj, "prodObj");
+          //
+          cartArray.push(prodObj);
+        }
+
+        //
 
         //
         return res.json({
           message: "already present item, quantity increased",
           cartOwner: cartOwner,
-          cart: presentQuantityIncreased,
+          cartArray: cartArray,
         });
       }
     }
