@@ -49,11 +49,21 @@ router.post("/createCart", postmanUser, async (req, res) => {
 
 //add product to cart
 
-router.put("/addToCart", postmanUser, (req, res) => {
+router.put("/addToCart", postmanUser, async (req, res) => {
   //
   try {
     const user = req.user;
-    res.json({ message: "user hERE", user: user });
+
+    //
+    const checkUserCart = await Cart.findOne({ userId: user._id });
+
+    // tested populated
+    const checkUserCartPopulate = await Cart.findOne({
+      userId: user._id,
+    }).populate("userId");
+
+    //
+    res.json({ message: "user cart found", cart: checkUserCartPopulate });
   } catch (err) {
     console.log(err);
     res.json(err);
