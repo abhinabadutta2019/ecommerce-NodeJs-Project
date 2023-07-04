@@ -63,7 +63,6 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     }
 
     //
-
     const user = req.user;
 
     //
@@ -72,14 +71,27 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //cart e adready thakle--quantity increase hobe(notun kore add hobena)
     //
 
+    console.log(checkUserCart.products, "checkUserCart.products");
+
+    //check with includes
+    //complex map function used
+    if (
+      checkUserCart.products
+        .map((product) => product.productId.toString())
+        .includes(req.params.id)
+    ) {
+      console.log("Hi");
+    }
+
     //bhabo cart e 1ta kore add kobo
     //product id pabo --- req.params.id theke
     //returnOriginal: false -- to get the updated version
-    const updatedCart = await Cart.findOneAndUpdate(
-      { userId: user._id },
-      { $push: { products: { productId: req.params.id } } },
-      { returnOriginal: false }
-    );
+    //
+    // const updatedCart = await Cart.findOneAndUpdate(
+    //   { userId: user._id },
+    //   { $push: { products: { productId: req.params.id } } },
+    //   { returnOriginal: false }
+    // );
 
     /////////////////////////////////////////////////
     // tested populated
@@ -89,7 +101,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     ////////////////////////////////////////////////
 
     //
-    res.json({ message: "user cart found", cart: updatedCart });
+    res.json({ message: "user cart found", cart: checkUserCart });
   } catch (err) {
     console.log(err);
     res.json(err);
