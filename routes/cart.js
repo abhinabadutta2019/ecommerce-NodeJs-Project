@@ -80,7 +80,14 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         .map((product) => product.productId.toString())
         .includes(req.params.id)
     ) {
-      console.log("Hi");
+      //   console.log("Hi");
+      //
+      const amount = 3;
+      //
+      const updateQuantity = await Cart.findOneAndUpdate(
+        { userId: user._id, "products.productId": req.params.id },
+        { $inc: { "products.quantity": { quantity: amount } } }
+      );
     }
 
     //bhabo cart e 1ta kore add kobo
