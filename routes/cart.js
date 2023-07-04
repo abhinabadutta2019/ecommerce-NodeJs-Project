@@ -103,13 +103,15 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
             userId: user._id,
             "products.productId": element.productId,
           },
-          { $inc: { "products.quantity": 2 } },
+          { $inc: { "products.$.quantity": 2 } },
           { returnOriginal: false }
         );
         console.log(cartProd, "cartProd");
       }
     }
 
+    /////////////////////////////////////////////////////
+    /////////////////////this works//////////////////
     //bhabo cart e 1ta kore add kobo
     //product id pabo --- req.params.id theke
     //returnOriginal: false -- to get the updated version
@@ -125,6 +127,8 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     // const checkUserCartPopulate = await Cart.findOne({
     //   userId: user._id,
     // }).populate("userId");
+
+    // console.log(checkUserCartPopulate, "checkUserCartPopulate");
     ////////////////////////////////////////////////
 
     //
