@@ -101,11 +101,16 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           .populate("userId")
           .populate("products.productId");
 
-        console.log(presentQuantityIncreased, "presentQuantityIncreased");
+        // console.log(presentQuantityIncreased, "presentQuantityIncreased");
+
+        const cartOwner = presentQuantityIncreased.userId.username;
+
+        // console.log(cartOwner);
 
         //
         return res.json({
           message: "already present item, quantity increased",
+          cartOwner: cartOwner,
           cart: presentQuantityIncreased,
         });
       }
