@@ -130,6 +130,15 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //
     const product = await Product.findOne({ _id: req.params.id });
 
+    //if product id is present in product collecttion
+    if (!product) {
+      //
+      messageArray.push("product not in database, so cant add to cart");
+      return res.json({
+        message: messageArray,
+      });
+    }
+
     //
     // if database product limit exceeds
     if (quantityToAdd > product.productLeft) {
@@ -140,20 +149,6 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         message: messageArray,
       });
     }
-
-    //
-
-    if (!product) {
-      //
-      messageArray.push("product not in database, so cant add to cart");
-      return res.json({
-        message: messageArray,
-      });
-    }
-    //
-
-    //get user's cart from , Cart collection
-    // const checkUserCart = await Cart.findOne({ userId: user._id });
 
     //cart e already thakle--quantity increase hobe(notun kore add hobena)
     //
@@ -197,10 +192,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       { returnOriginal: false }
     );
     //
-    //
     messageArray.push("new item added to cart");
-    //
-
     //
     res.json({
       message: messageArray,
