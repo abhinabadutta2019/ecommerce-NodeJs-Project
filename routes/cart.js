@@ -90,35 +90,50 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           },
           { $inc: { "products.$.quantity": quantityToAdd } },
           { returnOriginal: false }
-        )
-          .populate("userId")
-          .populate("products.productId");
+        );
+        // .populate("userId")
+        // .populate("products.productId");
         //
 
         //
-        const cartProducts = presentQuantityIncreased.products;
+        console.log(presentQuantityIncreased, "presentQuantityIncreased");
 
-        let cartArray = [];
         //
-        for (let j = 0; j < cartProducts.length; j++) {
-          const eachProd = cartProducts[j];
+        const populatedValue = await Cart.populate(
+          presentQuantityIncreased,
+          { path: "userId" },
+          {
+            path: "products.productId",
+          }
+        );
 
-          //   console.log(eachProd, "eachProd");
-          const prodObj = {
-            title: eachProd.productId.title,
-            quantity: eachProd.quantity,
-          };
-          //   console.log(prodObj, "prodObj");
-          //
-          cartArray.push(prodObj);
-        }
+        console.log(populatedValue, "populatedValue");
+        //
+        // const cartProducts = presentQuantityIncreased.products;
+
+        // let cartArray = [];
+        // //
+        // for (let j = 0; j < cartProducts.length; j++) {
+        //   const eachProd = cartProducts[j];
+
+        //   //   console.log(eachProd, "eachProd");
+        //   const prodObj = {
+        //     title: eachProd.productId.title,
+        //     quantity: eachProd.quantity,
+        //   };
+        //   //   console.log(prodObj, "prodObj");
+        //   //
+        //   cartArray.push(prodObj);
+        // }
         //getting car owner value
-        const cartOwner = presentQuantityIncreased.userId.username;
+        // const cartOwner = presentQuantityIncreased.userId.username;
         //
         return res.json({
           message: "already present item, quantity increased",
-          cartOwner: cartOwner,
-          cartArray: cartArray,
+          // cartOwner: cartOwner,
+          // cartArray: cartArray,
+          // presentQuantityIncreased: presentQuantityIncreased,
+          populatedValue: populatedValue,
         });
       }
     }
