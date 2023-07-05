@@ -63,16 +63,18 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
 
     const user = req.user;
 
-    checkUserCart = await Cart.findOne({ userId: user._id });
+    //initializing cart
+    //checking cart
+    let cart = await Cart.findOne({ userId: user._id });
 
-    if (!checkUserCart) {
+    if (!cart) {
       //
       const newCart = new Cart({
         userId: req.user._id,
       });
 
       //new cart created
-      const cartCreated = await newCart.save();
+      cart = await newCart.save();
       //
       // return res.json({ cartCreated: cartCreated });
 
@@ -80,7 +82,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     }
     //
     //
-    console.log("cart already present-- ");
+
     // //
     res.json();
 
