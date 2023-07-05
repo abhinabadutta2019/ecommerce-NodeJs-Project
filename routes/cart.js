@@ -34,12 +34,24 @@ router.get("/createCart", postmanUser, async (req, res) => {
       if (cart.products.length < 1) {
         messageArray.push("cart is empty no product there");
       }
+
+      //populate cart
+      //populating two path at onece, populating separately
+
+      const cartPopulate = await Cart.populate(cart, {
+        path: " userId products.productId ",
+      });
+
+      //
+      console.log(cartPopulate, "cartPopulate");
+      //
+      //
       return res.json({
         message: messageArray,
-        cart: cart,
+        cart: cartPopulate,
       });
     }
-
+    /////////////////////////////////////////////////////////////////////////
     //if cart doesn't exists --
     //create and send that cart
     const newCart = new Cart({
@@ -56,6 +68,9 @@ router.get("/createCart", postmanUser, async (req, res) => {
     if (cart.products.length < 1) {
       messageArray.push("cart is empty no product there");
     }
+
+    //
+
     //
     res.json({ message: messageArray, cart: cart });
   } catch (err) {
@@ -110,6 +125,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //
     // if database product limit exceeds
     if (quantityToAdd > product.productLeft) {
+      //
       messageArray.push("Product limit exceeded, add lower quantity to cart");
       //
       return res.json({
@@ -120,6 +136,7 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //
 
     if (!product) {
+      //
       messageArray.push("product not in database, so cant add to cart");
       return res.json({
         message: messageArray,
