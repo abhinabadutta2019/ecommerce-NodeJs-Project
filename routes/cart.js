@@ -25,72 +25,62 @@ router.get("/createCart", postmanUser, async (req, res) => {
     //check if user's cart already exists
     let cart = await Cart.findOne({ userId: user._id });
 
-    //if cart exist show that cart
-    if (cart) {
-      //
-      messageArray.push("this user's cart already exists");
-
-      //check if any product in cart
-      if (cart.products.length < 1) {
-        messageArray.push("cart is empty no product there");
-      }
-
-      //populate cart
-      //populating two path at onece, populating separately
-      const cartPopulate = await Cart.populate(cart, {
-        path: " userId products.productId ",
-      });
-
-      //taking only products array
-      const cartProducts = cartPopulate.products;
-      //
-      let cartArray = [];
-      //
-      for (let i = 0; i < cartProducts.length; i++) {
-        const oneProduct = cartProducts[i];
-
-        //
-        const prodObj = {
-          title: oneProduct.productId.title,
-          quantity: oneProduct.quantity,
-        };
-        //
-        cartArray.push(prodObj);
-      }
-
-      //
-
-      //
-      // console.log(cartPopulate, "cartPopulate");
-      //
-      //
-      return res.json({
-        message: messageArray,
-        cart: cartArray,
-      });
-    }
-    /////////////////////////////////////////////////////////////////////////
     //if cart doesn't exists --
-    //create and send that cart
-    const newCart = new Cart({
-      userId: req.user._id,
-    });
 
-    //
-    cart = await newCart.save();
+    if (!cart) {
+      //create and send that cart
+      const newCart = new Cart({
+        userId: req.user._id,
+      });
 
-    //
-    messageArray.push("cart ceated");
+      //
+      cart = await newCart.save();
+
+      //
+      messageArray.push("cart ceated");
+    }
 
     //check if any product in cart
     if (cart.products.length < 1) {
       messageArray.push("cart is empty no product there");
+      //
+      return res.json({ message: messageArray, cart: cart });
+    }
+    //
+
+    ////////////////////////////////////////////////////////
+
+    //if item in cart - then populate
+    //populate cart
+    //populating two path at onece, populating separately
+    const cartPopulate = await Cart.populate(cart, {
+      path: " userId products.productId ",
+    });
+
+    //taking only products array
+    const cartProducts = cartPopulate.products;
+    //
+    let cartArray = [];
+    //
+    for (let i = 0; i < cartProducts.length; i++) {
+      const oneProduct = cartProducts[i];
+
+      //
+      const prodObj = {
+        title: oneProduct.productId.title,
+        quantity: oneProduct.quantity,
+      };
+      //
+      cartArray.push(prodObj);
     }
 
     //
+    return res.json({
+      message: messageArray,
+      cart: cartArray,
+    });
 
-    //
-    res.json({ message: messageArray, cart: cart });
+    /////////////////////////////////////////////////////////////////////////
   } catch (err) {
     if (err.code == 11000) {
       //
