@@ -73,9 +73,8 @@ router.get("/createCart", postmanUser, async (req, res) => {
         price: oneProduct.productId.price,
         quantity: oneProduct.quantity,
       };
-      //
-      // cartValue =
-      //   cartValue +
+      //caluculating cart value
+      cartValue = cartValue + prodObj.price * prodObj.quantity;
       //
       cartArray.push(prodObj);
     }
@@ -83,6 +82,7 @@ router.get("/createCart", postmanUser, async (req, res) => {
     //
     return res.json({
       message: messageArray,
+      cartValue: cartValue,
       cart: cartArray,
     });
 
