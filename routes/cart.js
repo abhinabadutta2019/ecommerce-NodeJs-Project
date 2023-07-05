@@ -10,16 +10,20 @@ const { postmanUser } = require("../middleware/postmanUser");
 const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
 
-//create cart(eta cart button e click korle tokhon create hobe), (already, oi user id te created thakle -- create hobena)
-router.post("/createCart", postmanUser, async (req, res) => {
+//user to see his own cart()--
+//cart na thakle ---create cart
+//(eta cart button e click korle tokhon create hobe)--
+// (already, oi user id te created thakle -- create hobena)
+
+router.get("/createCart", postmanUser, async (req, res) => {
   //
   try {
     const user = req.user;
 
     //check if user's cart already exists
     const checkUserCart = await Cart.findOne({ userId: user._id });
-    //
 
+    //if cart exist show that cart
     if (checkUserCart) {
       return res.json({
         message: "this user's cart already exists",
@@ -27,7 +31,8 @@ router.post("/createCart", postmanUser, async (req, res) => {
       });
     }
 
-    //
+    //if cart doesn't exists --
+    //create and send that cart
     const newCart = new Cart({
       userId: req.user._id,
     });
@@ -53,6 +58,8 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
   //
   try {
     // console.log(req.params.id, "req.params.id");
+
+    //cart na thakle-- aage oi user er cart create hobe???
 
     //count(number) of product to add to cart
     const quantityToAdd = req.body.quantity || 1;
@@ -121,5 +128,4 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
   }
 });
 
-//
 module.exports = router;
