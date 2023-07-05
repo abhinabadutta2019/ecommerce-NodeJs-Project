@@ -75,8 +75,9 @@ router.get("/createCart", postmanUser, async (req, res) => {
 router.put("/addToCart/:id", postmanUser, async (req, res) => {
   //
   try {
-    // console.log(req.params.id, "req.params.id");
-    ///////////////////////////////////////////////////////////
+    //
+    const messageArray = [];
+    //
     //cart na thakle-- aage oi user er cart create hobe???
 
     const user = req.user;
@@ -94,12 +95,9 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       //new cart created
       cart = await newCart.save();
       //
-      // return res.json({ cartCreated: cartCreated });
-
-      console.log("cart created successfully-- ");
+      //
+      messageArray.push("cart ceated");
     }
-    // //
-    // res.json();
 
     //////////////////////////////////////////////////////
 
@@ -109,9 +107,22 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     //
     const product = await Product.findOne({ _id: req.params.id });
 
-    if (!product) {
+    //
+    // if database product limit exceeds
+    if (quantityToAdd > product.productLeft) {
+      messageArray.push("Product limit exceeded, add lower quantity to cart");
+      //
       return res.json({
-        message: "product not in database, so cant add to cart",
+        message: messageArray,
+      });
+    }
+
+    //
+
+    if (!product) {
+      messageArray.push("product not in database, so cant add to cart");
+      return res.json({
+        message: messageArray,
       });
     }
     //
@@ -139,8 +150,11 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           { returnOriginal: false }
         );
 
+        //
+        messageArray.push("already present item, quantity increased");
+        //
         return res.json({
-          message: "already present item, quantity increased",
+          message: messageArray,
           cart: presentQuantityIncreased,
         });
       }
@@ -157,10 +171,14 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       },
       { returnOriginal: false }
     );
+    //
+    //
+    messageArray.push("new item added to cart");
+    //
 
     //
     res.json({
-      message: "new item added to cart",
+      message: messageArray,
       cart: updatedCart,
     });
   } catch (err) {
