@@ -80,74 +80,71 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
 
       console.log("cart created successfully-- ");
     }
-    //
-    //
-
     // //
-    res.json();
+    // res.json();
 
     //////////////////////////////////////////////////////
 
-    //count(number) of product to add to cart
-    // const quantityToAdd = req.body.quantity || 1;
+    // count(number) of product to add to cart
+    const quantityToAdd = req.body.quantity || 1;
 
-    // //
-    // const product = await Product.findOne({ _id: req.params.id });
+    //
+    const product = await Product.findOne({ _id: req.params.id });
 
-    // if (!product) {
-    //   return res.json({
-    //     message: "product not in database, so cant add to cart",
-    //   });
-    // }
-    // //
+    if (!product) {
+      return res.json({
+        message: "product not in database, so cant add to cart",
+      });
+    }
+    //
 
-    // //get user's cart from , Cart collection
+    //get user's cart from , Cart collection
     // const checkUserCart = await Cart.findOne({ userId: user._id });
 
-    // //cart e already thakle--quantity increase hobe(notun kore add hobena)
-    // //
-    // for (let i = 0; i < checkUserCart.products.length; i++) {
-    //   //
-    //   const element = checkUserCart.products[i];
-    //   //
+    //cart e already thakle--quantity increase hobe(notun kore add hobena)
+    //
+    for (let i = 0; i < cart.products.length; i++) {
+      //
+      const element = cart.products[i];
+      //
 
-    //   if (element.productId.toString() == req.params.id) {
-    //     // console.log(user._id, "user._id");
+      if (element.productId.toString() == req.params.id) {
+        // console.log(user._id, "user._id");
 
-    //     //
-    //     const presentQuantityIncreased = await Cart.findOneAndUpdate(
-    //       {
-    //         userId: user._id,
-    //         "products.productId": element.productId,
-    //       },
-    //       { $inc: { "products.$.quantity": quantityToAdd } },
-    //       { returnOriginal: false }
-    //     );
+        //
+        const presentQuantityIncreased = await Cart.findOneAndUpdate(
+          {
+            userId: user._id,
+            "products.productId": element.productId,
+          },
+          { $inc: { "products.$.quantity": quantityToAdd } },
+          { returnOriginal: false }
+        );
 
-    //     return res.json({
-    //       message: "already present item, quantity increased",
-    //       cart: presentQuantityIncreased,
-    //     });
-    //   }
-    // }
+        return res.json({
+          message: "already present item, quantity increased",
+          cart: presentQuantityIncreased,
+        });
+      }
+    }
 
     // /////////////////////////////////////////////////////
     // //if item not present already, tokhon etai asbe
-    // const updatedCart = await Cart.findOneAndUpdate(
-    //   { userId: user._id },
-    //   {
-    //     $push: {
-    //       products: { productId: req.params.id, quantity: quantityToAdd },
-    //     },
-    //   },
-    //   { returnOriginal: false }
-    // );
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId: user._id },
+      {
+        $push: {
+          products: { productId: req.params.id, quantity: quantityToAdd },
+        },
+      },
+      { returnOriginal: false }
+    );
 
-    // //
-    // res.json({
-    //   message: "new item added to cart",
-    //   cart: updatedCart,
-    // });
+    //
+    res.json({
+      message: "new item added to cart",
+      cart: updatedCart,
+    });
   } catch (err) {
     console.log(err);
     res.json(err);
