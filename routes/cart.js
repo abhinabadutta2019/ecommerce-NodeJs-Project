@@ -72,7 +72,6 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     const checkUserCart = await Cart.findOne({ userId: user._id });
 
     //cart e already thakle--quantity increase hobe(notun kore add hobena)
-
     //
     for (let i = 0; i < checkUserCart.products.length; i++) {
       //
@@ -91,49 +90,10 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
           { $inc: { "products.$.quantity": quantityToAdd } },
           { returnOriginal: false }
         );
-        // .populate("userId")
-        // .populate("products.productId");
-        //
 
-        //
-        console.log(presentQuantityIncreased, "presentQuantityIncreased");
-
-        //
-        const populatedValue = await Cart.populate(
-          presentQuantityIncreased,
-          { path: "userId" },
-          {
-            path: "products.productId",
-          }
-        );
-
-        console.log(populatedValue, "populatedValue");
-        //
-        // const cartProducts = presentQuantityIncreased.products;
-
-        // let cartArray = [];
-        // //
-        // for (let j = 0; j < cartProducts.length; j++) {
-        //   const eachProd = cartProducts[j];
-
-        //   //   console.log(eachProd, "eachProd");
-        //   const prodObj = {
-        //     title: eachProd.productId.title,
-        //     quantity: eachProd.quantity,
-        //   };
-        //   //   console.log(prodObj, "prodObj");
-        //   //
-        //   cartArray.push(prodObj);
-        // }
-        //getting car owner value
-        // const cartOwner = presentQuantityIncreased.userId.username;
-        //
         return res.json({
           message: "already present item, quantity increased",
-          // cartOwner: cartOwner,
-          // cartArray: cartArray,
-          // presentQuantityIncreased: presentQuantityIncreased,
-          populatedValue: populatedValue,
+          cart: presentQuantityIncreased,
         });
       }
     }
@@ -148,46 +108,12 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
         },
       },
       { returnOriginal: false }
-    )
-      .populate("userId")
-      .populate("products.productId");
+    );
 
-    //
-    const cartProducts = updatedCart.products;
-
-    // console.log(cartProducts, "cartProducts");
-    //
-
-    let cartArray = [];
-    //
-    for (let k = 0; k < cartProducts.length; k++) {
-      const eachProd = cartProducts[k];
-      console.log(eachProd, "eachProd");
-      //
-      const prodObj = {
-        title: eachProd.productId.title,
-        quantity: eachProd.quantity,
-      };
-      //
-      cartArray.push(prodObj);
-    }
-
-    /////////////////////////////////////////////////
-    // tested populated
-    // const checkUserCartPopulate = await Cart.findOne({
-    //   userId: user._id,
-    // }).populate("userId");
-
-    // console.log(checkUserCartPopulate, "checkUserCartPopulate");
-    ////////////////////////////////////////////////
-
-    //to add cart owner
-    const cartOwner = updatedCart.userId.username;
     //
     res.json({
       message: "new item added to cart",
-      cartOwner: cartOwner,
-      cart: cartArray,
+      cart: updatedCart,
     });
   } catch (err) {
     console.log(err);
