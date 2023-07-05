@@ -18,24 +18,25 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 router.get("/createCart", postmanUser, async (req, res) => {
   //
   const messageArray = [];
+  //
   try {
     const user = req.user;
 
     //check if user's cart already exists
-    const checkUserCart = await Cart.findOne({ userId: user._id });
+    let cart = await Cart.findOne({ userId: user._id });
 
     //if cart exist show that cart
-    if (checkUserCart) {
+    if (cart) {
       //
       messageArray.push("this user's cart already exists");
 
       //check if any product in cart
-      if (checkUserCart.products.length < 1) {
+      if (cart.products.length < 1) {
         messageArray.push("cart is empty no product there");
       }
       return res.json({
         message: messageArray,
-        cart: checkUserCart,
+        cart: cart,
       });
     }
 
@@ -46,9 +47,8 @@ router.get("/createCart", postmanUser, async (req, res) => {
     });
 
     //
-    const cart = await newCart.save();
+    cart = await newCart.save();
 
-    // console.log(newCart, "newCart");
     //
     messageArray.push("cart ceated");
 
