@@ -37,18 +37,36 @@ router.get("/createCart", postmanUser, async (req, res) => {
 
       //populate cart
       //populating two path at onece, populating separately
-
       const cartPopulate = await Cart.populate(cart, {
         path: " userId products.productId ",
       });
 
+      //taking only products array
+      const cartProducts = cartPopulate.products;
       //
-      console.log(cartPopulate, "cartPopulate");
+      let cartArray = [];
+      //
+      for (let i = 0; i < cartProducts.length; i++) {
+        const oneProduct = cartProducts[i];
+
+        //
+        const prodObj = {
+          title: oneProduct.productId.title,
+          quantity: oneProduct.quantity,
+        };
+        //
+        cartArray.push(prodObj);
+      }
+
+      //
+
+      //
+      // console.log(cartPopulate, "cartPopulate");
       //
       //
       return res.json({
         message: messageArray,
-        cart: cartPopulate,
+        cart: cartArray,
       });
     }
     /////////////////////////////////////////////////////////////////////////
