@@ -62,14 +62,20 @@ router.get("/createCart", postmanUser, async (req, res) => {
     //
     let cartArray = [];
     //
+    let cartValue = 0;
+    //
     for (let i = 0; i < cartProducts.length; i++) {
       const oneProduct = cartProducts[i];
 
       //
       const prodObj = {
         title: oneProduct.productId.title,
+        price: oneProduct.productId.price,
         quantity: oneProduct.quantity,
       };
+      //
+      // cartValue =
+      //   cartValue +
       //
       cartArray.push(prodObj);
     }
