@@ -22,6 +22,7 @@ const cartSchema = new mongoose.Schema(
           type: Number,
           default: 1,
         },
+        //(eta dile - id debe na)_id:null / false
       },
     ],
   },

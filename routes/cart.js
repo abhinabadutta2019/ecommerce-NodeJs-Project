@@ -156,6 +156,11 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       });
     }
 
+    //TODO- use find for this
+    //user er moddhe -- array of address --- address, pincode, primary name - phone number
+    //
+    //TODO- $push, addtoset
+
     //cart e already thakle--quantity increase hobe(notun kore add hobena)
     //
     for (let i = 0; i < cart.products.length; i++) {

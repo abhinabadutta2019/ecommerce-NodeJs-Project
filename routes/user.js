@@ -10,6 +10,8 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const { hashPass } = require("../helper/utlis");
 
 //
+//TODO- create cart --- with reusable fnction-- when user gets created
+//
 router.put("/updatePassword", postmanUser, async (req, res) => {
   //
   try {

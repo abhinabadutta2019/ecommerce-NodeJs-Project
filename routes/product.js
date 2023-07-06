@@ -8,7 +8,7 @@ const { postmanUser } = require("../middleware/postmanUser");
 const { postmanAdmin } = require("../middleware/postmanAdmin");
 
 //create product
-
+//
 router.post("/createProduct", postmanAdmin, async (req, res) => {
   //
   try {
