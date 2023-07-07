@@ -226,7 +226,7 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     const messageArray = [];
 
     //
-    const productId = req.params.id;
+    const givenProductId = req.params.id;
     const productToAdd = req.params.body || 1;
 
     //first see cart
@@ -241,7 +241,7 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 
     //if product in database
 
-    const productCheck = await Product.findOne({ _id: productId });
+    const productCheck = await Product.findOne({ _id: givenProductId });
 
     //
     if (!productCheck) {
@@ -253,16 +253,21 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     //check if product in cart
     //if cart.product contains that - id
     //((!) for this)if not present this will return true- if  present, would return false
-    if (
-      !cart.products
-        .map((product) => product.productId.toString())
-        .includes(productId)
-    ) {
+    if (!cart.products.find((product) => product.productId == givenProductId)) {
       messageArray.push("this product not in , this user's cart");
+
       //
       //
       return res.json({ message: messageArray });
     }
+
+    //ekan obdhi asche mane -- present ache
+
+    const gettingIdFromProductArr = cart.products.find(
+      (product) => product.productId == givenProductId
+    );
+
+    console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
 
     //
     messageArray.push("this product is present , in this user's cart");
