@@ -227,7 +227,7 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 
     //
     const givenProductId = req.params.id;
-    const productToAdd = req.params.body || 1;
+    const productToAdd = req.body.quantity || 1;
 
     //first see cart
 
@@ -263,15 +263,23 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 
     //ekan obdhi asche mane -- present ache
 
-    const gettingIdFromProductArr = cart.products.find(
-      (product) => product.productId == givenProductId
-    );
+    messageArray.push("this product is present , in this user's cart");
 
-    console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
+    //updating
+    //-productToAdd -- (- ve ) this negetive would decrease
+    const updatingCart = await Cart.findOneAndUpdate(
+      {
+        userId: user._id,
+        "products.productId": givenProductId,
+      },
+      { $inc: { "products.$.quantity": -productToAdd } },
+      { returnOriginal: false }
+    );
+    // console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
 
     //
-    messageArray.push("this product is present , in this user's cart");
-    res.json({ message: messageArray });
+
+    res.json({ message: messageArray, cart: updatingCart });
   } catch (err) {
     console.log(err);
     res.json(err);
