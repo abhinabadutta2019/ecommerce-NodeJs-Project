@@ -237,9 +237,27 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     //getting the cart
     let cart = await Cart.findOne({ userId: user._id });
 
-    //
+    //if product in database
 
-    //  count of product present in cart
+    const productCheck = await Product.findOne({ _id: givenProductId });
+
+    //
+    if (!productCheck) {
+      messageArray.push("product not in database, so cant remove from cart");
+      //
+      return res.json({ message: messageArray });
+    }
+
+    //check if product in cart
+    //if cart.product contains that - id
+    //((!) for this)if not present this will return true- if  present, would return false
+    if (!cart.products.find((product) => product.productId == givenProductId)) {
+      messageArray.push("this product not in , this user's cart");
+
+      //
+      //
+      return res.json({ message: messageArray });
+    }
 
     //  check cart er quantity- zero theke kom hoye jacche kina --
 
@@ -258,59 +276,27 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
       }
     });
 
-    //
+    // console.log("helooo 11");
+
+    //ekan obdhi asche mane -- present ache
+
+    messageArray.push("this product is present , in this user's cart");
+
+    //updating
+    //-quantityToRemove -- (- ve ) this negetive would decrease
+    const updatingCart = await Cart.findOneAndUpdate(
+      {
+        userId: user._id,
+        "products.productId": givenProductId,
+      },
+      { $inc: { "products.$.quantity": -quantityToRemove } },
+      { returnOriginal: false }
+    );
+    // console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
 
     //
 
-    // //
-    // // console.log(cart, "cart");
-
-    // //if product in database
-
-    // const productCheck = await Product.findOne({ _id: givenProductId });
-
-    // //
-    // if (!productCheck) {
-    //   messageArray.push("product not in database, so cant remove from cart");
-    //   //
-    //   return res.json({ message: messageArray });
-    // }
-
-    // //check if product in cart
-    // //if cart.product contains that - id
-    // //((!) for this)if not present this will return true- if  present, would return false
-    // if (!cart.products.find((product) => product.productId == givenProductId)) {
-    //   messageArray.push("this product not in , this user's cart");
-
-    //   //
-    //   //
-    //   return res.json({ message: messageArray });
-    // }
-
-    // //check cart er quantity- zero theke kom hoye jacche kina --
-    // // if (cart.products.find(function (product) {
-    // //   //
-
-    // // }))
-    // //ekan obdhi asche mane -- present ache
-
-    // messageArray.push("this product is present , in this user's cart");
-
-    // //updating
-    // //-quantityToRemove -- (- ve ) this negetive would decrease
-    // const updatingCart = await Cart.findOneAndUpdate(
-    //   {
-    //     userId: user._id,
-    //     "products.productId": givenProductId,
-    //   },
-    //   { $inc: { "products.$.quantity": -quantityToRemove } },
-    //   { returnOriginal: false }
-    // );
-    // // console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
-
-    // //
-
-    // res.json({ message: messageArray, cart: updatingCart });
+    res.json({ message: messageArray, cart: updatingCart });
   } catch (err) {
     console.log(err);
     res.json(err);
