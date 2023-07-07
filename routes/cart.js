@@ -99,6 +99,14 @@ router.get("/createCart", postmanUser, async (req, res) => {
   }
 });
 
+//
+//
+
+//TODO- use find for this
+//TODO-user er moddhe -- array of address --- address, pincode, primary name - phone number
+//
+//TODO- $push, addtoset
+
 //add product to cart
 
 router.put("/addToCart/:id", postmanUser, async (req, res) => {
@@ -156,11 +164,6 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
       });
     }
 
-    //TODO- use find for this
-    //user er moddhe -- array of address --- address, pincode, primary name - phone number
-    //
-    //TODO- $push, addtoset
-
     //cart e already thakle--quantity increase hobe(notun kore add hobena)
     //
     for (let i = 0; i < cart.products.length; i++) {
@@ -215,4 +218,60 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
   }
 });
 
+//remove item from cart
+
+router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
+  //
+  try {
+    const messageArray = [];
+
+    //
+    const productId = req.params.id;
+    const productToAdd = req.params.body || 1;
+
+    //first see cart
+
+    const user = req.user;
+
+    //getting the cart
+    let cart = await Cart.findOne({ userId: user._id });
+
+    //
+    // console.log(cart, "cart");
+
+    //if product in database
+
+    const productCheck = await Product.findOne({ _id: productId });
+
+    //
+    if (!productCheck) {
+      messageArray.push("product not in database, so cant remove from cart");
+      //
+      return res.json({ message: messageArray });
+    }
+
+    //check if product in cart
+    //if cart.product contains that - id
+    //((!) for this)if not present this will return true- if  present, would return false
+    if (
+      !cart.products
+        .map((product) => product.productId.toString())
+        .includes(productId)
+    ) {
+      messageArray.push("this product not in , this user's cart");
+      //
+      //
+      return res.json({ message: messageArray });
+    }
+
+    //
+    messageArray.push("this product is present , in this user's cart");
+    res.json({ message: messageArray });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
 module.exports = router;
