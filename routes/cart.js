@@ -258,29 +258,45 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
       //
       return res.json({ message: messageArray });
     }
-
-    //  check cart er quantity- zero theke kom hoye jacche kina --
-
-    cart.products.find(function (product) {
-      //
-      if (product.productId == givenProductId) {
-        //
-        // console.log(product, "product");
-        const quantityInCart = product.quantity;
-
-        if (quantityToRemove > quantityInCart) {
-          messageArray.push("remove quantity is more than, it has in cart");
-          //
-          return res.json({ message: messageArray });
-        }
-      }
-    });
-
-    // console.log("helooo 11");
+    ///////////////////////////////////////////////////////////
 
     //ekan obdhi asche mane -- present ache
 
     messageArray.push("this product is present , in this user's cart");
+
+    //  check cart er quantity- zero theke kom hoye jacche kina --
+
+    for (let i = 0; i < cart.products.length; i++) {
+      const oneProdOfCart = cart.products[i];
+      //
+      if (oneProdOfCart.productId == givenProductId) {
+        // console.log(oneProdOfCart, "oneProdOfCart");
+
+        if (quantityToRemove > oneProdOfCart.quantity) {
+          messageArray.push(
+            "remove quantity exceeds , product quantity in cart"
+          );
+          return res.json({ message: messageArray });
+        }
+        //
+        else if (quantityToRemove == oneProdOfCart.quantity) {
+          //
+          const updatingCart = await Cart.findOneAndUpdate(
+            {
+              userId: user._id,
+            },
+            { $pull: { products: { productId: givenProductId } } },
+            { returnOriginal: false }
+          );
+
+          messageArray.push("removing the total quantity of this given item");
+          //
+          return res.json({ message: messageArray, cart: updatingCart });
+        }
+      }
+    }
+
+    ///////////////
 
     //updating
     //-quantityToRemove -- (- ve ) this negetive would decrease
@@ -293,6 +309,11 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
       { returnOriginal: false }
     );
     // console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
+
+    //
+    messageArray.push(
+      "some quantity of product removed, still some remains in cart"
+    );
 
     //
 
