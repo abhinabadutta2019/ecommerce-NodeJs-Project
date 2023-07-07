@@ -226,8 +226,9 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     const messageArray = [];
 
     //
+    //productToAdd
     const givenProductId = req.params.id;
-    const productToAdd = req.body.quantity || 1;
+    const quantityToRemove = req.body.quantity || 1;
 
     //first see cart
 
@@ -266,13 +267,13 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     messageArray.push("this product is present , in this user's cart");
 
     //updating
-    //-productToAdd -- (- ve ) this negetive would decrease
+    //-quantityToRemove -- (- ve ) this negetive would decrease
     const updatingCart = await Cart.findOneAndUpdate(
       {
         userId: user._id,
         "products.productId": givenProductId,
       },
-      { $inc: { "products.$.quantity": -productToAdd } },
+      { $inc: { "products.$.quantity": -quantityToRemove } },
       { returnOriginal: false }
     );
     // console.log(gettingIdFromProductArr, "gettingIdFromProductArr");
