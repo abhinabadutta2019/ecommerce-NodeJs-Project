@@ -59,33 +59,18 @@ router.get("/createCart", postmanUser, async (req, res) => {
       path: " userId products.productId ",
     });
 
-    //taking only products array
-    const cartProducts = cartPopulate.products;
-    //
-    let cartArray = [];
-    //
-    let cartValue = 0;
-    //
-    for (let i = 0; i < cartProducts.length; i++) {
-      const oneProduct = cartProducts[i];
+    //calling the function -- cartProductDetails()
+    const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
 
-      //
-      const prodObj = {
-        title: oneProduct.productId.title,
-        price: oneProduct.productId.price,
-        quantity: oneProduct.quantity,
-      };
-      //caluculating cart value
-      cartValue = cartValue + prodObj.price * prodObj.quantity;
-      //
-      cartArray.push(prodObj);
-    }
+    //
+    messageArray.push("cart has products");
 
     //
     return res.json({
       message: messageArray,
-      cartValue: cartValue,
-      cart: cartArray,
+      cartValue: cartFuncValue.cartValue,
+      username: cartFuncValue.cartOwnerUsername,
+      cart: cartFuncValue.cartArray,
     });
 
     /////////////////////////////////////////////////////////////////////////
