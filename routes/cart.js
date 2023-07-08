@@ -381,12 +381,18 @@ router.get("/getAllUserCarts", postmanAdmin, async (req, res) => {
       //
       if (oneUserCart.products.length > 0) {
         //
-        filledCarts.push(oneUserCart);
+        const cartPopulate = await Cart.populate(oneUserCart, {
+          path: " userId products.productId ",
+        });
+        //
+        const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
+        //
+        filledCarts.push(cartFuncValue);
       }
     }
 
     //
-    res.json({ emptyCarts: emptyCarts, filledCarts: filledCarts });
+    res.json({ filledCarts: filledCarts, emptyCarts: emptyCarts });
   } catch (err) {
     //
     console.log(err);

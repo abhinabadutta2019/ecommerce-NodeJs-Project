@@ -51,9 +51,9 @@ const cartProductDetailsFunc = async (cartPopulate) => {
 
   //
   return {
-    cartArray: cartArray,
-    cartValue: cartValue,
     cartOwnerUsername: cartOwnerUsername,
+    cartValue: cartValue,
+    cartArray: cartArray,
   };
 };
 
