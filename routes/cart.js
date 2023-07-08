@@ -328,6 +328,8 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 //a function
 const cartProductDetails = async (cartPopulateProd) => {
   //
+  console.log(cartPopulateProd.length, "cartPopulateProd from func");
+  //
   let cartArray = [];
   //
   let cartValue = 0;
@@ -338,7 +340,7 @@ const cartProductDetails = async (cartPopulateProd) => {
     console.log(oneProduct, "oneProduct");
 
     //
-    const prodObj = {
+    let prodObj = {
       title: oneProduct.productId.title,
       price: oneProduct.productId.price,
       quantity: oneProduct.quantity,
@@ -350,8 +352,11 @@ const cartProductDetails = async (cartPopulateProd) => {
     //
     cartArray.push(prodObj);
 
-    return { cartArray: cartArray, cartValue: cartValue };
+    //
+    // console.log(cartArray, "cartArray- from func");
   }
+  //
+  return { cartArray: cartArray, cartValue: cartValue };
 };
 /////////////////////////////////////////////
 //
@@ -367,33 +372,29 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
     //
     // console.log(cart, "cart");
 
-    //
+    //populating the cart
     const cartPopulate = await Cart.populate(cart, {
       path: " userId products.productId ",
     });
-    //
+
+    // taking only the products
     const cartPopulateProd = cartPopulate.products;
 
-    //
+    // console.log(cartPopulateProd, "cartPopulateProd");
+
+    //calling the function -- cartProductDetails()
+
     const cartFuncValue = await cartProductDetails(cartPopulateProd);
 
-    console.log(cartFuncValue, "cartFuncValue");
+    // console.log(cartFuncValue, "cartFuncValue");
 
     //
 
-    // console.log(cartPopulate, "cartPopulate");
-
-    //taking only products array
-    // const cartProducts = cart.products;
-
-    // //
-    // let cartArray = [];
-    // //
-    // let cartValue = 0;
     //
-
-    //
-    res.json();
+    res.json({
+      cartValue: cartFuncValue.cartValue,
+      cart: cartFuncValue.cartArray,
+    });
   } catch (err) {
     console.log(err);
     res.json(err);
