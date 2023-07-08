@@ -326,7 +326,7 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 
 //////////////////////////////////////
 //a function
-const cartProductDetails = async (cartPopulate) => {
+const cartProductDetailsFunc = async (cartPopulate) => {
   //
 
   const cartPopulateProd = cartPopulate.products;
@@ -386,7 +386,7 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
 
     //calling the function -- cartProductDetails()
 
-    const cartFuncValue = await cartProductDetails(cartPopulate);
+    const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
     // console.log(cartFuncValue, "cartFuncValue");
     //
     res.json({
