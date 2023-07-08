@@ -226,7 +226,7 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     const messageArray = [];
 
     //
-    //productToAdd
+    //
     const givenProductId = req.params.id;
     const quantityToRemove = req.body.quantity || 1;
 
@@ -318,6 +318,82 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
     //
 
     res.json({ message: messageArray, cart: updatingCart });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//////////////////////////////////////
+//a function
+const cartProductDetails = async (cartPopulateProd) => {
+  //
+  let cartArray = [];
+  //
+  let cartValue = 0;
+  //
+  for (let k = 0; k < cartPopulateProd.length; k++) {
+    const oneProduct = cartPopulateProd[k];
+
+    console.log(oneProduct, "oneProduct");
+
+    //
+    const prodObj = {
+      title: oneProduct.productId.title,
+      price: oneProduct.productId.price,
+      quantity: oneProduct.quantity,
+    };
+
+    //
+    //caluculating cart value
+    cartValue = cartValue + prodObj.price * prodObj.quantity;
+    //
+    cartArray.push(prodObj);
+
+    return { cartArray: cartArray, cartValue: cartValue };
+  }
+};
+/////////////////////////////////////////////
+//
+//get one users cart (as ADMIN)
+router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
+  //
+  try {
+    const findUser = req.params.id;
+
+    //
+    const cart = await Cart.findOne({ userId: findUser });
+
+    //
+    // console.log(cart, "cart");
+
+    //
+    const cartPopulate = await Cart.populate(cart, {
+      path: " userId products.productId ",
+    });
+    //
+    const cartPopulateProd = cartPopulate.products;
+
+    //
+    const cartFuncValue = await cartProductDetails(cartPopulateProd);
+
+    console.log(cartFuncValue, "cartFuncValue");
+
+    //
+
+    // console.log(cartPopulate, "cartPopulate");
+
+    //taking only products array
+    // const cartProducts = cart.products;
+
+    // //
+    // let cartArray = [];
+    // //
+    // let cartValue = 0;
+    //
+
+    //
+    res.json();
   } catch (err) {
     console.log(err);
     res.json(err);
