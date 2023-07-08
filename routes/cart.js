@@ -326,9 +326,10 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 
 //////////////////////////////////////
 //a function
-const cartProductDetails = async (cartPopulateProd) => {
+const cartProductDetails = async (cartPopulate) => {
   //
-  console.log(cartPopulateProd.length, "cartPopulateProd from func");
+
+  const cartPopulateProd = cartPopulate.products;
   //
   let cartArray = [];
   //
@@ -337,7 +338,7 @@ const cartProductDetails = async (cartPopulateProd) => {
   for (let k = 0; k < cartPopulateProd.length; k++) {
     const oneProduct = cartPopulateProd[k];
 
-    console.log(oneProduct, "oneProduct");
+    // console.log(oneProduct, "oneProduct");
 
     //
     let prodObj = {
@@ -351,12 +352,18 @@ const cartProductDetails = async (cartPopulateProd) => {
     cartValue = cartValue + prodObj.price * prodObj.quantity;
     //
     cartArray.push(prodObj);
-
-    //
-    // console.log(cartArray, "cartArray- from func");
   }
   //
-  return { cartArray: cartArray, cartValue: cartValue };
+
+  const cartOwnerUsername = cartPopulate.userId.username;
+  //
+
+  //
+  return {
+    cartArray: cartArray,
+    cartValue: cartValue,
+    cartOwnerUsername: cartOwnerUsername,
+  };
 };
 /////////////////////////////////////////////
 //
@@ -377,22 +384,14 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
       path: " userId products.productId ",
     });
 
-    // taking only the products
-    const cartPopulateProd = cartPopulate.products;
-
-    // console.log(cartPopulateProd, "cartPopulateProd");
-
     //calling the function -- cartProductDetails()
 
-    const cartFuncValue = await cartProductDetails(cartPopulateProd);
-
+    const cartFuncValue = await cartProductDetails(cartPopulate);
     // console.log(cartFuncValue, "cartFuncValue");
-
-    //
-
     //
     res.json({
       cartValue: cartFuncValue.cartValue,
+      username: cartFuncValue.cartOwnerUsername,
       cart: cartFuncValue.cartArray,
     });
   } catch (err) {
