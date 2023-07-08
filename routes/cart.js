@@ -44,7 +44,7 @@ router.get("/createCart", postmanUser, async (req, res) => {
 
     //check if any product in cart
     if (cart.products.length < 1) {
-      messageArray.push("cart is empty no product there");
+      messageArray.push("cart present, but empty no product there");
       //
       return res.json({ message: messageArray, cart: cart });
     }
@@ -315,13 +315,29 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
 router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
   //
   try {
+    //
+    const messageArray = [];
+    //
     const findUser = req.params.id;
 
     //
     const cart = await Cart.findOne({ userId: findUser });
 
-    //
-    // console.log(cart, "cart");
+    //if not cart
+    if (!cart) {
+      //
+      messageArray.push("no cart found of this userId");
+      //
+      return res.json({ message: messageArray });
+    }
+
+    //check if any product in cart
+    if (cart.products.length < 1) {
+      //
+      messageArray.push("cart present, but empty no product there");
+      //
+      return res.json({ message: messageArray });
+    }
 
     //populating the cart
     const cartPopulate = await Cart.populate(cart, {
