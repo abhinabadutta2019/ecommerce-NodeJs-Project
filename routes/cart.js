@@ -9,6 +9,8 @@ const { postmanUser } = require("../middleware/postmanUser");
 //
 const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
+const { cartProductDetailsFunc } = require("../helper/utlis");
+//
 
 //user to see his own cart()--
 //cart na thakle ---create cart
@@ -324,49 +326,6 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
   }
 });
 
-//////////////////////////////////////
-//a function
-const cartProductDetailsFunc = async (cartPopulate) => {
-  //
-
-  const cartPopulateProd = cartPopulate.products;
-  //
-  let cartArray = [];
-  //
-  let cartValue = 0;
-  //
-  for (let k = 0; k < cartPopulateProd.length; k++) {
-    const oneProduct = cartPopulateProd[k];
-
-    // console.log(oneProduct, "oneProduct");
-
-    //
-    let prodObj = {
-      title: oneProduct.productId.title,
-      price: oneProduct.productId.price,
-      quantity: oneProduct.quantity,
-    };
-
-    //
-    //caluculating cart value
-    cartValue = cartValue + prodObj.price * prodObj.quantity;
-    //
-    cartArray.push(prodObj);
-  }
-  //
-
-  const cartOwnerUsername = cartPopulate.userId.username;
-  //
-
-  //
-  return {
-    cartArray: cartArray,
-    cartValue: cartValue,
-    cartOwnerUsername: cartOwnerUsername,
-  };
-};
-/////////////////////////////////////////////
-//
 //get one users cart (as ADMIN)
 router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
   //
