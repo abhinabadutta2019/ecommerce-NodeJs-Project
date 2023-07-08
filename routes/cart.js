@@ -360,5 +360,38 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
   }
 });
 
+//get one users cart (as ADMIN)
+
+router.get("/getAllUserCarts", postmanAdmin, async (req, res) => {
+  //
+  try {
+    const carts = await Cart.find({});
+
+    let emptyCarts = [];
+    let filledCarts = [];
+    //
+
+    for (let i = 0; i < carts.length; i++) {
+      const oneUserCart = carts[i];
+      //
+      if (oneUserCart.products.length < 1) {
+        //
+        emptyCarts.push(oneUserCart);
+      }
+      //
+      if (oneUserCart.products.length > 0) {
+        //
+        filledCarts.push(oneUserCart);
+      }
+    }
+
+    //
+    res.json({ emptyCarts: emptyCarts, filledCarts: filledCarts });
+  } catch (err) {
+    //
+    console.log(err);
+    res.json(err);
+  }
+});
 //
 module.exports = router;
