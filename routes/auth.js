@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 //
 
 const User = require("../models/User");
+const Cart = require("../models/Cart");
 //
 const { postmanUser } = require("../middleware/postmanUser");
 //
@@ -17,11 +18,16 @@ const { hashPass } = require("../helper/utlis");
 //
 //create / regester- user
 router.post("/register", async (req, res) => {
+  const messageArray = [];
+
   //
   try {
     //
     if (req.body.password.length < 3 || req.body.username.length < 3) {
-      return res.json({ message: " username or password length is too small" });
+      //
+      messageArray.push(" username or password length is too small");
+      //
+      return res.json({ message: messageArray });
     }
 
     //
@@ -36,9 +42,18 @@ router.post("/register", async (req, res) => {
     //
     const user = await newUser.save();
 
-    //
-    // console.log(user, "user");
+    ////////////////////////
 
+    //create cart for new user
+
+    const newCart = new Cart({
+      userId: user._id,
+    });
+    //
+    const cart = await newCart.save();
+    //
+    messageArray.push("cart ceated");
+    //////////////////////////////////////
     //
     //getting payload
     const payload = { _id: user._id.toString() };
@@ -48,11 +63,16 @@ router.post("/register", async (req, res) => {
     //setting token in browser
     res.cookie("token", token);
     //
-    res.json({ token: token, message: "registration success", user: user });
+    messageArray.push("registration success");
+    //
+    res.json({ token: token, message: messageArray, user: user, cart: cart });
   } catch (err) {
     // console.log(err.code);
     if (err.code == 11000) {
-      return res.json({ message: "duplicate username" });
+      //
+      messageArray.push("duplicate username");
+      //
+      return res.json({ message: messageArray });
     }
     //
     console.log(err);
