@@ -54,13 +54,21 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     console.log(cartUserId, "cartUserId");
     //
     const cartProdArray = [];
+    let totalAmt = 0;
     //
     for (let i = 0; i < cartDest.products.length; i++) {
       const oneProd = cartDest.products[i];
       //
-      console.log(oneProd, "oneProd");
+      //   console.log(oneProd, "oneProd");
       const getProductId = oneProd.productId;
       const getProductQty = oneProd.quantity;
+      //
+      const getProdObj = {
+        getProductId: oneProd.productId,
+        getProductQty: oneProd.quantity,
+      };
+      //
+      cartProdArray.push(getProdObj);
       //
       //   console.log(oneProd, "oneProd");
       const oneProdPopulated = await Product.populate(oneProd, {
@@ -69,9 +77,20 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       //
 
       //
-      //   console.log(oneProdPopulated, "oneProdPopulated");
-    }
+      const getProductAmt = oneProdPopulated.productId.price * getProductQty;
+      //
+      totalAmt = totalAmt + getProductAmt;
+      //
 
+      //
+    }
+    //
+    console.log(cartProdArray, "cartProdArray");
+    //
+    console.log(totalAmt, "totalAmt");
+    //
+    ////////////////////////////////////////////////
+    const newOrder = new Order({});
     //
     res.json({ cart: cart });
   } catch (err) {
