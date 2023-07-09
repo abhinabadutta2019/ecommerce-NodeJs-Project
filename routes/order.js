@@ -90,9 +90,14 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     console.log(totalAmt, "totalAmt");
     //
     ////////////////////////////////////////////////
-    const newOrder = new Order({});
+    const newOrder = new Order({
+      userId: cartUserId,
+      products: cartProdArray,
+      amount: totalAmt,
+      address: address,
+    });
     //
-    res.json({ cart: cart });
+    res.json({ newOrder: newOrder });
   } catch (err) {
     console.log(err);
     res.json(err);
