@@ -55,10 +55,7 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     //
     for (let i = 0; i < cartDest.products.length; i++) {
       const oneProd = cartDest.products[i];
-      //
-      //   console.log(oneProd, "oneProd");
-      //   const getProductId = oneProd.productId;
-      //   const getProductQty = oneProd.quantity;
+
       //
       const getProdObj = {
         productId: oneProd.productId,
@@ -89,7 +86,13 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       address: address,
     });
     //
-    res.json({ newOrder: newOrder });
+    const order = await newOrder.save();
+    //
+    if (order) {
+      messageArray.push("new order created");
+    }
+    //
+    res.json({ message: messageArray, order: order });
   } catch (err) {
     console.log(err);
     res.json(err);
