@@ -17,6 +17,16 @@ const hashPass = async (passString) => {
 };
 
 //
+const cartDetailsNoProd = async (cartPopulating) => {
+  //
+  const cartOwnerUsername = cartPopulating.userId.username;
+  const cartValue = 0;
+
+  return { cartOwnerUsername: cartOwnerUsername, cartValue: cartValue };
+};
+
+////////////////////
+// cart Product Details Func
 const cartProductDetailsFunc = async (cartPopulate) => {
   //
 
@@ -61,4 +71,5 @@ const cartProductDetailsFunc = async (cartPopulate) => {
 module.exports = {
   hashPass,
   cartProductDetailsFunc,
+  cartDetailsNoProd,
 };

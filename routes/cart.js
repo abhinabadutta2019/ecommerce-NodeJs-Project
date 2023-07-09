@@ -11,6 +11,8 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
 const { cartProductDetailsFunc } = require("../helper/utlis");
 //
+const { cartDetailsNoProd } = require("../helper/utlis");
+//
 
 //user to see his own cart()--
 //cart na thakle ---create cart
@@ -335,8 +337,23 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
     if (cart.products.length < 1) {
       //
       messageArray.push("cart present, but empty no product there");
+
       //
-      return res.json({ message: messageArray });
+      const cartPopulating = await Cart.populate(cart, { path: " userId" });
+
+      //
+      // console.log(cartPopulating, "cartPopulating");
+
+      const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
+
+      // console.log(cartNoProdFunc, "cartNoProdFunc");
+
+      //
+      return res.json({
+        message: messageArray,
+        username: cartNoProdFunc.cartOwnerUsername,
+        cartValue: cartNoProdFunc.cartValue,
+      });
     }
 
     //populating the cart
