@@ -15,4 +15,30 @@ const { cartProductDetailsFunc } = require("../helper/utlis");
 const { cartDetailsNoProd } = require("../helper/utlis");
 
 //
+//create
+
+router.post("/createOrder", postmanUser, async (req, res) => {
+  //
+  try {
+    //
+    const messageArray = [];
+    //
+    const user = req.user;
+    //
+    const cart = await Cart.findOne({ userId: user._id });
+    //
+    if (cart.products.length < 1) {
+      messageArray.push("cart empty, no product to order");
+      //
+      return res.json({ message: messageArray });
+    }
+    //
+    res.json({ cart: cart });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
 module.exports = router;
