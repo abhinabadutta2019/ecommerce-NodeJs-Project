@@ -44,11 +44,28 @@ router.get("/createCart", postmanUser, async (req, res) => {
       messageArray.push("cart ceated");
     }
 
+    //////////////////////////////////////////
     //check if any product in cart
     if (cart.products.length < 1) {
       messageArray.push("cart present, but empty no product there");
+
       //
-      return res.json({ message: messageArray, cart: cart });
+      // console.log(cart, "cart before");
+
+      //
+      const cartPopulating = await Cart.populate(cart, { path: " userId" });
+      // my func
+      const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
+      //
+
+      // console.log(cart, "cart after");
+      //
+      return res.json({
+        message: messageArray,
+        username: cartNoProdFunc.cartOwnerUsername,
+        cartValue: cartNoProdFunc.cartValue,
+        cart: cart,
+      });
     }
     //
 
@@ -341,8 +358,7 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
       //
       const cartPopulating = await Cart.populate(cart, { path: " userId" });
 
-      //
-      // console.log(cartPopulating, "cartPopulating");
+      // my func
 
       const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
 
