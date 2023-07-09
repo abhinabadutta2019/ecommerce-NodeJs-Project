@@ -23,12 +23,21 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     //
     const messageArray = [];
     //
+    const address = req.body.address;
+    //
     const user = req.user;
     //
     const cart = await Cart.findOne({ userId: user._id });
     //
     if (cart.products.length < 1) {
       messageArray.push("cart empty, no product to order");
+      //
+      return res.json({ message: messageArray });
+    }
+    //
+    if (!address) {
+      //
+      messageArray.push("no address, order cant be created");
       //
       return res.json({ message: messageArray });
     }
