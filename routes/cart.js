@@ -409,7 +409,14 @@ router.get("/getAllUserCarts", postmanAdmin, async (req, res) => {
       //
       if (oneUserCart.products.length < 1) {
         //
-        emptyCarts.push(oneUserCart);
+        const cartPopulating = await Cart.populate(oneUserCart, {
+          path: " userId",
+        });
+
+        // my func
+        const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
+        //
+        emptyCarts.push(cartNoProdFunc);
       }
       //
       if (oneUserCart.products.length > 0) {
