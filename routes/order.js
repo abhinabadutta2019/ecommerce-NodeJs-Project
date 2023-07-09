@@ -59,6 +59,17 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       const oneProd = cartDest.products[i];
       //
       console.log(oneProd, "oneProd");
+      const getProductId = oneProd.productId;
+      const getProductQty = oneProd.quantity;
+      //
+      //   console.log(oneProd, "oneProd");
+      const oneProdPopulated = await Product.populate(oneProd, {
+        path: "productId",
+      });
+      //
+
+      //
+      //   console.log(oneProdPopulated, "oneProdPopulated");
     }
 
     //
