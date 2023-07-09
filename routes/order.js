@@ -41,6 +41,26 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       //
       return res.json({ message: messageArray });
     }
+
+    //
+    const cartDest = { ...cart._doc };
+
+    //
+    // console.log(cartDest, "cartDest");
+
+    //
+    const cartUserId = cartDest.userId;
+    //
+    console.log(cartUserId, "cartUserId");
+    //
+    const cartProdArray = [];
+    //
+    for (let i = 0; i < cartDest.products.length; i++) {
+      const oneProd = cartDest.products[i];
+      //
+      console.log(oneProd, "oneProd");
+    }
+
     //
     res.json({ cart: cart });
   } catch (err) {
