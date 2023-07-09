@@ -46,9 +46,6 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     const cartDest = { ...cart._doc };
 
     //
-    // console.log(cartDest, "cartDest");
-
-    //
     const cartUserId = cartDest.userId;
     //
     console.log(cartUserId, "cartUserId");
