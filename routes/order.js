@@ -60,12 +60,12 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       const oneProd = cartDest.products[i];
       //
       //   console.log(oneProd, "oneProd");
-      const getProductId = oneProd.productId;
-      const getProductQty = oneProd.quantity;
+      //   const getProductId = oneProd.productId;
+      //   const getProductQty = oneProd.quantity;
       //
       const getProdObj = {
-        getProductId: oneProd.productId,
-        getProductQty: oneProd.quantity,
+        productId: oneProd.productId,
+        quantity: oneProd.quantity,
       };
       //
       cartProdArray.push(getProdObj);
@@ -75,14 +75,9 @@ router.post("/createOrder", postmanUser, async (req, res) => {
         path: "productId",
       });
       //
-
-      //
-      const getProductAmt = oneProdPopulated.productId.price * getProductQty;
+      const getProductAmt = oneProdPopulated.productId.price * oneProd.quantity;
       //
       totalAmt = totalAmt + getProductAmt;
-      //
-
-      //
     }
     //
     console.log(cartProdArray, "cartProdArray");
