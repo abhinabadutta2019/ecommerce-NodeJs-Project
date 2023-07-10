@@ -222,6 +222,55 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
     res.json(err);
   }
 });
+//
+router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
+  //
+  try {
+    const messageArray = [];
+    //
+    const orders = await Order.find({});
+    //
+    if (orders.length < 1) {
+      messageArray.push("this user has no orders");
+      //
+      return res.json({ message: messageArray });
+    }
+    //
+    const ordersArray = [];
+    //
+    for (let i = 0; i < orders.length; i++) {
+      const oneOrder = orders[i];
+      //
+      const orderPopulate = await Order.populate(oneOrder, {
+        path: " userId products.productId ",
+      });
+      //
+      // console.log(oneOrder);
+      const orderOwner = oneOrder.userId.username;
+      //
+      const oneUserObj = {
+        orderOwner: orderOwner,
+        userOrderArray: [oneOrder],
+      };
+      //
+      // console.log(orderOwner, "orderOwner");
+      // console.log(oneOrder, "oneOrder");
+      //
+
+      //
+      //
+      ordersArray.push(oneUserObj);
+    }
+    //
+    console.log(ordersArray, "ordersArray");
+    //
+    res.json(ordersArray);
+  } catch (err) {
+    //
+    console.log(err);
+    res.json(err);
+  }
+});
 
 //
 module.exports = router;
