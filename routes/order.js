@@ -106,7 +106,6 @@ router.get("/getYourOrders", postmanUser, async (req, res) => {
     const user = req.user;
     //
     const orders = await Order.find({ userId: user._id });
-    //
 
     //
     const ordersArray = [];
@@ -114,24 +113,23 @@ router.get("/getYourOrders", postmanUser, async (req, res) => {
 
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
-      //
-      // console.log(oneOrder, "oneOrder");
+
       //
       const orderPopulate = await Order.populate(oneOrder, {
         path: " userId products.productId ",
       });
+
       //
-      // console.log(orderPopulate, "orderPopulate");
       const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
-      //
-      // console.log(orderFuncValue, "orderFuncValue");
-      //
+
+      //adding values
+      orderFuncValue.address = oneOrder.address;
+      orderFuncValue.status = oneOrder.status;
       ordersArray.push(orderFuncValue);
     }
+
     //
-    console.log(ordersArray, "ordersArray");
-    //
-    res.json({ orders: orders });
+    res.json({ ordersArray: ordersArray });
     //
   } catch (err) {
     console.log(err);
