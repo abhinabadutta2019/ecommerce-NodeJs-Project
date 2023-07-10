@@ -43,18 +43,15 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     }
 
     //
-    const cartDest = { ...cart._doc };
-
-    //
-    const cartUserId = cartDest.userId;
+    const cartUserId = cart.userId;
     //
     console.log(cartUserId, "cartUserId");
     //
     const cartProdArray = [];
     let totalAmt = 0;
     //
-    for (let i = 0; i < cartDest.products.length; i++) {
-      const oneProd = cartDest.products[i];
+    for (let i = 0; i < cart.products.length; i++) {
+      const oneProd = cart.products[i];
 
       //
       const getProdObj = {
