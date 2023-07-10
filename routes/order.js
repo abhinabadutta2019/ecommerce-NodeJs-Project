@@ -137,5 +137,50 @@ router.get("/getYourOrders", postmanUser, async (req, res) => {
   }
 });
 
+//get one user orders -( as admin)
+
+//
+router.get("/getOneUserOrders/:id", postmanAdmin, async (req, res) => {
+  //
+  const messageArray = [];
+  //
+  try {
+    const paramsId = req.params.id;
+    //
+    const orders = await Order.find({ userId: paramsId });
+    console.log(orders, "orders");
+    //
+    if (orders.length < 1) {
+      messageArray.push("this user has no orders");
+      //
+      return res.json({ message: messageArray });
+    }
+    //if has orders
+    const ordersArray = [];
+    //
+    for (let i = 0; i < orders.length; i++) {
+      const oneOrder = orders[i];
+      //
+      const orderPopulate = await Order.populate(oneOrder, {
+        path: " userId products.productId ",
+      });
+      //
+      //
+      const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
+      //
+      //adding values
+      orderFuncValue.address = oneOrder.address;
+      orderFuncValue.status = oneOrder.status;
+      ordersArray.push(orderFuncValue);
+    }
+
+    //
+    res.json({ ordersArray: ordersArray });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //
 module.exports = router;
