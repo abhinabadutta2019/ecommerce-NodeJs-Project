@@ -20,9 +20,11 @@ const { cartDetailsNoProd } = require("../helper/utlis");
 const schedule = require("node-schedule");
 
 const rule = new schedule.RecurrenceRule();
-rule.second = 1;
+rule.second = 5;
 
 const job = schedule.scheduleJob(rule, async function () {
+  //
+  console.log("Hi from node-schedule");
   //
   try {
     const orders = await Order.find({});
@@ -62,6 +64,8 @@ const job = schedule.scheduleJob(rule, async function () {
   }
   //
 });
+//
+// console.log(job, "job");
 
 //
 //create
@@ -348,6 +352,26 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
   }
 });
 
+//
+router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
+  //
+  try {
+    //
+    const messageArray = [];
+    //
+    const orders = await Order.find({});
+    //
+    for (let i = 0; i < orders.length; i++) {
+      const oneOrder = orders[i];
+      //
+    }
+    //
+    res.json();
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
 //
 
 //
