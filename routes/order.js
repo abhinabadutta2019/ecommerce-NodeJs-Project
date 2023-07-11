@@ -13,15 +13,53 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const { cartProductDetailsFunc } = require("../helper/utlis");
 //
 const { cartDetailsNoProd } = require("../helper/utlis");
+////////////////////////////////////////////////////////////
 
-//
+///////////cron-jobs to update-- order -- status//////////////
+
 const schedule = require("node-schedule");
 
-//
 const rule = new schedule.RecurrenceRule();
 rule.second = 1;
 
-const job = schedule.scheduleJob(rule, function () {
+const job = schedule.scheduleJob(rule, async function () {
+  //
+  try {
+    const orders = await Order.find({});
+    //
+    // console.log(orders, "orders");
+    for (let i = 0; i < orders.length; i++) {
+      const oneOrder = orders[i];
+      //
+
+      // from "pending" to "shipped"
+      if (oneOrder.status == "pending") {
+        const updatedOneOrder = await Order.findOneAndUpdate(
+          { _id: oneOrder._id },
+          { $set: { status: "shipped" } },
+          { returnOriginal: false }
+        );
+        //
+        console.log(updatedOneOrder, "updatedOneOrder");
+        //
+      }
+
+      // from "shipped" to "delivered"
+      if (oneOrder.status == "shipped") {
+        const updatedOneOrder = await Order.findOneAndUpdate(
+          { _id: oneOrder._id },
+          { $set: { status: "delivered" } },
+          { returnOriginal: false }
+        );
+        //
+        console.log(updatedOneOrder, "updatedOneOrder");
+        //
+      }
+    }
+    //
+  } catch (err) {
+    console.log(err);
+  }
   //
 });
 
