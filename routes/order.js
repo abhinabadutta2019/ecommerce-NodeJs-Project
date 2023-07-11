@@ -108,6 +108,13 @@ router.get("/getYourOrders", postmanUser, async (req, res) => {
     const orders = await Order.find({ userId: user._id });
 
     //
+    if (orders.length < 1) {
+      messageArray.push("this user has no orders");
+      //
+      return res.json({ message: messageArray });
+    }
+
+    //
     const ordersArray = [];
     //
 
