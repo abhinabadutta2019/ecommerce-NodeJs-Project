@@ -238,7 +238,7 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       return res.json({ message: messageArray });
     }
     //
-    const ordersArray = [];
+
     //
     const oneUserObj = {};
     //
@@ -255,18 +255,24 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       const orderProducts = orderPopulate.products;
 
       //
+      const ordersProdArray = [];
+      //
+      const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
+      //
+      console.log(orderFuncValue, "orderFuncValue");
+      //
 
       //if key not created
       if (orderOwner in oneUserObj) {
         //
-        oneUserObj[orderOwner].push(orderProducts);
+        oneUserObj[orderOwner].push(orderFuncValue);
         //
       }
       // if key created
       if (!(orderOwner in oneUserObj)) {
         const emptyArray = [];
         //
-        emptyArray.push(orderProducts);
+        emptyArray.push(orderFuncValue);
         oneUserObj[orderOwner] = emptyArray;
       }
       //

@@ -32,6 +32,8 @@ const cartProductDetailsFunc = async (cartPopulate) => {
 
   const cartPopulateProd = cartPopulate.products;
   //
+
+  //
   let cartArray = [];
   //
   let cartValue = 0;
