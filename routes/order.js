@@ -259,20 +259,17 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       //if key not created
       if (orderOwner in oneUserObj) {
         //
-        console.log(orderProducts, "orderProducts11");
-        //
         oneUserObj[orderOwner].push(orderProducts);
         //
-
-        console.log(oneUserObj[orderOwner], "oneUserObj[orderOwner]");
       }
-      //
+      // if key created
       if (!(orderOwner in oneUserObj)) {
         const emptyArray = [];
         //
         emptyArray.push(orderProducts);
         oneUserObj[orderOwner] = emptyArray;
       }
+      //
     }
     //
     res.json({ oneUserObj: oneUserObj });
