@@ -40,7 +40,7 @@ const job = schedule.scheduleJob(rule, async function () {
           { returnOriginal: false }
         );
         //
-        console.log(updatedOneOrder, "updatedOneOrder");
+        console.log(updatedOneOrder, "updatedOneOrder-to-shipped");
         //
       }
 
@@ -52,7 +52,7 @@ const job = schedule.scheduleJob(rule, async function () {
           { returnOriginal: false }
         );
         //
-        console.log(updatedOneOrder, "updatedOneOrder");
+        console.log(updatedOneOrder, "updatedOneOrder -to -delivered");
         //
       }
     }
