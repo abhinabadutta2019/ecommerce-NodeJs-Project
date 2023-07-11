@@ -255,11 +255,16 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       const orderProducts = orderPopulate.products;
 
       //
+      // console.log(orderPopulate, "orderPopulate");
+
+      //
       const ordersProdArray = [];
       //
       const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
-      //
-      console.log(orderFuncValue, "orderFuncValue");
+
+      //adding values
+      orderFuncValue.address = orderPopulate.address;
+      orderFuncValue.status = orderPopulate.status;
       //
 
       //if key not created
