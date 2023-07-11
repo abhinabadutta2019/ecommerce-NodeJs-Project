@@ -249,24 +249,10 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
         path: " userId products.productId ",
       });
       //
-      // console.log(orderPopulate, "orderPopulate");
-      //
-      // console.log(oneOrder);
       const orderOwner = orderPopulate.userId.username;
-
-      // console.log(orderPopulate, "orderPopulate");
+      //
 
       const orderProducts = orderPopulate.products;
-
-      //
-      // console.log(orderProducts, "orderProducts");
-
-      //etai usename pacchi
-      // console.log(orderOwner, "orderOwner");
-
-      // oneUserObj[orderOwner] = [oneOrder];
-      //
-      //
 
       //
 
@@ -281,13 +267,13 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
         console.log(oneUserObj[orderOwner], "oneUserObj[orderOwner]");
       }
       //
-      const emptyArray = [];
-      //
-      emptyArray.push(orderProducts);
-      oneUserObj[orderOwner] = emptyArray;
+      if (!(orderOwner in oneUserObj)) {
+        const emptyArray = [];
+        //
+        emptyArray.push(orderProducts);
+        oneUserObj[orderOwner] = emptyArray;
+      }
     }
-    //
-    // console.log(ordersArray, "ordersArray");
     //
     res.json({ oneUserObj: oneUserObj });
   } catch (err) {
