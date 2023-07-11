@@ -230,6 +230,8 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
     //
     const orders = await Order.find({});
     //
+    // console.log(orders, "orders");
+    //
     if (orders.length < 1) {
       messageArray.push("this user has no orders");
       //
@@ -237,6 +239,8 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
     }
     //
     const ordersArray = [];
+    //
+    const oneUserObj = {};
     //
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
@@ -246,25 +250,37 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       });
       //
       // console.log(oneOrder);
-      const orderOwner = oneOrder.userId.username;
-      //
-      const oneUserObj = {
-        orderOwner: orderOwner,
-        userOrderArray: [oneOrder],
-      };
-      //
-      // console.log(orderOwner, "orderOwner");
-      // console.log(oneOrder, "oneOrder");
-      //
+      const orderOwner = orderPopulate.userId.username;
+
+      // console.log(orderPopulate, "orderPopulate");
+
+      const orderProducts = orderPopulate.products;
 
       //
+      // console.log(orderProducts, "orderProducts");
+
+      //etai usename pacchi
+      // console.log(orderOwner, "orderOwner");
+
+      // oneUserObj[orderOwner] = [oneOrder];
       //
-      ordersArray.push(oneUserObj);
+      //
+      let oneOrderProducts = [];
+      //
+      oneOrderProducts.push([orderProducts]);
+      //if key not created
+      if (oneUserObj[orderOwner]) {
+        oneUserObj[orderOwner].push(orderProducts);
+        //
+        // console.log(oneUserObj[orderOwner], "oneUserObj[orderOwner]");
+      }
+      //
+      oneUserObj[orderOwner] = oneOrderProducts;
     }
     //
-    console.log(ordersArray, "ordersArray");
+    // console.log(ordersArray, "ordersArray");
     //
-    res.json(ordersArray);
+    res.json({ oneUserObj: oneUserObj });
   } catch (err) {
     //
     console.log(err);
