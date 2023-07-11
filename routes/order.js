@@ -15,7 +15,19 @@ const { cartProductDetailsFunc } = require("../helper/utlis");
 const { cartDetailsNoProd } = require("../helper/utlis");
 
 //
+const schedule = require("node-schedule");
+
+//
+const rule = new schedule.RecurrenceRule();
+rule.second = 1;
+
+const job = schedule.scheduleJob(rule, function () {
+  //
+});
+
+//
 //create
+//
 
 router.post("/createOrder", postmanUser, async (req, res) => {
   //
@@ -297,6 +309,8 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
     res.json(err);
   }
 });
+
+//
 
 //
 module.exports = router;
