@@ -160,6 +160,37 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     }
 
     //
+    console.log(cart, "cart- fr");
+
+    //
+    const cartProd = cart.products;
+    // console.log(cartProd, "cartProd");
+    //
+    for (let j = 0; j < cartProd.length; j++) {
+      const oneCartProd = cartProd[j];
+      //
+      // console.log(oneCartProd, "oneCartProd");
+      //
+
+      //
+      if (oneCartProd.productId.toString() == product._id.toString()) {
+        //
+        //
+        if (oneCartProd.quantity >= product.productLeft) {
+          //
+          messageArray.push(
+            `Product limit exceeded of item - ${product.title}, cant any more of that, add other item`
+          );
+          //
+          return res.json({
+            message: messageArray,
+          });
+        }
+      }
+    }
+    //
+
+    //
     // if database product limit exceeds
     if (quantityToAdd > product.productLeft) {
       //
