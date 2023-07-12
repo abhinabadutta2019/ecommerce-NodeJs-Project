@@ -330,6 +330,34 @@ router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
   }
 });
 
+// remove all items from -user's own cart
+//
+router.put("/removeAllFromCart", postmanUser, async (req, res) => {
+  //
+  try {
+    const messageArray = [];
+    //
+    const user = req.user;
+    //
+    const cart = await Cart.findOne({ userId: user._id });
+    console.log(cart, "cart");
+    //
+    //if no item in cart
+    //
+    if (cart.products.length < 1) {
+      messageArray.push("no item in cart, to remove");
+      return res.json({ message: messageArray });
+    }
+    //
+
+    res.json();
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+///////
 //get one users cart (as ADMIN)
 router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
   //
