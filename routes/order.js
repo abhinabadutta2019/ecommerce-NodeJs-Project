@@ -362,6 +362,13 @@ router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
     //
     const orders = await Order.find({});
 
+    // console.log(orders, "orders");
+    if (orders.length < 1) {
+      messageArray.push("has no orders, to count monthly income");
+      //
+      return res.json({ message: messageArray });
+    }
+
     //
     const incomeMonthlyObj = {};
     //
@@ -384,6 +391,7 @@ router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
       // console.log(splitOrderCreated[1], splitOrderCreated[3]);
 
       const monthYearString = splitOrderCreated[1].concat(splitOrderCreated[3]);
+      //
       console.log(monthYearString, "monthYearString");
       //
       if (!(monthYearString in incomeMonthlyObj)) {
