@@ -340,7 +340,7 @@ router.put("/removeAllFromCart", postmanUser, async (req, res) => {
     const user = req.user;
     //
     const cart = await Cart.findOne({ userId: user._id });
-    console.log(cart, "cart");
+    // console.log(cart, "cart");
     //
     //if no item in cart
     //
@@ -349,8 +349,18 @@ router.put("/removeAllFromCart", postmanUser, async (req, res) => {
       return res.json({ message: messageArray });
     }
     //
+    const removeAllProduct = await Cart.findOneAndUpdate(
+      { userId: user._id },
+      { $set: { products: [] } },
+      { returnOriginal: false }
+    );
+    //
+    if (removeAllProduct) {
+      messageArray.push("all products removed from cart");
+    }
 
-    res.json();
+    res.json({ message: messageArray });
+    // res.json({ cart: cart });
   } catch (err) {
     console.log(err);
     res.json(err);
