@@ -157,6 +157,29 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       }
       //orderd count - would reduce- product
       //
+      for (let j = 0; j < order.products.length; j++) {
+        const oneOrder = order.products[j];
+        //
+        // console.log(oneOrder, "oneOrder");
+        const reduceOrderProductCount = await Product.findOneAndUpdate(
+          {
+            _id: oneOrder.productId,
+          },
+          { $inc: { productLeft: -oneOrder.quantity } },
+          { returnOriginal: false }
+        );
+        //
+        // console.log(reduceOrderProductCount, "reduceOrderProductCount");
+        //
+
+        //
+        if (reduceOrderProductCount) {
+          console.log(reduceOrderProductCount, "reduceOrderProductCount");
+          messageArray.push(
+            `${reduceOrderProductCount.title}, quantity removed-${oneOrder.quantity} `
+          );
+        }
+      }
     }
     //
     res.json({ message: messageArray, order: order });
