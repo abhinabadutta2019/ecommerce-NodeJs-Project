@@ -99,7 +99,7 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     //
     const cartUserId = cart.userId;
     //
-    console.log(cartUserId, "cartUserId");
+    // console.log(cartUserId, "cartUserId");
     //
     const cartProdArray = [];
     let totalAmt = 0;
@@ -125,9 +125,9 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       totalAmt = totalAmt + getProductAmt;
     }
     //
-    console.log(cartProdArray, "cartProdArray");
+    // console.log(cartProdArray, "cartProdArray");
     //
-    console.log(totalAmt, "totalAmt");
+    // console.log(totalAmt, "totalAmt");
     //
     ////////////////////////////////////////////////
     const newOrder = new Order({
@@ -155,6 +155,7 @@ router.post("/createOrder", postmanUser, async (req, res) => {
           "after successful order - all products removed from cart"
         );
       }
+      //orderd count - would reduce- product
       //
     }
     //
