@@ -64,7 +64,7 @@ router.get("/createCart", postmanUser, async (req, res) => {
         message: messageArray,
         username: cartNoProdFunc.cartOwnerUsername,
         cartValue: cartNoProdFunc.cartValue,
-        cart: cart,
+        // cart: cart,
       });
     }
     //

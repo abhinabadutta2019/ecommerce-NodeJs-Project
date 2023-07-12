@@ -66,7 +66,7 @@ const job = schedule.scheduleJob(rule, async function () {
 });
 //
 // console.log(job, "job");
-
+//////////////////////////////////////////////////////////
 //
 //create
 //
@@ -140,7 +140,22 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     const order = await newOrder.save();
     //
     if (order) {
+      //
       messageArray.push("new order created");
+      //
+      //empty the cart -after order successful
+      const removeAllProduct = await Cart.findOneAndUpdate(
+        { userId: user._id },
+        { $set: { products: [] } },
+        { returnOriginal: false }
+      );
+      //
+      if (removeAllProduct) {
+        messageArray.push(
+          "after successful order - all products removed from cart"
+        );
+      }
+      //
     }
     //
     res.json({ message: messageArray, order: order });
