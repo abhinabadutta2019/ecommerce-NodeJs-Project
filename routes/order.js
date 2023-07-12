@@ -47,7 +47,7 @@ const job = schedule.scheduleJob(rule, async function () {
       }
 
       // from "shipped" to "delivered"
-      if (oneOrder.status == "shipped") {
+      else if (oneOrder.status == "shipped") {
         const updatedOneOrder = await Order.findOneAndUpdate(
           { _id: oneOrder._id },
           { $set: { status: "delivered" } },
@@ -328,13 +328,14 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       orderFuncValue.status = orderPopulate.status;
       //
 
-      //if key not created
+      // if key created
+
       if (orderOwner in oneUserObj) {
         //
         oneUserObj[orderOwner].push(orderFuncValue);
         //
       }
-      // if key created
+      //if key not created
       if (!(orderOwner in oneUserObj)) {
         const emptyArray = [];
         //
@@ -360,13 +361,44 @@ router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
     const messageArray = [];
     //
     const orders = await Order.find({});
+
+    //
+    const incomeMonthlyObj = {};
     //
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
       //
+      // console.log(oneOrder, "oneOrder");
+      //
+      const orderCreated = oneOrder.createdAt.toString();
+      // console.log(orderCreated, "orderCreated");
+      //
+      const amountOfOrder = oneOrder.amount;
+      // console.log(amountOfOrder, "amountOfOrder");
+
+      //
+      const splitOrderCreated = orderCreated.split(" ");
+      //
+      // console.log(splitOrderCreated, "splitOrderCreated");
+      //
+      // console.log(splitOrderCreated[1], splitOrderCreated[3]);
+
+      const monthYearString = splitOrderCreated[1].concat(splitOrderCreated[3]);
+      console.log(monthYearString, "monthYearString");
+      //
+      if (!(monthYearString in incomeMonthlyObj)) {
+        incomeMonthlyObj[monthYearString] = amountOfOrder;
+      }
+      //
+      else if (monthYearString in incomeMonthlyObj) {
+        incomeMonthlyObj[monthYearString] =
+          incomeMonthlyObj[monthYearString] + amountOfOrder;
+      }
+
+      //
     }
     //
-    res.json();
+    res.json({ incomeMonthlyObj: incomeMonthlyObj });
   } catch (err) {
     console.log(err);
     res.json(err);
