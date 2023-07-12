@@ -160,23 +160,27 @@ router.put("/addToCart/:id", postmanUser, async (req, res) => {
     }
 
     //
-    console.log(cart, "cart- fr");
+    // console.log(cart, "cart- fr");
 
     //
-    const cartProd = cart.products;
+    //
+    const latestCart = await Cart.findOne({ userId: user._id });
+    //
+    const cartProd = latestCart.products;
     // console.log(cartProd, "cartProd");
     //
     for (let j = 0; j < cartProd.length; j++) {
       const oneCartProd = cartProd[j];
-      //
-      // console.log(oneCartProd, "oneCartProd");
-      //
 
+      // oneCartProd.quantity + quantityToAdd
+      const latestCountCanBe = oneCartProd.quantity + quantityToAdd;
+      //
+      console.log(latestCountCanBe, "latestCountCanBe");
       //
       if (oneCartProd.productId.toString() == product._id.toString()) {
         //
-        //
-        if (oneCartProd.quantity >= product.productLeft) {
+        //latestCountCanBe
+        if (latestCountCanBe >= product.productLeft) {
           //
           messageArray.push(
             `Product limit exceeded of item - ${product.title}, cant any more of that, add other item`
