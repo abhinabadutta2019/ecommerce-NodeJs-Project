@@ -142,7 +142,7 @@ router.get("/productsByCategory/:category", postmanUser, async (req, res) => {
       return res.json({ message: messageArray });
     }
 
-    // Find products that match the specified category
+    // Find products that match category
     const products = await Product.find({ categories: req.params.category });
 
     if (products.length < 1) {
@@ -158,7 +158,33 @@ router.get("/productsByCategory/:category", postmanUser, async (req, res) => {
   }
 });
 
-//
+// search
+router.get("/searchByTitle/:text?", postmanUser, async (req, res) => {
+  try {
+    //
+    // console.log(req.params.text, "req.params.text");
+    //
+    if (!req.params.text) {
+      return res.json({ message: "no text passed with params" });
+    }
 
+    // Create a regular expression pattern to perform a case-insensitive search
+    const inputText = new RegExp(req.params.text, "i");
+
+    // Find products that match the title search
+    const products = await Product.find({ title: inputText });
+
+    if (products.length < 1) {
+      return res.json({
+        message: "No products found for this search",
+      });
+    }
+
+    res.json({ products: products });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
 //
 module.exports = router;
