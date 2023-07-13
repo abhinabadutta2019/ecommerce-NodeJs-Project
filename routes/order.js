@@ -301,9 +301,12 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
       //
+      //
       const orderPopulate = await Order.populate(oneOrder, {
         path: " userId products.productId ",
       });
+      //
+      // console.log(orderPopulate, "orderPopulate");
       //
       const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
       //
@@ -312,11 +315,25 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
       orderFuncValue.address = orderPopulate.address;
       orderFuncValue.status = orderPopulate.status;
       orderFuncValue._id = orderPopulate._id;
+      orderFuncValue.createdAt = orderPopulate.createdAt; //created at
       ordersArray.push(orderFuncValue);
     }
 
+    // sorted by latest to- oldest date
+    const sortedOrdersArray = ordersArray.sort(function (a, b) {
+      //
+      const c = Date.parse(a.createdAt);
+      const d = Date.parse(b.createdAt);
+      //
+      // console.log(c, "c");
+      // console.log(d, "d");
+      //
+      return d - c;
+    });
     //
-    res.json({ ordersArray: ordersArray });
+    // console.log(sortedOrdersArray, "sortedOrdersArray");
+    //
+    res.json({ ordersArray: sortedOrdersArray });
     //
   } catch (err) {
     console.log(err);

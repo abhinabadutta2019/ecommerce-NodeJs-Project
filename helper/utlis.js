@@ -41,13 +41,13 @@ const cartProductDetailsFunc = async (cartPopulate) => {
   for (let k = 0; k < cartPopulateProd.length; k++) {
     const oneProduct = cartPopulateProd[k];
 
-    console.log(oneProduct, "oneProduct");
+    // console.log(oneProduct, "oneProduct");
 
     //
     let prodObj = {
       title: oneProduct.productId.title,
       price: oneProduct.productId.price,
-      createdAt: oneProduct.productId.createdAt,
+      // createdAt: oneProduct.productId.createdAt,
       quantity: oneProduct.quantity,
     };
 
