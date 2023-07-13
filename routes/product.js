@@ -129,5 +129,36 @@ router.get("/getOneProduct/:id", postmanUser, async (req, res) => {
   }
 });
 
+//catagory
+router.get("/productsByCategory/:category", postmanUser, async (req, res) => {
+  //
+
+  try {
+    //
+    const messageArray = [];
+    //
+    if (!req.params.category) {
+      messageArray.push("no category passed with req.params");
+      return res.json({ message: messageArray });
+    }
+
+    // Find products that match the specified category
+    const products = await Product.find({ categories: req.params.category });
+
+    if (products.length < 1) {
+      messageArray.push("No products found for this catagory");
+      //
+      return res.json({ message: messageArray });
+    }
+
+    res.json({ products: products });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//
+
 //
 module.exports = router;
