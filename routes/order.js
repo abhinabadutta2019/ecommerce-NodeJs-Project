@@ -452,6 +452,27 @@ router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
   }
 });
 //
+//delete order (as ADMIN)
+
+router.delete("/deleteOrder/:id", postmanAdmin, async (req, res) => {
+  //
+  try {
+    const messageArray = [];
+    //
+    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+    //
+    if (!deletedOrder) {
+      messageArray.push("order not found in database");
+      return res.json({ message: messageArray });
+    }
+    //
+    messageArray.push("order deleted");
+    res.json({ message: messageArray, deletedOrder: deletedOrder });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
 
 //
 module.exports = router;
