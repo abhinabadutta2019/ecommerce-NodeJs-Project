@@ -272,6 +272,7 @@ router.get("/getOneUserOrders/:id", postmanAdmin, async (req, res) => {
       orderFuncValue.status = oneOrder.status;
       ordersArray.push(orderFuncValue);
     }
+    //
 
     //
     res.json({ ordersArray: ordersArray });
@@ -400,18 +401,20 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
     //
     for (const [key, value] of Object.entries(oneUserObj)) {
       //
-      const emptyObj = {};
-      // console.log(key, value);
-      // emptyArray.push(key, value);
-      emptyObj[key] = value;
+      // const emptyObj = {};
+      // emptyObj[key] = value;
+      const emptyArray = [];
+      console.log(key, value);
+      emptyArray.push(key, value);
+
       //
-      outerArray.push(emptyObj);
+      // outerArray.push(emptyObj);
     }
     //
     console.log(outerArray, "outerArray");
 
     //
-    res.json({ oneUserObj: outerArray });
+    res.json({ oneUserObj: oneUserObj });
     // res.json();
   } catch (err) {
     //
