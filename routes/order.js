@@ -308,9 +308,11 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
       //
       const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
       //
+
       //adding values
-      orderFuncValue.address = oneOrder.address;
-      orderFuncValue.status = oneOrder.status;
+      orderFuncValue.address = orderPopulate.address;
+      orderFuncValue.status = orderPopulate.status;
+      orderFuncValue._id = orderPopulate._id;
       ordersArray.push(orderFuncValue);
     }
 
@@ -365,6 +367,7 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       //adding values
       orderFuncValue.address = orderPopulate.address;
       orderFuncValue.status = orderPopulate.status;
+      orderFuncValue._id = orderPopulate._id;
       //
 
       // if key created
