@@ -375,6 +375,7 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       orderFuncValue.address = orderPopulate.address;
       orderFuncValue.status = orderPopulate.status;
       orderFuncValue._id = orderPopulate._id;
+      orderFuncValue.createdAt = orderPopulate.createdAt; //created at
 
       // if key created
 
@@ -393,7 +394,25 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
       //
     }
     //
-    res.json({ oneUserObj: oneUserObj });
+    // console.log(oneUserObj, "oneUserObj");
+    //
+    const outerArray = [];
+    //
+    for (const [key, value] of Object.entries(oneUserObj)) {
+      //
+      const emptyObj = {};
+      // console.log(key, value);
+      // emptyArray.push(key, value);
+      emptyObj[key] = value;
+      //
+      outerArray.push(emptyObj);
+    }
+    //
+    console.log(outerArray, "outerArray");
+
+    //
+    res.json({ oneUserObj: outerArray });
+    // res.json();
   } catch (err) {
     //
     console.log(err);
