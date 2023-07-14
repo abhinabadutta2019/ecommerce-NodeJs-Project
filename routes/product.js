@@ -7,6 +7,11 @@ const { postmanUser } = require("../middleware/postmanUser");
 //
 const { postmanAdmin } = require("../middleware/postmanAdmin");
 
+//
+const multer = require("../middleware/multer");
+const aws = require("../helper/s3");
+require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+//
 //create product
 //
 router.post("/createProduct", postmanAdmin, async (req, res) => {
@@ -69,6 +74,49 @@ router.put("/update/:id", postmanAdmin, async (req, res) => {
     res.json(err);
   }
 });
+
+// update imagepath
+
+router.put(
+  "/updateImagePath/:id",
+  multer.single("file"),
+  postmanAdmin,
+  async (req, res) => {
+    //
+    const messageArray = [];
+    //
+    try {
+      //
+
+      //
+      const file = req.file;
+      //
+      if (!file) {
+        messageArray.push("no file uploaded");
+        return res.json({ message: messageArray });
+      }
+
+      //
+      const uploadResponse = await aws.uploadFileToS3(file);
+      //
+      //
+      console.log(uploadResponse, "uploadResponse");
+      //
+      const product = await Product.findById(req.params.id);
+      //
+
+      if (!product) {
+        messageArray.push("product not present in database");
+        return res.json({ message: messageArray });
+      }
+
+      res.json();
+    } catch (err) {
+      console.log(err);
+      res.json(err);
+    }
+  }
+);
 
 //delete a product
 router.delete("/delete/:id", postmanAdmin, async (req, res) => {
