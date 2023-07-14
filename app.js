@@ -32,6 +32,18 @@ mongoose.connect(uri, {
   useUnifiedTopology: true,
 });
 
+//
+
+//home page would redirect to login url
+app.get("/", (req, res) => {
+  try {
+    res.redirect("/auth/login");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //testing cookie
 // app.get("/", function (req, res) {
 //   //

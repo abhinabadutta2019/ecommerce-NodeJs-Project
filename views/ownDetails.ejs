@@ -2,4 +2,8 @@
 
 <div>
   <p>username:<%= user.username %></p>
+  <!-- if user is admin -->
+  <% if (user.isAdmin==true) { %>
+  <p>admin:<%= user.isAdmin %></p>
+  <% } %>
 </div>
