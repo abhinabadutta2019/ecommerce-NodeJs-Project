@@ -97,11 +97,7 @@ router.put(
       }
 
       //
-      const uploadResponse = await aws.uploadFileToS3(file);
-      //
-      //
-      console.log(uploadResponse, "uploadResponse");
-      //
+
       const product = await Product.findById(req.params.id);
       //
 
@@ -109,6 +105,21 @@ router.put(
         messageArray.push("product not present in database");
         return res.json({ message: messageArray });
       }
+
+      //
+      const uploadResponse = await aws.uploadFileToS3(file);
+
+      //
+      console.log(uploadResponse.Location, "uploadResponse.Location");
+      //
+      const updatedProduct = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: { imagePath: uploadResponse.Location },
+        },
+        { new: true }
+      );
+      //
 
       res.json();
     } catch (err) {
