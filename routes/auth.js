@@ -15,7 +15,29 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
 const { hashPass } = require("../helper/utlis");
 
+//---/auth
+//frontend routes
+router.get("/register", async (req, res) => {
+  try {
+    res.render("register");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //
+//login page for frontend
+router.get("/login", async (req, res) => {
+  try {
+    res.render("login");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+////////////////////////////////////////////////////////////
 //create / regester- user
 router.post("/register", async (req, res) => {
   const messageArray = [];
