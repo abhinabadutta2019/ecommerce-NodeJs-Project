@@ -121,7 +121,7 @@ router.put(
       );
       //
 
-      res.json();
+      res.json({ updatedProduct: updatedProduct });
     } catch (err) {
       console.log(err);
       res.json(err);
@@ -167,8 +167,8 @@ router.get("/getAllProducts", postmanUser, async (req, res) => {
   }
 });
 
-//
-router.get("/getOneProduct/:id", postmanUser, async (req, res) => {
+// (reperpose for frontend)
+router.get("/getOneProduct/:id", async (req, res) => {
   //
   try {
     if (!req.params.id) {
@@ -181,7 +181,8 @@ router.get("/getOneProduct/:id", postmanUser, async (req, res) => {
       return res.json({ message: "product not found in database" });
     }
     //
-    res.json({ product: product });
+    // res.json({ product: product });
+    res.render("getOneProduct", { product: product });
   } catch (err) {
     console.log(err);
     res.json(err);

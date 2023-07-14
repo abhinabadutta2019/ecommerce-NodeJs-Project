@@ -31,7 +31,7 @@ async function uploadFileToS3(file) {
     const response = await s3.upload(params).promise();
     console.log(response, "response from function");
 
-    //delete after upload
+    //delete from local folder after upload
     fs.unlinkSync(file.path);
 
     //
