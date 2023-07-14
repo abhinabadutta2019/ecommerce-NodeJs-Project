@@ -8,7 +8,28 @@ const { postmanUser } = require("../middleware/postmanUser");
 const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
 const { hashPass } = require("../helper/utlis");
+//
+const { browserUser } = require("../middleware/browserUser");
+//
 
+//---/user
+//for frontend
+
+//after login - frontend
+router.get("/getOwnDetail", browserUser, async (req, res) => {
+  //
+  try {
+    //
+    const user = req.user;
+
+    res.render("ownDetails", { user: user });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+///////////////////////////////Backend.................
 //
 //TODO- create cart --- with reusable fnction-- when user gets created
 //
