@@ -10,6 +10,7 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const { hashPass } = require("../helper/utlis");
 //
 const { browserUser } = require("../middleware/browserUser");
+const { browserAdmin } = require("../middleware/browserAdmin");
 //
 
 //---/user
@@ -89,14 +90,15 @@ router.delete("/deleteUser", postmanUser, async (req, res) => {
 });
 
 //
-router.get("/getAllUser", postmanAdmin, async (req, res) => {
+router.get("/getAllUser", browserAdmin, async (req, res) => {
   try {
     //
     const admin = req.user;
     //
     const getAll = await User.find({});
     // console.log(getAll, "getAll");
-    res.json({ getAllUser: getAll });
+    // res.json({ getAllUser: getAll });
+    res.render("getAllUser", { getAllUser: getAll });
   } catch (err) {
     console.log(err);
     res.json(err);
