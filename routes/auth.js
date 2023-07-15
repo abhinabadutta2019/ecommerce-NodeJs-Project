@@ -108,6 +108,8 @@ router.post("/register", async (req, res) => {
 //
 router.post("/login", async (req, res) => {
   try {
+    //
+    const messageArray = [];
     // console.log(req.body.username, "req.body.username");
     // console.log(req.body.password, "req.body.password");
     //
@@ -124,7 +126,9 @@ router.post("/login", async (req, res) => {
 
     // chaek if username found
     if (!user) {
-      return res.json({ message: "Username not in database" });
+      messageArray.push("Username not in database");
+      //
+      return res.json({ message: messageArray });
     }
 
     // console.log(user, "user");
@@ -135,7 +139,9 @@ router.post("/login", async (req, res) => {
 
     //check if password matched
     if (!match) {
-      return res.json({ message: "password not matched" });
+      messageArray.push("password not matched");
+      //
+      return res.json({ message: messageArray });
     }
 
     // console.log(match, "match");
@@ -147,17 +153,14 @@ router.post("/login", async (req, res) => {
     //creating token
     const token = jwt.sign({ payload: payload }, process.env.JWT_SECRET);
 
-    // console.log(token, "token");
-
-    // const decode = jwt.verify(token, process.env.JWT_SECRET);
-
-    // console.log(decode.payload._id, "decode.payload.id");
-
     //setting token in browser
     res.cookie("token", token);
 
     //
-    res.json({ token: token, message: "login success", user: user });
+    messageArray.push("login success");
+
+    //
+    res.json({ token: token, message: messageArray, user: user });
     // res.json()
     //
   } catch (err) {
