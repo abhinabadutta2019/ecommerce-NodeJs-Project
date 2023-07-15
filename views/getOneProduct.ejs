@@ -1,3 +1,14 @@
+<%- include('./partials/userHeader') %>
+
+<h3><%= product.title%> details</h3>
+
 <div>
+  <li>title:<%= product.title%></li>
+  <li>price:<%= product.price%></li>
+  <br />
+  <% if (product.imagePath != null) { %>
+
   <img src="<%= product.imagePath %>" alt="image" width="200" height="150" />
+
+  <% } %>
 </div>

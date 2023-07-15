@@ -17,7 +17,7 @@
 
   <div>
     <li>title:<%= allProducts[i].title%></li>
-    <li>title:<%= allProducts[i].price%></li>
+    <li>price:<%= allProducts[i].price%></li>
     <!--  -->
     <% if ( allProducts[i].imagePath != null) { %>
     <img
@@ -28,6 +28,15 @@
     />
     <!--  -->
     <% } %>
+    <br />
+    <button
+      id="viewProductId"
+      onclick="viewProduct('<%= allProducts[i]._id%>')"
+    >
+      view product
+    </button>
+    <!--  -->
+    <button id="addToCartId" onclick="addToCartButton()">add to cart</button>
   </div>
   <!--  -->
   <br />
@@ -38,3 +47,26 @@
   <p>No product found</p>
   <%}%>
 </div>
+
+<script>
+  async function viewProduct(productId) {
+    //
+    // const response = await fetch(
+    //   `${window.location.origin}/product/getOneProduct/${productId}`
+    // );
+
+    // //
+    // // console.log(response, "response");
+    // //response.json() dile error aschilo
+    // const result = await response;
+
+    // console.log(result, "result");
+
+    //just redirect
+
+    window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
+
+    // if (result) {
+    // }
+  }
+</script>

@@ -20,6 +20,9 @@ require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 router.get("/getOneProduct/:id", async (req, res) => {
   //
   try {
+    //
+
+    //
     if (!req.params.id) {
       return res.json({ message: "no id passed with params" });
     }
@@ -31,6 +34,7 @@ router.get("/getOneProduct/:id", async (req, res) => {
     }
     //
     // res.json({ product: product });
+    //
     res.render("getOneProduct", { product: product });
   } catch (err) {
     console.log(err);

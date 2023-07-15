@@ -466,7 +466,7 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
   }
 });
 
-//get one users cart (as ADMIN)
+//get ALL users cart (as ADMIN)
 
 router.get("/getAllUserCarts", postmanAdmin, async (req, res) => {
   //
