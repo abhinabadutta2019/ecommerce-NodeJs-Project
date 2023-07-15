@@ -19,7 +19,7 @@ const { hashPass } = require("../helper/utlis");
 //frontend routes
 router.get("/register", async (req, res) => {
   try {
-    res.render("register");
+    res.render("withoutToken/register");
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -30,7 +30,7 @@ router.get("/register", async (req, res) => {
 //login page for frontend
 router.get("/login", async (req, res) => {
   try {
-    res.render("login");
+    res.render("withoutToken/login");
   } catch (err) {
     console.log(err);
     res.json(err);

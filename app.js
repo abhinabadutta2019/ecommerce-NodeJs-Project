@@ -17,6 +17,9 @@ app.use(cookieParser());
 //
 dotenv.config();
 
+//
+const path = require("path");
+app.set("views", path.join(__dirname, "/views"));
 // view engine
 app.set("view engine", "ejs");
 
@@ -31,8 +34,6 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-//
 
 //home page would redirect to login url
 app.get("/", (req, res) => {
