@@ -12,7 +12,35 @@ const multer = require("../middleware/multer");
 const aws = require("../helper/s3");
 const { browserUser } = require("../middleware/browserUser");
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
-//
+
+//frontend
+
+//-- / product
+// (reperpose for frontend)
+router.get("/getOneProduct/:id", async (req, res) => {
+  //
+  try {
+    if (!req.params.id) {
+      return res.json({ message: "no id passed with params" });
+    }
+    //
+    const product = await Product.findById(req.params.id);
+    //
+    if (!product) {
+      return res.json({ message: "product not found in database" });
+    }
+    //
+    // res.json({ product: product });
+    res.render("getOneProduct", { product: product });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+//-- / product
+// backend
+
 //create product
 //
 router.post("/createProduct", postmanAdmin, async (req, res) => {
@@ -166,28 +194,6 @@ router.get("/getAllProducts", browserUser, async (req, res) => {
 
     // res.json({ allProducts: allProducts });
     res.render("allProducts", { allProducts: allProducts, user: user });
-  } catch (err) {
-    console.log(err);
-    res.json(err);
-  }
-});
-
-// (reperpose for frontend)
-router.get("/getOneProduct/:id", async (req, res) => {
-  //
-  try {
-    if (!req.params.id) {
-      return res.json({ message: "no id passed with params" });
-    }
-    //
-    const product = await Product.findById(req.params.id);
-    //
-    if (!product) {
-      return res.json({ message: "product not found in database" });
-    }
-    //
-    // res.json({ product: product });
-    res.render("getOneProduct", { product: product });
   } catch (err) {
     console.log(err);
     res.json(err);

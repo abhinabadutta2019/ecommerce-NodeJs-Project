@@ -1,3 +1,14 @@
+<% if (user.isAdmin==true) { %>
+<!--  -->
+<%- include('./partials/adminHeader') %>
+<!--  -->
+<% }else{%>
+<!--  -->
+<%- include('./partials/userHeader') %>
+<!--  -->
+<%}%>
+
+<!--  -->
 <h3>All products</h3>
 <div>
   <% if (allProducts.length>0) { %>
