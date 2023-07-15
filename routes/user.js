@@ -30,6 +30,23 @@ router.get("/getOwnDetail", browserUser, async (req, res) => {
   }
 });
 
+//
+//
+router.get("/getAllUser", browserAdmin, async (req, res) => {
+  try {
+    //
+    const admin = req.user;
+    //
+    const getAll = await User.find({});
+    // console.log(getAll, "getAll");
+    // res.json({ getAllUser: getAll });
+    res.render("adminOnly/getAllUser", { getAllUser: getAll });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 ///////////////////////////////Backend.................
 //
 //TODO- create cart --- with reusable fnction-- when user gets created
@@ -83,22 +100,6 @@ router.delete("/deleteUser", postmanUser, async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(user._id);
     //
     res.json({ message: "user deleted", deletedUser: deletedUser });
-  } catch (err) {
-    console.log(err);
-    res.json(err);
-  }
-});
-
-//
-router.get("/getAllUser", browserAdmin, async (req, res) => {
-  try {
-    //
-    const admin = req.user;
-    //
-    const getAll = await User.find({});
-    // console.log(getAll, "getAll");
-    // res.json({ getAllUser: getAll });
-    res.render("getAllUser", { getAllUser: getAll });
   } catch (err) {
     console.log(err);
     res.json(err);
