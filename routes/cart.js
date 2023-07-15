@@ -12,6 +12,7 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const { cartProductDetailsFunc } = require("../helper/utlis");
 //
 const { cartDetailsNoProd } = require("../helper/utlis");
+const { browserUser } = require("../middleware/browserUser");
 //
 
 //user to see his own cart()--
@@ -115,7 +116,7 @@ router.get("/createCart", postmanUser, async (req, res) => {
 
 //add product to cart
 
-router.put("/addToCart/:id", postmanUser, async (req, res) => {
+router.put("/addToCart/:id", browserUser, async (req, res) => {
   //
   try {
     //

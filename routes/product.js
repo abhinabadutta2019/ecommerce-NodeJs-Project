@@ -16,6 +16,25 @@ require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 //frontend
 
 //-- / product
+
+//get All Products
+router.get("/getAllProducts", browserUser, async (req, res) => {
+  //
+  try {
+    const user = req.user;
+    //
+    // console.log(user, "user");
+    //
+    const allProducts = await Product.find({});
+
+    // res.json({ allProducts: allProducts });
+    res.render("allProducts", { allProducts: allProducts, user: user });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 // (reperpose for frontend)
 router.get("/getOneProduct/:id", async (req, res) => {
   //
@@ -181,23 +200,6 @@ router.delete("/delete/:id", postmanAdmin, async (req, res) => {
 
     res.json({ message: "product deleted", deletedProduct: deletedProduct });
     //
-  } catch (err) {
-    console.log(err);
-    res.json(err);
-  }
-});
-//get All Products
-router.get("/getAllProducts", browserUser, async (req, res) => {
-  //
-  try {
-    const user = req.user;
-    //
-    // console.log(user, "user");
-    //
-    const allProducts = await Product.find({});
-
-    // res.json({ allProducts: allProducts });
-    res.render("allProducts", { allProducts: allProducts, user: user });
   } catch (err) {
     console.log(err);
     res.json(err);
