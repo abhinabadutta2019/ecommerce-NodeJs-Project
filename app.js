@@ -17,11 +17,15 @@ app.use(cookieParser());
 //
 dotenv.config();
 
-//
-const path = require("path");
-app.set("views", path.join(__dirname, "/views"));
 // view engine
+const path = require("path");
+app.set("views", path.join(__dirname, "views"));
+//
 app.set("view engine", "ejs");
+
+//
+
+// console.log(path.join(__dirname, "/views"), ">>path.join(__dirname, /views)");
 
 //this line was vital to show image on frontend
 //this is for relative path

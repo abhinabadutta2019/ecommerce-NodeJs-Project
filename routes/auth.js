@@ -16,7 +16,10 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const { hashPass } = require("../helper/utlis");
 
 //---/auth
+
 //frontend routes
+
+//
 router.get("/register", async (req, res) => {
   try {
     res.render("withoutToken/register");
