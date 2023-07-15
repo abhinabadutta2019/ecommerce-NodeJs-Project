@@ -10,6 +10,7 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 //
 const multer = require("../middleware/multer");
 const aws = require("../helper/s3");
+const { browserUser } = require("../middleware/browserUser");
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 //
 //create product
@@ -154,13 +155,17 @@ router.delete("/delete/:id", postmanAdmin, async (req, res) => {
   }
 });
 //get All Products
-router.get("/getAllProducts", postmanUser, async (req, res) => {
+router.get("/getAllProducts", browserUser, async (req, res) => {
   //
   try {
+    const user = req.user;
+    //
+    // console.log(user, "user");
     //
     const allProducts = await Product.find({});
 
-    res.json({ allProducts: allProducts });
+    // res.json({ allProducts: allProducts });
+    res.render("allProducts", { allProducts: allProducts, user: user });
   } catch (err) {
     console.log(err);
     res.json(err);

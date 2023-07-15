@@ -1,0 +1,29 @@
+<h3>All products</h3>
+<div>
+  <% if (allProducts.length>0) { %>
+  <!--  -->
+  <% for( let i = 0; i < allProducts.length; i++ ) { %>
+
+  <div>
+    <li>title:<%= allProducts[i].title%></li>
+    <li>title:<%= allProducts[i].price%></li>
+    <!--  -->
+    <% if ( allProducts[i].imagePath != null) { %>
+    <img
+      src="<%= allProducts[i].imagePath %>"
+      alt="image"
+      width="200"
+      height="150"
+    />
+    <!--  -->
+    <% } %>
+  </div>
+  <!--  -->
+  <br />
+  <!--  -->
+  <% } %>
+  <!--  -->
+  <% }else{%>
+  <p>No product found</p>
+  <%}%>
+</div>
