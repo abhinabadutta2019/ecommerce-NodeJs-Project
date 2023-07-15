@@ -1,7 +1,12 @@
+<%- include('partials/adminHeader') %>
+<!--  -->
 <div>
-  <% for( let i = 0; i < getAllUser.length; i++ ) { %>
+  <% if (getAllUser.length>0) { %> <% for( let i = 0; i < getAllUser.length; i++
+  ) { %>
 
   <li>username:<%= getAllUser[i].username%></li>
 
-  <% } %>
+  <% } %> <% }else{%>
+  <p>No user found</p>
+  <%}%>
 </div>
