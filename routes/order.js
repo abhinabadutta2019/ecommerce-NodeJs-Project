@@ -198,7 +198,7 @@ router.post("/createOrder", browserUser, async (req, res) => {
 
 //get your order( for user)
 
-router.get("/getYourOrders", postmanUser, async (req, res) => {
+router.get("/getYourOrders", browserUser, async (req, res) => {
   //
   try {
     const messageArray = [];
@@ -236,7 +236,7 @@ router.get("/getYourOrders", postmanUser, async (req, res) => {
     }
 
     //
-    res.json({ ordersArray: ordersArray });
+    res.render("order", { user: user, ordersArray: ordersArray });
     //
   } catch (err) {
     console.log(err);
