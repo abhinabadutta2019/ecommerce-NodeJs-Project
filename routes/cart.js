@@ -83,6 +83,9 @@ router.get("/createCart", browserUser, async (req, res) => {
     const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
 
     //
+    // console.log(cartFuncValue, "cartFuncValue");
+
+    //
     messageArray.push("cart has products");
 
     //
