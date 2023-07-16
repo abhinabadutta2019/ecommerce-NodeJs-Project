@@ -207,15 +207,22 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
     //
     const orders = await Order.find({ userId: user._id });
 
+    //initializing orderArray
+    const ordersArray = [];
     //
     if (orders.length < 1) {
       messageArray.push("this user has no orders");
       //
-      return res.json({ message: messageArray });
+      // return res.json({ message: messageArray });
+      return res.render("order", {
+        user: user,
+        ordersArray: ordersArray,
+        message: messageArray,
+      });
     }
 
     //
-    const ordersArray = [];
+
     //
 
     for (let i = 0; i < orders.length; i++) {
