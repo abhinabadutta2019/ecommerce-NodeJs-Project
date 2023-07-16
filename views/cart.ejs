@@ -24,8 +24,64 @@
 </div>
 <br />
 <!--  -->
+<button id="addToCartId" onclick="addToCartFunc('<%= cart[i]._id%>')">
+  add to cart
+</button>
+<!--  -->
+<button id="removeFromCartId" onclick="removeFromCartFunc('<%= cart[i]._id%>')">
+  remove from cart
+</button>
+<!--  -->
 <% } %>
 <!--  -->
 <% }else{%>
 <p>No product in cart</p>
 <%}%>
+<!--  -->
+<script>
+  async function addToCartFunc(productId) {
+    //
+    try {
+      const response = await fetch(
+        `${window.location.origin}/cart/addToCart/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify(data),
+        }
+      );
+      //
+
+      //
+      //
+      const result = await response.json();
+      console.log(result, "result");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //
+  async function removeFromCartFunc(productId) {
+    //
+    try {
+      const response = await fetch(
+        `${window.location.origin}/cart/removeFromCart/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify(data),
+        }
+      );
+      //
+      //
+      const result = await response.json();
+      console.log(result, "result");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>

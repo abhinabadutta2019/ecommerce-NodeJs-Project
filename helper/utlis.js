@@ -45,6 +45,7 @@ const cartProductDetailsFunc = async (cartPopulate) => {
 
     //
     let prodObj = {
+      _id: oneProduct.productId._id,
       title: oneProduct.productId.title,
       price: oneProduct.productId.price,
       imagePath: oneProduct.productId.imagePath,

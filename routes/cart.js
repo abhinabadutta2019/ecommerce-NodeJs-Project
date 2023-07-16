@@ -272,7 +272,7 @@ router.put("/addToCart/:id", browserUser, async (req, res) => {
 
 //remove item from cart
 
-router.put("/removeFromCart/:id", postmanUser, async (req, res) => {
+router.put("/removeFromCart/:id", browserUser, async (req, res) => {
   //
   try {
     const messageArray = [];
