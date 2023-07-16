@@ -2,7 +2,19 @@
 
 <!--  -->
 <h3><%= username %> Cart</h3>
-<div>Cart Value:<%= cartValue %></div>
+<!--  -->
+
+<% if (cart.length>0) { %>
+<!--  -->
+<button id="removeAllId" onclick="removeAllButtonFunc()">
+  remove all item
+</button>
+<!--  -->
+<% } %>
+
+<!--  -->
+<br />
+<h5>Cart Value:<%= cartValue %></h5>
 <br />
 <!--  -->
 <% if (cart.length>0) { %>
@@ -39,6 +51,27 @@
 <%}%>
 <!--  -->
 <script>
+  //
+  async function removeAllButtonFunc() {
+    try {
+      const response = await fetch(
+        `${window.location.origin}/cart/removeAllFromCart`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify(data),
+        }
+      );
+      //
+      const result = await response.json();
+      console.log(result, "result");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //
   async function addToCartFunc(productId) {
     //
     try {
@@ -54,8 +87,6 @@
       );
       //
 
-      //
-      //
       const result = await response.json();
       console.log(result, "result");
     } catch (err) {

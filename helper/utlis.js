@@ -33,6 +33,8 @@ const cartProductDetailsFunc = async (cartPopulate) => {
   const cartPopulateProd = cartPopulate.products;
   //
 
+  // console.log(cartPopulate, "cartPopulate");
+
   //
   let cartArray = [];
   //
@@ -62,11 +64,14 @@ const cartProductDetailsFunc = async (cartPopulate) => {
   //
 
   const cartOwnerUsername = cartPopulate.userId.username;
+  const cartOwnerUserId = cartPopulate.userId._id;
+  // console.log(cartOwnerUserId, "cartOwnerUserId");
   //
 
   //
   return {
     cartOwnerUsername: cartOwnerUsername,
+    cartOwnerUserId: cartOwnerUserId,
     cartValue: cartValue,
     cartArray: cartArray,
   };

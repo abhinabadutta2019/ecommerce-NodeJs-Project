@@ -58,6 +58,9 @@ router.get("/createCart", browserUser, async (req, res) => {
       // my func
       const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
       //
+      // console.log(cartPopulating, "cartPopulating");
+      // //
+      // console.log(cartNoProdFunc, "cartNoProdFunc");
 
       // console.log(cart, "cart after");
       //
@@ -79,6 +82,9 @@ router.get("/createCart", browserUser, async (req, res) => {
       path: " userId products.productId ",
     });
 
+    //
+    // console.log(cartPopulate, "cartPopulate");
+
     //calling the function -- cartProductDetails()
     const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
 
@@ -93,6 +99,7 @@ router.get("/createCart", browserUser, async (req, res) => {
       message: messageArray,
       cartValue: cartFuncValue.cartValue,
       username: cartFuncValue.cartOwnerUsername,
+      ownerId: cartFuncValue.cartOwnerUserId,
       cart: cartFuncValue.cartArray,
     });
     //
@@ -378,7 +385,7 @@ router.put("/removeFromCart/:id", browserUser, async (req, res) => {
 
 // remove all items from -user's own cart
 //
-router.put("/removeAllFromCart", postmanUser, async (req, res) => {
+router.put("/removeAllFromCart", browserUser, async (req, res) => {
   //
   try {
     const messageArray = [];
