@@ -99,7 +99,7 @@ router.get("/createCart", browserUser, async (req, res) => {
       message: messageArray,
       cartValue: cartFuncValue.cartValue,
       username: cartFuncValue.cartOwnerUsername,
-      ownerId: cartFuncValue.cartOwnerUserId,
+      // ownerId: cartFuncValue.cartOwnerUserId,
       cart: cartFuncValue.cartArray,
     });
     //

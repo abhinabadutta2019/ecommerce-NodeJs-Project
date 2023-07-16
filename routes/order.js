@@ -13,6 +13,8 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const { cartProductDetailsFunc } = require("../helper/utlis");
 //
 const { cartDetailsNoProd } = require("../helper/utlis");
+//
+const { browserUser } = require("../middleware/browserUser");
 ////////////////////////////////////////////////////////////
 
 ///////////cron-jobs to update-- order -- status//////////////
@@ -71,7 +73,7 @@ const job = schedule.scheduleJob(rule, async function () {
 //create
 //
 
-router.post("/createOrder", postmanUser, async (req, res) => {
+router.post("/createOrder", browserUser, async (req, res) => {
   //
   try {
     //
@@ -341,7 +343,8 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
     res.json(err);
   }
 });
-//
+
+//would not use in frontend
 router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
   //
   try {
