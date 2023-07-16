@@ -69,10 +69,13 @@ const job = schedule.scheduleJob(rule, async function () {
 //
 // console.log(job, "job");
 //////////////////////////////////////////////////////////
-//
-//create
-//
 
+//--/order
+//frontend
+
+///////////////////////////////////////////////////////
+//---/order
+//create
 router.post("/createOrder", browserUser, async (req, res) => {
   //
   try {
@@ -80,6 +83,8 @@ router.post("/createOrder", browserUser, async (req, res) => {
     const messageArray = [];
     //
     const address = req.body.address;
+    //
+    console.log(address, "address");
     //
     const user = req.user;
     //

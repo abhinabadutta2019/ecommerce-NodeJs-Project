@@ -11,8 +11,16 @@
 </button>
 <!--  -->
 <% } %>
+<br />
+<br />
+<br />
 <!--  -->
 <% if (cart.length>0) { %>
+<!--  -->
+<label for="address">Order address</label>
+<br />
+<input type="text" id="orderAddress" required />
+<br />
 <!--  -->
 <button id="orderButtonId" onclick="orderFunc()">Order Now</button>
 <!--  -->
@@ -61,6 +69,10 @@
     //
     try {
       //
+      const address = document.getElementById("orderAddress").value;
+      //
+      const data = { address: address };
+      //
       const response = await fetch(
         `${window.location.origin}/order/createOrder`,
         {
@@ -68,7 +80,7 @@
           headers: {
             "Content-Type": "application/json",
           },
-          // body: JSON.stringify(data),
+          body: JSON.stringify(data),
         }
       );
       //
