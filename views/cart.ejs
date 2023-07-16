@@ -1,5 +1,27 @@
 <%- include('./partials/userHeader') %>
 
 <!--  -->
-<h3>Cart</h3>
-<div></div>
+<h3><%= username %> Cart</h3>
+<div>Cart Value:<%= cartValue %></div>
+<br />
+<!--  -->
+<% if (cart.length>0) { %>
+<!--  -->
+<% for( let i = 0; i < cart.length; i++ ) { %>
+
+<div>
+  <li>title:<%= cart[i].title %></li>
+  <li>price:<%= cart[i].price %></li>
+  <!--  -->
+  <% if (cart[i].imagePath!=null) { %>
+  <!--  -->
+  <img src="<%= cart[i].imagePath %>" alt="image" width="200" height="150" />
+  <!--  -->
+  <% } %>
+  <!--  -->
+</div>
+<br />
+<!--  -->
+<% } %>
+<!--  -->
+<% } %>

@@ -20,7 +20,7 @@ const { browserUser } = require("../middleware/browserUser");
 //(eta cart button e click korle tokhon create hobe)--
 // (already, oi user id te created thakle -- create hobena)
 
-router.get("/createCart", postmanUser, async (req, res) => {
+router.get("/createCart", browserUser, async (req, res) => {
   //
   const messageArray = [];
   //
@@ -86,12 +86,19 @@ router.get("/createCart", postmanUser, async (req, res) => {
     messageArray.push("cart has products");
 
     //
-    return res.json({
+    return res.render("cart", {
       message: messageArray,
       cartValue: cartFuncValue.cartValue,
       username: cartFuncValue.cartOwnerUsername,
       cart: cartFuncValue.cartArray,
     });
+    //
+    // return res.json({
+    //   message: messageArray,
+    //   cartValue: cartFuncValue.cartValue,
+    //   username: cartFuncValue.cartOwnerUsername,
+    //   cart: cartFuncValue.cartArray,
+    // });
 
     /////////////////////////////////////////////////////////////////////////
   } catch (err) {
