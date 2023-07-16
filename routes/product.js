@@ -35,8 +35,8 @@ router.get("/getAllProducts", browserUser, async (req, res) => {
   }
 });
 
-// (reperpose for frontend)
-router.get("/getOneProduct/:id", async (req, res) => {
+// ( for frontend)
+router.get("/getOneProduct/:id", browserUser, async (req, res) => {
   //
   try {
     //

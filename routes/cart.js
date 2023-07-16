@@ -61,11 +61,11 @@ router.get("/createCart", browserUser, async (req, res) => {
 
       // console.log(cart, "cart after");
       //
-      return res.json({
+      return res.render("cart", {
         message: messageArray,
         username: cartNoProdFunc.cartOwnerUsername,
         cartValue: cartNoProdFunc.cartValue,
-        // cart: cart,
+        cart: cart,
       });
     }
     //
