@@ -11,6 +11,8 @@ const { postmanAdmin } = require("../middleware/postmanAdmin");
 const multer = require("../middleware/multer");
 const aws = require("../helper/s3");
 const { browserUser } = require("../middleware/browserUser");
+const { browserAdmin } = require("../middleware/browserAdmin");
+
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 
 //frontend
@@ -61,40 +63,93 @@ router.get("/getOneProduct/:id", browserUser, async (req, res) => {
   }
 });
 
+//
+router.get("/createProduct", browserAdmin, async (req, res) => {
+  //
+  try {
+    res.render("adminOnly/createProduct");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //-- / product
 // backend
 
 //create product
 //
-router.post("/createProduct", postmanAdmin, async (req, res) => {
-  //
-  try {
+router.post(
+  "/createProduct",
+  multer.single("file"),
+  browserAdmin,
+  async (req, res) => {
     //
-    // console.log(req.body.categories, "req.body.categories");
-
-    const newProduct = new Product({
-      title: req.body.title,
-      productLeft: req.body.productLeft,
-      price: req.body.price,
+    const messageArray = [];
+    try {
       //
-      categories: req.body.categories,
-    });
+      // console.log(req.body.categories, "req.body.categories");
 
-    //
-    const product = await newProduct.save();
-    res.json({
-      message: "new product created",
-      product: product,
-    });
-  } catch (err) {
-    //
-    if (err.code == 11000) {
-      return res.json({ message: "duplicate product title" });
+      // console.log(req.body, "req.body");
+
+      //
+      const file = req.file;
+      // console.log(file);
+      //
+      if (!file) {
+        messageArray.push("no file uploaded");
+        // return res.json({ message: messageArray });
+      }
+      //
+
+      let newProduct;
+      if (req.file) {
+        //
+        const uploadResponse = await aws.uploadFileToS3(file);
+
+        console.log(uploadResponse.Location, "uploadResponse.Location");
+        //
+        newProduct = new Product({
+          title: req.body.title,
+          productLeft: req.body.productLeft,
+          price: req.body.price,
+          //
+          categories: req.body.categories,
+          imagePath: uploadResponse.Location,
+        });
+      } else if (!req.file) {
+        newProduct = new Product({
+          title: req.body.title,
+          productLeft: req.body.productLeft,
+          price: req.body.price,
+          //
+          categories: req.body.categories,
+        });
+      }
+      //
+
+      console.log(newProduct, "newProduct");
+      // const
+      //
+      const product = await newProduct.save();
+      //
+      messageArray.push("new product created");
+      //
+      res.json({
+        message: messageArray,
+        product: product,
+      });
+    } catch (err) {
+      //
+      if (err.code == 11000) {
+        messageArray.push("duplicate product title");
+        return res.json({ message: messageArray });
+      }
+      console.log(err);
+      res.json(err);
     }
-    console.log(err);
-    res.json(err);
   }
-});
+);
 
 //update all details (except imagepath)
 router.put("/update/:id", postmanAdmin, async (req, res) => {
