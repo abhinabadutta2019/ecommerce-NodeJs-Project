@@ -38,7 +38,7 @@
       //
       const imageUpload = document.getElementById("productImageId");
       //this line was important - to upload image from browser
-      //   const imageFile = imageUpload.files[0];
+      const imageFile = imageUpload.files[0];
       //
 
       let data = new FormData();
@@ -46,9 +46,9 @@
       data.append("productLeft", productLeft);
       data.append("price", price);
       data.append("categories", categories);
-      data.append("file", imageUpload);
+      data.append("file", imageFile);
       //
-      console.log(data, "data");
+      //   console.log(data, "data");
       //
       const response = await fetch(
         `${window.location.origin}/product/createProduct`,
@@ -59,7 +59,7 @@
         }
       );
       //
-      const result = await response;
+      const result = await response.json();
       //
       console.log(result, "result");
     } catch (err) {

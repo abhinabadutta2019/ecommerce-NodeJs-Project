@@ -94,7 +94,7 @@ router.post(
 
       //
       const file = req.file;
-      // console.log(file);
+      console.log(file);
       //
       if (!file) {
         messageArray.push("no file uploaded");
@@ -135,7 +135,7 @@ router.post(
       //
       messageArray.push("new product created");
       //
-      res.json({
+      res.send({
         message: messageArray,
         product: product,
       });
