@@ -174,14 +174,34 @@ router.post(
 );
 
 //update all details (except imagepath)
-router.put("/update/:id", postmanAdmin, async (req, res) => {
+router.put("/update/:id", browserAdmin, async (req, res) => {
   //
+  const messageArray = [];
   try {
-    const product = await Product.findById(req.params.id);
+    console.log(req.body, "req.body");
+    //
+    console.log(req.params.id, "req.params.id");
     //
 
+    //
+
+    if (req.body.categories.length < 3) {
+      //
+      messageArray.push("categories is too small");
+      return res.json({ message: messageArray });
+    }
+    //
+    else if (req.body.title.length < 3) {
+      messageArray.push("title is too small");
+      return res.json({ message: messageArray });
+    }
+
+    //
+    const product = await Product.findById(req.params.id);
+    //
     if (!product) {
-      return res.json({ message: "product not present in database" });
+      messageArray.push("product not present in database");
+      return res.json({ message: messageArray });
     }
 
     //
