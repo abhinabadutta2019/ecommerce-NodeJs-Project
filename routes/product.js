@@ -90,7 +90,18 @@ router.post(
       //
       // console.log(req.body.categories, "req.body.categories");
 
-      // console.log(req.body, "req.body");
+      console.log(req.body, "req.body");
+
+      if (req.body.categories.length < 3) {
+        //
+        messageArray.push("categories is too small");
+        return res.json({ message: messageArray });
+      }
+      //
+      else if (req.body.title.length < 3) {
+        messageArray.push("title is too small");
+        return res.json({ message: messageArray });
+      }
 
       //
       const file = req.file;
@@ -128,7 +139,7 @@ router.post(
       }
       //
 
-      console.log(newProduct, "newProduct");
+      // console.log(newProduct, "newProduct");
       // const
       //
       const product = await newProduct.save();
