@@ -74,6 +74,17 @@ router.get("/createProduct", browserAdmin, async (req, res) => {
   }
 });
 
+//
+router.get("/updateProduct/:id", browserAdmin, async (req, res) => {
+  //
+  try {
+    res.render("adminOnly/updateProduct");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //-- / product
 // backend
 

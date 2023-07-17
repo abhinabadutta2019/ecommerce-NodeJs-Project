@@ -42,6 +42,18 @@
     >
       add to cart
     </button>
+    <!--  -->
+    <% if (user.isAdmin==true) { %>
+    <!--  -->
+    <button
+      id="updateProductId"
+      onclick="updateProductfunc('<%= allProducts[i]._id%>')"
+    >
+      edit product
+    </button>
+    <!--  -->
+    <% } %>
+    <!--  -->
   </div>
   <!--  -->
   <br />
@@ -54,6 +66,12 @@
 </div>
 
 <script>
+  //
+  async function updateProductfunc(productId) {
+    //
+    window.location.href = `${window.location.origin}/product/updateProduct/${productId}`;
+  }
+  //
   async function viewProduct(productId) {
     //just redirect
 
