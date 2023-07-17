@@ -172,7 +172,7 @@ router.post(
     }
   }
 );
-
+/////////////////////////////////
 // prettier-ignore
 //update all details (except imagepath)
 router.put("/update/:id", browserAdmin, async (req, res) => {
@@ -180,44 +180,6 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
   const messageArray = [];
   try {
     console.log(req.body, "req.body");
-    //
- 
-    //
-    let updatedProduct;
-    //
-    if (req.body.categories !== ''||!req.body.categories) {
-      //
-      messageArray.push("categories is okay");
-      // return res.json({ message: messageArray });
-      //
-      const updatedProduct = await Product.findByIdAndUpdate(
-        req.params.id,
-        {
-          categories:req.body.categories,
-        },
-        { new: true }
-      );
-    }
-    //
-    if (req.body.title !== ''||!req.body.title) {
-      //
-      messageArray.push("categories is okay");
-      // return res.json({ message: messageArray });
-      //
-      const updatedProduct = await Product.findByIdAndUpdate(
-        req.params.id,
-        {
-          title:req.body.title,
-        },
-        { new: true }
-      );
-    }
-    //
-    else if (req.body.title.length == "") {
-      messageArray.push("title is too small");
-      return res.json({ message: messageArray });
-    }
-
     //
     const product = await Product.findById(req.params.id);
     //
@@ -227,15 +189,86 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
     }
 
     //
-    // const updatedProduct = await Product.findByIdAndUpdate(
-    //   req.params.id,
-    //   {
-    //     $set: req.body,
-    //   },
-    //   { new: true }
-    // );
+   
 
-    res.json({ updatedProduct: updatedProduct });
+    //
+    // let updatedProduct;
+    //categories
+    if (req.body.categories ) {
+      //
+      const updatedCategories = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          categories:req.body.categories,
+        },
+        { new: true }
+      );
+      //
+      if (updatedCategories) {
+        messageArray.push("categories updated")
+      }
+    }
+    //title
+    if (req.body.title ) {
+      //
+     
+      // return res.json({ message: messageArray });
+      //
+      const updatedTitle = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          title:req.body.title,
+        },
+        { new: true }
+      );
+
+      if (updatedTitle) {
+        messageArray.push("title updated")
+      }
+
+    }
+    //
+    if (req.body.productLeft ) {
+      //
+     
+      // return res.json({ message: messageArray });
+      //
+      const updatedProductLeft = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          productLeft:req.body.productLeft,
+        },
+        { new: true }
+      );
+
+      if (updatedProductLeft) {
+        messageArray.push("productLeft updated")
+      }
+
+    }
+    //
+    if (req.body.price ) {
+      //
+     
+      // return res.json({ message: messageArray });
+      //
+      const updatedPrice = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          price:req.body.price,
+        },
+        { new: true }
+      );
+
+      if (updatedPrice) {
+        messageArray.push("productLeft updated")
+      }
+
+    }
+
+ 
+
+    res.json({ message: messageArray });
   } catch (err) {
     //
     if (err.code == 11000) {

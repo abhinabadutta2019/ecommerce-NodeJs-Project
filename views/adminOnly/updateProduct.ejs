@@ -33,16 +33,38 @@
 
   const urlId = urlLocationSplit[5];
   console.log(urlId, "urlId");
-
-  //
+  ////////////////////////////
+  // prettier-ignore
+  //////////////////////////
   async function updateProdFunc() {
     //
     try {
       //
-      const title = document.getElementById("productTitle").value;
-      const productLeft = document.getElementById("productLeftId").value;
-      const price = document.getElementById("priceId").value;
-      const categories = document.getElementById("categoriesId").value;
+      let title = document.getElementById("productTitle").value;
+      //   console.log(title, "title");
+      if (title =="" ) {
+        // console.log('Hi');
+        title=null
+      }
+      //
+      let productLeft = document.getElementById("productLeftId").value;
+      
+      if (productLeft =='' ) {
+        // console.log('Hi');
+        productLeft=null
+      }
+      //
+      let price = document.getElementById("priceId").value;
+      if (price =='' ) {
+        // console.log('Hi');
+        price=null
+      }
+      //
+      let categories = document.getElementById("categoriesId").value;
+      if (categories =='' ) {
+        // console.log('Hi');
+        categories=null
+      }
       //
       const data = {
         title: title,
