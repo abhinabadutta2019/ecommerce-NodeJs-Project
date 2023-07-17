@@ -173,6 +173,7 @@ router.post(
   }
 );
 
+// prettier-ignore
 //update all details (except imagepath)
 router.put("/update/:id", browserAdmin, async (req, res) => {
   //
@@ -180,18 +181,39 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
   try {
     console.log(req.body, "req.body");
     //
-    console.log(req.params.id, "req.params.id");
+ 
     //
-
+    let updatedProduct;
     //
-
-    if (req.body.categories.length < 3) {
+    if (req.body.categories !== ''||!req.body.categories) {
       //
-      messageArray.push("categories is too small");
-      return res.json({ message: messageArray });
+      messageArray.push("categories is okay");
+      // return res.json({ message: messageArray });
+      //
+      const updatedProduct = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          categories:req.body.categories,
+        },
+        { new: true }
+      );
     }
     //
-    else if (req.body.title.length < 3) {
+    if (req.body.title !== ''||!req.body.title) {
+      //
+      messageArray.push("categories is okay");
+      // return res.json({ message: messageArray });
+      //
+      const updatedProduct = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          title:req.body.title,
+        },
+        { new: true }
+      );
+    }
+    //
+    else if (req.body.title.length == "") {
       messageArray.push("title is too small");
       return res.json({ message: messageArray });
     }
@@ -205,13 +227,13 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
     }
 
     //
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
+    // const updatedProduct = await Product.findByIdAndUpdate(
+    //   req.params.id,
+    //   {
+    //     $set: req.body,
+    //   },
+    //   { new: true }
+    // );
 
     res.json({ updatedProduct: updatedProduct });
   } catch (err) {
