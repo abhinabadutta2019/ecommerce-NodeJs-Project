@@ -284,7 +284,7 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
 router.put(
   "/updateImagePath/:id",
   multer.single("file"),
-  postmanAdmin,
+  browserAdmin,
   async (req, res) => {
     //
     const messageArray = [];

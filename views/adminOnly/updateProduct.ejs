@@ -2,6 +2,7 @@
 <!--  -->
 <h3>Update product</h3>
 <!--  -->
+<h5>Update product details</h5>
 <form action="#">
   <!-- title -->
   <label for="title">title</label>
@@ -24,17 +25,57 @@
 <!-- form Button -->
 <button id="updateProdButton" onclick="updateProdFunc()">Submit</button>
 <!--  -->
-<script>
-  //   const urlLocation = console.log(window.location.href, "window.location.href");
+<h5>Update product Image</h5>
+<!--  -->
+<form action="#">
+  <!--  -->
+  <label for="imageUpload">Image</label>
+  <input type="file" id="productImageId" name="file" />
+  <!--  -->
+</form>
+<button id="updateProdImage" onclick="updateImgFunc()">update image</button>
+<!--  -->
 
-  //   console.log(url);
+<script>
+  //
   const urlLocation = window.location.href;
   const urlLocationSplit = urlLocation.split("/");
 
   const urlId = urlLocationSplit[5];
   console.log(urlId, "urlId");
+  //
+  async function updateImgFunc() {
+    //
+    try {
+      const imageUpload = document.getElementById("productImageId");
+      //this line was important - to upload image from browser
+      const imageFile = imageUpload.files[0];
+      //
+      let data = new FormData();
+      //
+      data.append("file", imageFile);
+      //
+      const response = await fetch(
+        `${window.location.origin}/product/updateImagePath/${urlId}`,
+        {
+          method: "PUT",
+
+          body: data,
+        }
+      );
+      //
+      const result = await response.json();
+      //
+      console.log(result, "result");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  //   console.log(url);
+
   ////////////////////////////
-  // prettier-ignore
+
   //////////////////////////
   async function updateProdFunc() {
     //
@@ -42,28 +83,28 @@
       //
       let title = document.getElementById("productTitle").value;
       //   console.log(title, "title");
-      if (title =="" ) {
+      if (title == "") {
         // console.log('Hi');
-        title=null
+        title = null;
       }
       //
       let productLeft = document.getElementById("productLeftId").value;
-      
-      if (productLeft =='' ) {
+
+      if (productLeft == "") {
         // console.log('Hi');
-        productLeft=null
+        productLeft = null;
       }
       //
       let price = document.getElementById("priceId").value;
-      if (price =='' ) {
+      if (price == "") {
         // console.log('Hi');
-        price=null
+        price = null;
       }
       //
       let categories = document.getElementById("categoriesId").value;
-      if (categories =='' ) {
+      if (categories == "") {
         // console.log('Hi');
-        categories=null
+        categories = null;
       }
       //
       const data = {
