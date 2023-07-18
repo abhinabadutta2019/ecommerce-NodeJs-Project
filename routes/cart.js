@@ -13,6 +13,7 @@ const { cartProductDetailsFunc } = require("../helper/utlis");
 //
 const { cartDetailsNoProd } = require("../helper/utlis");
 const { browserUser } = require("../middleware/browserUser");
+const { browserAdmin } = require("../middleware/browserAdmin");
 //
 
 //user to see his own cart()--
@@ -422,9 +423,11 @@ router.put("/removeAllFromCart", browserUser, async (req, res) => {
 
 ///////
 //get one users cart (as ADMIN)
-router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
+router.get("/getOneUserCart/:id", browserAdmin, async (req, res) => {
   //
   try {
+    //
+    const admin = req.user;
     //
     const messageArray = [];
     //
@@ -441,6 +444,18 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
       return res.json({ message: messageArray });
     }
 
+    //
+    //populating the cart
+    const cartPopulate = await Cart.populate(cart, {
+      path: " userId products.productId ",
+    });
+
+    //calling the function -- cartProductDetails()
+
+    const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
+    // console.log(cartFuncValue, "cartFuncValue");
+    //
+    //////////////////////////////
     //check if any product in cart
     if (cart.products.length < 1) {
       //
@@ -456,27 +471,20 @@ router.get("/getOneUserCart/:id", postmanAdmin, async (req, res) => {
       // console.log(cartNoProdFunc, "cartNoProdFunc");
 
       //
-      return res.json({
+      return res.render("adminOnly/oneUserCart", {
         message: messageArray,
         username: cartNoProdFunc.cartOwnerUsername,
         cartValue: cartNoProdFunc.cartValue,
+        cart: cartFuncValue.cartArray,
       });
     }
 
-    //populating the cart
-    const cartPopulate = await Cart.populate(cart, {
-      path: " userId products.productId ",
-    });
-
-    //calling the function -- cartProductDetails()
-
-    const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
-    // console.log(cartFuncValue, "cartFuncValue");
     //
-    res.json({
+    res.render("adminOnly/oneUserCart", {
       cartValue: cartFuncValue.cartValue,
       username: cartFuncValue.cartOwnerUsername,
       cart: cartFuncValue.cartArray,
+      user: admin,
     });
   } catch (err) {
     console.log(err);

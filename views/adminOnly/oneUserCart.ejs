@@ -1,0 +1,36 @@
+<%- include('../partials/adminHeader') %>
+
+<h3><%= username %> Cart -- Admin view</h3>
+<% if (cart.length>0) { %>
+<!--  -->
+
+<!--  -->
+
+<br />
+<h5>Cart Value:<%= cartValue %></h5>
+<br />
+<!--  -->
+<% for( let i = 0; i < cart.length; i++ ) { %>
+<!--  -->
+<div>
+  <li>title:<%= cart[i].title %></li>
+  <li>price:<%= cart[i].price %></li>
+  <li>quantity:<%= cart[i].quantity %></li>
+  <!--  -->
+
+  <% if (cart[i].imagePath!=null) { %>
+  <!--  -->
+  <img src="<%= cart[i].imagePath %>" alt="image" width="200" height="150" />
+  <!--  -->
+  <% } %>
+  <!--  -->
+</div>
+<!--  -->
+<!--  -->
+<% } %>
+<!--  -->
+
+<!--  -->
+<% }else{%>
+<p>No product in cart</p>
+<%}%>

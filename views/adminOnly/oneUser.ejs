@@ -8,10 +8,26 @@
   <button id="deleteUserId" onclick="deleteUserFunc('<%= oneUser._id%>')">
     Delete user
   </button>
+  <!--  -->
+  <button id="userCartId" onclick="userCartFunc('<%= oneUser._id%>')">
+    view cart
+  </button>
 </div>
 
 <!--  -->
 <script>
+  //
+  async function userCartFunc(userId) {
+    //
+    try {
+      //
+      window.location.href = `${window.location.origin}/cart/getOneUserCart/${userId}`;
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //
   async function deleteUserFunc(userId) {
     //
     try {
