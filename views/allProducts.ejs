@@ -12,14 +12,28 @@
 <h3>All products</h3>
 <div>
   <% if (allProducts.length>0) { %>
+  <!--search  -->
+  <div>
+    <label for="search">search</label>
+    <input type="text" id="searchId" required />
+    <!--  -->
+    <!-- form Button -->
+    <button id="searchButton" onclick="onSearchButton()">Submit</button>
+  </div>
   <!-- show catagories -->
-  <h4>product categories</h4>
-  <h4><a href="/product/productsByCategory/avengers">avengers</a></h4>
-  <h4>
-    <a href="/product/productsByCategory/lord of the rings"
-      >lord of the rings</a
-    >
-  </h4>
+  <!--  -->
+  <div>
+    <h4>product categories</h4>
+    <h4><a href="/product/productsByCategory/avengers">avengers</a></h4>
+    <h4>
+      <a href="/product/productsByCategory/lord of the rings"
+        >lord of the rings</a
+      >
+    </h4>
+  </div>
+  <!--  -->
+
+  <br />
   <!--  -->
   <!-- loop to show allProducts-->
   <% for( let i = 0; i < allProducts.length; i++ ) { %>
@@ -82,6 +96,8 @@
 </div>
 
 <script>
+  //
+
   //
   async function deleteProductfunc(productId) {
     //

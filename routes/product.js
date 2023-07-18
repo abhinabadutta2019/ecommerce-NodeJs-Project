@@ -396,28 +396,41 @@ router.get("/productsByCategory/:category", browserUser, async (req, res) => {
 });
 
 // search
-router.get("/searchByTitle/:text?", postmanUser, async (req, res) => {
+router.get("/searchByTitle/:text?", browserUser, async (req, res) => {
   try {
     //
+    const messageArray = [];
+    //
+    const user = req.user;
     // console.log(req.params.text, "req.params.text");
     //
     if (!req.params.text) {
-      return res.json({ message: "no text passed with params" });
+      //
+      messageArray.push("no text passed with params");
+      //
+      return res.json({ message: messageArray });
     }
 
     // Create a regular expression pattern to perform a case-insensitive search
     const inputText = new RegExp(req.params.text, "i");
 
     // Find products that match the title search
-    const products = await Product.find({ title: inputText });
+    const allProducts = await Product.find({ title: inputText });
 
-    if (products.length < 1) {
-      return res.json({
-        message: "No products found for this search",
+    if (allProducts.length < 1) {
+      // return res.json({
+      //   message: "No products found for this search",
+      // });
+      messageArray.push("No products found for this search");
+      //
+      return res.render("allProducts", {
+        allProducts: allProducts,
+        user: user,
+        message: messageArray,
       });
     }
-
-    res.json({ products: products });
+    //
+    res.render("allProducts", { allProducts: allProducts, user: user });
   } catch (err) {
     console.log(err);
     res.json(err);
