@@ -44,12 +44,19 @@
     </button>
     <!--  -->
     <% if (user.isAdmin==true) { %>
-    <!--  -->
+    <!-- update -->
     <button
       id="updateProductId"
       onclick="updateProductfunc('<%= allProducts[i]._id%>')"
     >
       edit product
+    </button>
+    <!-- delete -->
+    <button
+      id="deleteProductId"
+      onclick="deleteProductfunc('<%= allProducts[i]._id%>')"
+    >
+      delete product
     </button>
     <!--  -->
     <% } %>
@@ -66,6 +73,26 @@
 </div>
 
 <script>
+  //
+  async function deleteProductfunc(productId) {
+    //
+    const response = await fetch(
+      `${window.location.origin}/product/delete/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      }
+    );
+
+    //
+    const result = await response.json();
+
+    console.log(result, "result");
+    //
+  }
   //
   async function updateProductfunc(productId) {
     //

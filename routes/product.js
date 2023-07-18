@@ -334,7 +334,7 @@ router.put(
 );
 
 //delete a product
-router.delete("/delete/:id", postmanAdmin, async (req, res) => {
+router.delete("/delete/:id", browserAdmin, async (req, res) => {
   //
   try {
     //
