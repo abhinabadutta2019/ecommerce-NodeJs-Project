@@ -97,7 +97,20 @@
 
 <script>
   //
-
+  async function onSearchButton() {
+    //
+    try {
+      //
+      const searchValue = document.getElementById("searchId").value;
+      //
+      // console.log(searchValue, "searchValue");
+      //
+      window.location.href = `${window.location.origin}/product/searchByTitle/${searchValue}`;
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //
   async function deleteProductfunc(productId) {
     //

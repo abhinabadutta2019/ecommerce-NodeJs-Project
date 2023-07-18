@@ -404,12 +404,12 @@ router.get("/searchByTitle/:text?", browserUser, async (req, res) => {
     const user = req.user;
     // console.log(req.params.text, "req.params.text");
     //
-    if (!req.params.text) {
-      //
-      messageArray.push("no text passed with params");
-      //
-      return res.json({ message: messageArray });
-    }
+    // if (!req.params.text) {
+    //   //
+    //   messageArray.push("no text passed with params");
+    //   //
+    //   return res.json({ message: messageArray });
+    // }
 
     // Create a regular expression pattern to perform a case-insensitive search
     const inputText = new RegExp(req.params.text, "i");
