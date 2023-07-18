@@ -46,3 +46,22 @@
 <p>No cart with items in it</p>
 <%}%>
 <!--  -->
+<!-- empty carts -->
+<!--  -->
+<% if (emptyCarts.length>0) { %>
+<!--  -->
+<h4>Empty carts</h4>
+<!--  -->
+<% for( let i = 0; i < emptyCarts.length; i++ ) { %>
+<!--  -->
+<!--  -->
+<div>cart owner: <%= emptyCarts[i].cartOwnerUsername %></div>
+<div>cart value:<%= emptyCarts[i].cartValue %></div>
+<br />
+<!--  -->
+<% } %>
+<!--  -->
+<% }else{%>
+<p>No empty cards</p>
+<%}%>
+<!--  -->
