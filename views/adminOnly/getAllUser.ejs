@@ -8,10 +8,28 @@
   <% for( let i = 0; i < getAllUser.length; i++ ) { %>
 
   <li>username:<%= getAllUser[i].username%></li>
-
+  <!-- <%= getAllUser[i].username%> -->
+  <!--  -->
+  <button id="getOneUserId" onclick="getOneUserFunc('<%= getAllUser[i]._id%>')">
+    user details
+  </button>
+  <!--  -->
+  <br />
   <% } %>
   <!--  -->
   <% }else{%>
   <p>No user found</p>
   <%}%>
 </div>
+<script>
+  //
+  async function getOneUserFunc(userId) {
+    //
+    try {
+      //
+      window.location.href = `${window.location.origin}/user/getOneUser/${userId}`;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>

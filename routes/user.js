@@ -124,25 +124,31 @@ router.delete("/deleteUser", postmanUser, async (req, res) => {
 });
 
 //
-router.get("/getOneUser/:id", postmanAdmin, async (req, res) => {
+router.get("/getOneUser/:id", browserAdmin, async (req, res) => {
   //
   try {
+    //
+    const messageArray = [];
     //
     console.log(req.params, "req.params");
     //
     if (!req.params.id) {
-      return res.json({ message: "no id passed with params" });
+      //
+      messageArray.push("no id passed with params");
+      //
+      return res.json({ message: messageArray });
     }
     //
     const admin = req.user;
     //
-    const user = await User.findById(req.params.id);
+    const oneUser = await User.findById(req.params.id);
     //
-    if (!user) {
-      return res.json({ message: "user not found in database" });
+    if (!oneUser) {
+      messageArray.push("user not found in database");
+      return res.json({ message: messageArray });
     }
     //
-    res.json({ user: user });
+    res.render("adminOnly/oneUser", { oneUser: oneUser, user: admin });
   } catch (err) {
     console.log(err);
     res.json(err);
