@@ -108,15 +108,28 @@ router.put("/updatePassword", browserUser, async (req, res) => {
 });
 
 //
-router.delete("/deleteUser", postmanUser, async (req, res) => {
+router.delete("/deleteUser/:id", browserAdmin, async (req, res) => {
   //
   try {
     //
-    const user = req.user;
-    // console.log(user, "user");
-    const deletedUser = await User.findByIdAndDelete(user._id);
+    console.log(req.params.id, "req.params.id");
     //
-    res.json({ message: "user deleted", deletedUser: deletedUser });
+    const messageArray = [];
+    //
+    const admin = req.user;
+    //
+
+    const userId = req.params.id;
+    // console.log(user, "user");
+    const deletedUser = await User.findByIdAndDelete(userId);
+    //
+    //
+    messageArray.push("user deleted");
+    res.json({
+      message: messageArray,
+      deletedUser: deletedUser,
+      user: admin,
+    });
   } catch (err) {
     console.log(err);
     res.json(err);
