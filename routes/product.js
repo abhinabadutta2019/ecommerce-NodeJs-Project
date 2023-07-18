@@ -359,12 +359,15 @@ router.delete("/delete/:id", browserAdmin, async (req, res) => {
 });
 
 //catagory
-router.get("/productsByCategory/:category", postmanUser, async (req, res) => {
+router.get("/productsByCategory/:category", browserUser, async (req, res) => {
   //
 
   try {
     //
     const messageArray = [];
+    //
+    const user = req.user;
+    //
     //
     if (!req.params.category) {
       messageArray.push("no category passed with req.params");
@@ -372,15 +375,20 @@ router.get("/productsByCategory/:category", postmanUser, async (req, res) => {
     }
 
     // Find products that match category
-    const products = await Product.find({ categories: req.params.category });
+    const allProducts = await Product.find({ categories: req.params.category });
 
-    if (products.length < 1) {
+    if (allProducts.length < 1) {
       messageArray.push("No products found for this catagory");
       //
-      return res.json({ message: messageArray });
+      // return res.json({ message: messageArray });
+      return res.render("allProducts", {
+        allProducts: allProducts,
+        user: user,
+        message: messageArray,
+      });
     }
 
-    res.json({ products: products });
+    res.render("allProducts", { allProducts: allProducts, user: user });
   } catch (err) {
     console.log(err);
     res.json(err);
