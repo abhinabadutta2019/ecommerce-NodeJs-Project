@@ -169,6 +169,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//
+router.get("/logout", async (req, res) => {
+  //
+  try {
+    //
+    const payload = "deleteJwt";
+    const token = jwt.sign(payload, `${process.env.JWT_SECRET}`);
+    res.cookie("token", token, {
+      maxAge: 1,
+    });
+    //
+    res.redirect("login");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
 //test route to check- login
 router.get("/test", postmanAdmin, (req, res) => {
   //
