@@ -494,9 +494,11 @@ router.get("/getOneUserCart/:id", browserAdmin, async (req, res) => {
 
 //get ALL users cart (as ADMIN)
 
-router.get("/getAllUserCarts", postmanAdmin, async (req, res) => {
+router.get("/getAllUserCarts", browserAdmin, async (req, res) => {
   //
   try {
+    const admin = req.user;
+    //
     const carts = await Cart.find({});
 
     let emptyCarts = [];
@@ -526,12 +528,20 @@ router.get("/getAllUserCarts", postmanAdmin, async (req, res) => {
         //
         const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
         //
+        // console.log(cartPopulate, "cartPopulate");
+
+        // console.log(cartFuncValue, "cartFuncValue");
+        //
         filledCarts.push(cartFuncValue);
       }
     }
 
     //
-    res.json({ filledCarts: filledCarts, emptyCarts: emptyCarts });
+    res.render("adminOnly/allUserCarts", {
+      filledCarts: filledCarts,
+      emptyCarts: emptyCarts,
+      user: admin,
+    });
   } catch (err) {
     //
     console.log(err);
