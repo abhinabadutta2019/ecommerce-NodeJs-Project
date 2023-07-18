@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/User");
 //
+const jwt = require("jsonwebtoken");
+//
 const { postmanUser } = require("../middleware/postmanUser");
 //
 const { postmanAdmin } = require("../middleware/postmanAdmin");
@@ -51,11 +53,14 @@ router.get("/getAllUser", browserAdmin, async (req, res) => {
 //
 //TODO- create cart --- with reusable fnction-- when user gets created
 //
-router.put("/updatePassword", postmanUser, async (req, res) => {
+router.put("/updatePassword", browserUser, async (req, res) => {
   //
   try {
+    const messageArray = [];
+    //
     if (req.body.password.length < 3) {
-      return res.json({ message: "Password is too small" });
+      messageArray.push("Password is too small");
+      return res.json({ message: messageArray });
     }
     //
     const inputValue = req.body.password;
@@ -83,7 +88,19 @@ router.put("/updatePassword", postmanUser, async (req, res) => {
       { new: true }
     );
 
-    res.json({ updatedUser: updatedUser });
+    //
+    messageArray.push("password updated");
+
+    //for logout --- deleting jwt
+    const payload = "deleteJwt";
+    const token = jwt.sign(payload, `${process.env.JWT_SECRET}`);
+
+    //setting token in browser
+    res.cookie("token", token, {
+      maxAge: 1,
+    });
+    ////////////////////////////////////////
+    res.json({ updatedUser: updatedUser, message: messageArray });
   } catch (err) {
     console.log(err);
     res.json(err);

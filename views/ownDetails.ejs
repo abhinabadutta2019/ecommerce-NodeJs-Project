@@ -16,4 +16,51 @@
   <% if (user.isAdmin==true) { %>
   <p>admin:<%= user.isAdmin %></p>
   <% } %>
+  <!-- update password -->
+
+  <div>
+    <p>update password</p>
+    <label for="password">Password</label>
+    <input type="password" id="updatePassId" required />
+    <!-- form Button -->
+    <button id="updatePassButton" onclick="updatePassFunc()">Submit</button>
+  </div>
+  <!--  -->
 </div>
+<!--  -->
+<script>
+  async function updatePassFunc() {
+    try {
+      const password = document.getElementById("updatePassId").value;
+      //
+      const data = { password: password };
+      //
+      const response = await fetch(
+        `${window.location.origin}/user/updatePassword`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      //
+      const result = await response.json();
+      console.log(result, "result");
+      //
+      if (result.message) {
+        // console.log(result.message);
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+          //
+          if (oneMessage == "password updated") {
+            window.location.href = `${window.location.origin}/auth/login`;
+          }
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>
