@@ -459,7 +459,7 @@ router.get("/getAllOrdersByUsers", postmanAdmin, async (req, res) => {
 });
 
 //
-router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
+router.get("/getMonthlyIncome", browserAdmin, async (req, res) => {
   //
   try {
     //
@@ -509,9 +509,26 @@ router.get("/getMonthlyIncome", postmanAdmin, async (req, res) => {
       }
 
       //
+      //
     }
+
     //
-    res.json({ incomeMonthlyObj: incomeMonthlyObj });
+    // all Month Income Total
+    let allMonthIncomeTotal = 0;
+    for (let key of Object.keys(incomeMonthlyObj)) {
+      allMonthIncomeTotal = allMonthIncomeTotal + incomeMonthlyObj[key];
+      //
+    }
+
+    //
+    // res.json({ incomeMonthlyObj: incomeMonthlyObj });
+    //
+
+    //
+    res.render("adminOnly/monthlyIncome", {
+      incomeMonthlyObj: incomeMonthlyObj,
+      totalIncome: allMonthIncomeTotal,
+    });
   } catch (err) {
     console.log(err);
     res.json(err);

@@ -1,0 +1,20 @@
+<%- include('../partials/adminHeader') %>
+<!--  -->
+<h3>Monthly income</h3>
+<!--  -->
+<% if (incomeMonthlyObj) { %>
+<!--  -->
+
+<% for( let key of Object.keys(incomeMonthlyObj)) { %>
+
+<!--  -->
+<li>Month of <%= key %>: Total income <%=incomeMonthlyObj[key]%></li>
+<!--  -->
+<% } %>
+<!--  -->
+<p>Total earning : <%= totalIncome%></p>
+<!--  -->
+<!--  -->
+<% } else{%>
+<p>No income until now</p>
+<%}%>
