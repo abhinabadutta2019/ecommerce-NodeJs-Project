@@ -233,16 +233,23 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
       const orderPopulate = await Order.populate(oneOrder, {
         path: " userId products.productId ",
       });
+      //
+      // console.log(orderPopulate, "orderPopulate");
 
       //
       const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
 
+      //
+
       //adding values
-      orderFuncValue.address = oneOrder.address;
-      orderFuncValue.status = oneOrder.status;
+      orderFuncValue._id = orderPopulate._id;
+      orderFuncValue.address = orderPopulate.address;
+      orderFuncValue.status = orderPopulate.status;
       ordersArray.push(orderFuncValue);
     }
-
+    // console.log(ordersArray, "ordersArray");
+    //
+    // res.json({ user: user, ordersArray: ordersArray });
     //
     res.render("order", { user: user, ordersArray: ordersArray });
     //
@@ -570,6 +577,41 @@ router.put("/cancelOrderAsAdmin/:id", browserAdmin, async (req, res) => {
     //
     messageArray.push("order cancelled");
     res.json({ message: messageArray, cancelOrder: updatedOrder });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+//
+router.put("/cancelOrderAsUser/:id", browserUser, async (req, res) => {
+  //
+  try {
+    //
+    const messageArray = [];
+    //
+    const cancelOrder = await Order.findById(req.params.id);
+    //
+    console.log(cancelOrder, "cancelOrder");
+    //
+    if (!cancelOrder) {
+      messageArray.push("order not found in database");
+      return res.json({ message: messageArray });
+      //
+    } else if (cancelOrder.status == "cancelled") {
+      messageArray.push("order is already cancelled");
+      //
+      return res.json({ message: messageArray, cancelOrder: cancelOrder });
+    }
+    //
+    const updatedOrder = await Order.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { status: "cancelled" } },
+      { returnOriginal: false }
+    );
+    //
+    messageArray.push("order cancelled");
+    res.json({ message: messageArray, cancelOrder: updatedOrder });
+    //
   } catch (err) {
     console.log(err);
     res.json(err);

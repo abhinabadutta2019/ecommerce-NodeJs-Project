@@ -17,7 +17,12 @@
   <!--  -->
   <% } %>
   <!--  -->
-  <button>Cancel order</button>
+  <button
+    id="cancelOrderId"
+    onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
+  >
+    cancel order
+  </button>
   <!--  -->
   <p>order total:<%= ordersArray[i].cartValue %></p>
   <p>order status:<%= ordersArray[i].status %></p>
@@ -59,3 +64,43 @@
 <% }else{%>
 <p>No orders made by you</p>
 <%}%>
+<!--  -->
+<script>
+  //
+
+  async function oneOrderCancelFunc(orderId) {
+    //
+    try {
+      const response = await fetch(
+        `${window.location.origin}/order/cancelOrderAsUser/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify(data),
+          //
+        }
+      );
+      //
+      const result = await response.json();
+      //
+      console.log(result, "result");
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+          //
+          if (oneMessage == "order cancelled") {
+            window.location.href = window.location.href;
+          }
+        }
+      }
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>
+<!--  -->
