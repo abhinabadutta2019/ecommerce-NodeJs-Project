@@ -20,6 +20,7 @@ const { browserUser } = require("../middleware/browserUser");
 ///////////cron-jobs to update-- order -- status//////////////
 
 const schedule = require("node-schedule");
+const { browserAdmin } = require("../middleware/browserAdmin");
 
 const rule = new schedule.RecurrenceRule();
 rule.second = 5;
@@ -253,7 +254,7 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
 
 //get one user orders -( as admin)
 
-router.get("/getOneUserOrders/:id", postmanAdmin, async (req, res) => {
+router.get("/getOneUserOrders/:id", browserAdmin, async (req, res) => {
   //
   const messageArray = [];
   //
@@ -261,12 +262,19 @@ router.get("/getOneUserOrders/:id", postmanAdmin, async (req, res) => {
     const paramsId = req.params.id;
     //
     const orders = await Order.find({ userId: paramsId });
-    console.log(orders, "orders");
+    // console.log(orders, "orders");
+
     //
     if (orders.length < 1) {
       messageArray.push("this user has no orders");
+
+      //hard coding an empty array, no orders( for frontend, no orders by this user in database )
+      const ordersArray = [];
       //
-      return res.json({ message: messageArray });
+      return res.render("adminOnly/oneUserOrders", {
+        message: messageArray,
+        ordersArray: ordersArray,
+      });
     }
     //if has orders
     const ordersArray = [];
@@ -285,11 +293,18 @@ router.get("/getOneUserOrders/:id", postmanAdmin, async (req, res) => {
       orderFuncValue.address = oneOrder.address;
       orderFuncValue.status = oneOrder.status;
       ordersArray.push(orderFuncValue);
+
+      //
+      // console.log(ordersArray, "ordersArray");
     }
     //
 
     //
-    res.json({ ordersArray: ordersArray });
+    res.render("adminOnly/oneUserOrders", { ordersArray: ordersArray });
+
+    //
+    // res.json({ ordersArray: ordersArray });
+    //
   } catch (err) {
     console.log(err);
     res.json(err);

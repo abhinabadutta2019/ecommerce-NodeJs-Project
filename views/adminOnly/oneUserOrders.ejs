@@ -1,0 +1,46 @@
+<%- include('../partials/adminHeader') %>
+
+<h3>One user orders -- Admin view</h3>
+<% if (ordersArray.length>0 ) { %>
+<!--  -->
+<% for( let i = 0; i < ordersArray.length; i++ ) { %>
+<!--  -->
+<div>
+  <!--  -->
+  <p>username: <%= ordersArray[i].cartOwnerUsername %></p>
+  <p>order value :<%= ordersArray[i].cartValue %></p>
+  <p>order status :<%= ordersArray[i].status %></p>
+  <p>order address :<%= ordersArray[i].address %></p>
+  <!--  -->
+  <% if (ordersArray[i].cartArray.length>0) { %>
+  <!--  -->
+  <% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
+  <!--  -->
+  <li>item name:<%=ordersArray[i].cartArray[j].title %></li>
+  <li>price:<%=ordersArray[i].cartArray[j].price %></li>
+  <li>quantity:<%=ordersArray[i].cartArray[j].quantity %></li>
+  <!--  -->
+  <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
+  <!--  -->
+  <img
+    src="<%= ordersArray[i].cartArray[j].imagePath %>"
+    alt="image"
+    width="200"
+    height="150"
+  />
+  <!--  -->
+  <% } %>
+  <!--  -->
+  <br />
+  <!--  -->
+  <% } %>
+  <!--  -->
+  <% } %>
+  <hr />
+</div>
+<!--  -->
+<% } %>
+<!--  -->
+<% }else{%>
+<p>No order by this user</p>
+<%}%>

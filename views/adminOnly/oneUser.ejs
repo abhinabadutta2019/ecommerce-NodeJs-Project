@@ -4,18 +4,32 @@
 
 <div>
   <li>username:<%= oneUser.username%></li>
-  <!--  -->
-  <button id="deleteUserId" onclick="deleteUserFunc('<%= oneUser._id%>')">
-    Delete user
-  </button>
+
   <!--  -->
   <button id="userCartId" onclick="userCartFunc('<%= oneUser._id%>')">
     view cart
+  </button>
+  <!--  -->
+  <button id="userOrderId" onclick="userOrderFunc('<%= oneUser._id%>')">
+    view user orders
+  </button>
+  <!--  -->
+  <button id="deleteUserId" onclick="deleteUserFunc('<%= oneUser._id%>')">
+    Delete user
   </button>
 </div>
 
 <!--  -->
 <script>
+  //
+  async function userOrderFunc(userId) {
+    //
+    try {
+      window.location.href = `${window.location.origin}/order/getOneUserOrders/${userId}`;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //
   async function userCartFunc(userId) {
     //
