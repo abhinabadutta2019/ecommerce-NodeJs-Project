@@ -4,7 +4,15 @@
 
 <% if (ordersArray.length>0) { %>
 <!--  -->
+<!--  -->
 <% for( let i = 0; i < ordersArray.length; i++ ) { %>
+<!--  -->
+<button
+  id="cancelOrderId"
+  onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
+>
+  cancel order
+</button>
 <!--  -->
 <p>orderd by:<%= ordersArray[i].cartOwnerUsername %></p>
 <p>order value:<%= ordersArray[i].cartValue %></p>
@@ -47,3 +55,43 @@
 <!--  -->
 <p>no order found</p>
 <%}%>
+
+<script>
+  //
+  async function oneOrderCancelFunc(orderId) {
+    try {
+      const response = await fetch(
+        `${window.location.origin}/order/cancelOrderAsAdmin/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          // body: JSON.stringify(data),
+        }
+      );
+      //
+      const result = await response.json();
+      //
+      console.log(result, "result");
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+          //
+          if (oneMessage == "order cancelled") {
+            window.location.href = window.location.href;
+          }
+        }
+      }
+
+      //
+
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>

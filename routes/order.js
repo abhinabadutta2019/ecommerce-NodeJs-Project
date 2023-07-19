@@ -541,22 +541,35 @@ router.get("/getMonthlyIncome", browserAdmin, async (req, res) => {
   }
 });
 //
-//delete order (as ADMIN)
+//delete order (as ADMIN)-- reputpuse for status change
 
-router.delete("/deleteOrder/:id", postmanAdmin, async (req, res) => {
+router.put("/cancelOrderAsAdmin/:id", browserAdmin, async (req, res) => {
   //
   try {
     const messageArray = [];
     //
-    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+    const cancelOrder = await Order.findById(req.params.id);
     //
-    if (!deletedOrder) {
+    console.log(cancelOrder, "cancelOrder");
+    //
+    if (!cancelOrder) {
       messageArray.push("order not found in database");
       return res.json({ message: messageArray });
+      //
+    } else if (cancelOrder.status == "cancelled") {
+      messageArray.push("order is already cancelled");
+      //
+      return res.json({ message: messageArray, cancelOrder: cancelOrder });
     }
     //
-    messageArray.push("order deleted");
-    res.json({ message: messageArray, deletedOrder: deletedOrder });
+    const updatedOrder = await Order.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { status: "cancelled" } },
+      { returnOriginal: false }
+    );
+    //
+    messageArray.push("order cancelled");
+    res.json({ message: messageArray, cancelOrder: updatedOrder });
   } catch (err) {
     console.log(err);
     res.json(err);
