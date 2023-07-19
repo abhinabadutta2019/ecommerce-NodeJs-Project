@@ -11,6 +11,14 @@
 
 <div>
   <!--  -->
+  <% if (ordersArray[i].status=="cancelled") { %>
+  <!--  -->
+  <h5>order cancelled your payment would be refunded to your account</h5>
+  <!--  -->
+  <% } %>
+  <!--  -->
+  <button>Cancel order</button>
+  <!--  -->
   <p>order total:<%= ordersArray[i].cartValue %></p>
   <p>order status:<%= ordersArray[i].status %></p>
   <p>deliverd address:<%= ordersArray[i].address %></p>
@@ -26,7 +34,7 @@
     <li>price:<%= ordersArray[i].cartArray[j].price %></li>
     <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
     <!--  -->
-    <% if (ordersArray[i].cartArray[j]!=null) { %>
+    <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
     <!--  -->
     <img
       src="<%= ordersArray[i].cartArray[j].imagePath %>"
@@ -43,6 +51,7 @@
   <!--  -->
   <% } %>
 </div>
+
 <hr />
 <% } %>
 

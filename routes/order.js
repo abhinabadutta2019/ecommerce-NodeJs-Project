@@ -479,35 +479,41 @@ router.get("/getMonthlyIncome", browserAdmin, async (req, res) => {
     //
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
-      //
-      // console.log(oneOrder, "oneOrder");
-      //
-      const orderCreated = oneOrder.createdAt.toString();
-      // console.log(orderCreated, "orderCreated");
-      //
-      const amountOfOrder = oneOrder.amount;
-      // console.log(amountOfOrder, "amountOfOrder");
 
       //
-      const splitOrderCreated = orderCreated.split(" ");
-      //
-      // console.log(splitOrderCreated, "splitOrderCreated");
-      //
-      // console.log(splitOrderCreated[1], splitOrderCreated[3]);
+      // console.log(oneOrder.status, "oneOrder.status");
 
-      const monthYearString = splitOrderCreated[1].concat(splitOrderCreated[3]);
-      //
-      console.log(monthYearString, "monthYearString");
-      //
-      if (!(monthYearString in incomeMonthlyObj)) {
-        incomeMonthlyObj[monthYearString] = amountOfOrder;
+      //ommit canncelled orders
+      if (oneOrder.status != "cancelled") {
+        //
+        const orderCreated = oneOrder.createdAt.toString();
+        // console.log(orderCreated, "orderCreated");
+        //
+        const amountOfOrder = oneOrder.amount;
+        // console.log(amountOfOrder, "amountOfOrder");
+
+        //
+        const splitOrderCreated = orderCreated.split(" ");
+        //
+        // console.log(splitOrderCreated, "splitOrderCreated");
+        //
+        // console.log(splitOrderCreated[1], splitOrderCreated[3]);
+
+        const monthYearString = splitOrderCreated[1].concat(
+          splitOrderCreated[3]
+        );
+        //
+        console.log(monthYearString, "monthYearString");
+        //
+        if (!(monthYearString in incomeMonthlyObj)) {
+          incomeMonthlyObj[monthYearString] = amountOfOrder;
+        }
+        //
+        else if (monthYearString in incomeMonthlyObj) {
+          incomeMonthlyObj[monthYearString] =
+            incomeMonthlyObj[monthYearString] + amountOfOrder;
+        }
       }
-      //
-      else if (monthYearString in incomeMonthlyObj) {
-        incomeMonthlyObj[monthYearString] =
-          incomeMonthlyObj[monthYearString] + amountOfOrder;
-      }
-
       //
       //
     }
