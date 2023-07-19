@@ -1,0 +1,48 @@
+<%- include('../partials/adminHeader') %>
+<!--  -->
+<h3>All orders</h3>
+<% if (ordersArray.length>0) { %>
+<!--  -->
+<% for( let i = 0; i < ordersArray.length; i++ ) { %>
+<!--  -->
+<p>orderd by:<%= ordersArray[i].cartOwnerUsername %></p>
+<p>order value:<%= ordersArray[i].cartValue %></p>
+<p>delivery address:<%= ordersArray[i].address %></p>
+<p>status:<%= ordersArray[i].status %></p>
+<p>orderd on:<%= ordersArray[i].createdAt %></p>
+<!--  -->
+<% if (ordersArray[i].cartArray.length>0) { %>
+<!--  -->
+<% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
+<!--  -->
+<li>item title:<%= ordersArray[i].cartArray[j].title %></li>
+<li>price:<%= ordersArray[i].cartArray[j].price %></li>
+<li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
+<!--  -->
+<% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
+<!--  -->
+<img
+  src="<%= ordersArray[i].cartArray[j].imagePath %>"
+  alt="image"
+  width="200"
+  height="150"
+/>
+<!--  -->
+<% } %>
+<!--  -->
+<br />
+<!--  -->
+<% } %>
+<!--  -->
+<!--  -->
+<!--  -->
+<% } %>
+<!--  -->
+<hr />
+<% } %>
+<!--  -->
+<!--  -->
+<% } else { %>
+<!--  -->
+<p>no order found</p>
+<%}%>

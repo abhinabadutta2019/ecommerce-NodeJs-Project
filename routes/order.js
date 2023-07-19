@@ -311,7 +311,7 @@ router.get("/getOneUserOrders/:id", browserAdmin, async (req, res) => {
   }
 });
 //
-router.get("/getAllOrders", postmanAdmin, async (req, res) => {
+router.get("/getAllOrders", browserAdmin, async (req, res) => {
   //
   try {
     //
@@ -319,11 +319,15 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
     //
     const orders = await Order.find({});
 
+    // console.log(orders, "orders");
+
     //
     if (orders.length < 1) {
-      messageArray.push("this user has no orders");
+      messageArray.push("no orders found");
+      //hard coding an empty array, no orders( for frontend, no orders by this user in database )
+      const ordersArray = [];
       //
-      return res.json({ message: messageArray });
+      return res.json({ message: messageArray, ordersArray: ordersArray });
     }
     //
     const ordersArray = [];
@@ -363,8 +367,9 @@ router.get("/getAllOrders", postmanAdmin, async (req, res) => {
     //
     // console.log(sortedOrdersArray, "sortedOrdersArray");
     //
-    res.json({ ordersArray: sortedOrdersArray });
+    // res.json({ ordersArray: sortedOrdersArray });
     //
+    res.render("adminOnly/allOrders.ejs", { ordersArray: sortedOrdersArray });
   } catch (err) {
     console.log(err);
     res.json(err);
