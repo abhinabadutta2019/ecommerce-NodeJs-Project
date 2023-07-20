@@ -7,12 +7,16 @@
 <!--  -->
 <% for( let i = 0; i < ordersArray.length; i++ ) { %>
 <!--  -->
+<% if (ordersArray[i].status!="cancelled") { %>
+<!--  -->
 <button
   id="cancelOrderId"
   onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
 >
   cancel order
 </button>
+<!--  -->
+<% } %>
 <!--  -->
 <p>orderd by:<%= ordersArray[i].cartOwnerUsername %></p>
 <p>order value:<%= ordersArray[i].cartValue %></p>
