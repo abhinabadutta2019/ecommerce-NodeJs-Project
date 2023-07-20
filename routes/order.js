@@ -5,6 +5,7 @@ const User = require("../models/User");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
+const Address = require("../models/Address");
 //
 const { postmanUser } = require("../middleware/postmanUser");
 //

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
+const Address = require("../models/Address");
 //
 const orderSchema = new mongoose.Schema(
   {
@@ -25,7 +26,12 @@ const orderSchema = new mongoose.Schema(
       },
     ],
     amount: { type: Number, required: true },
-    address: { type: String, required: true },
+    address: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+      required: true,
+    },
+    // address: { type: String, required: true },
     status: { type: String, default: "pending" },
   },
 
