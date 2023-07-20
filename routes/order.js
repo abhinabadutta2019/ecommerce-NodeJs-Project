@@ -298,9 +298,7 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
       //
       const c = Date.parse(a.createdAt);
       const d = Date.parse(b.createdAt);
-      //
-      // console.log(c, "c");
-      // console.log(d, "d");
+
       //
       return d - c;
     });
