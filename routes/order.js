@@ -307,7 +307,10 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
         return d - c;
       });
       //
-      return res.render("order", { user: user, ordersArray: ordersArray });
+      return res.render("order", {
+        user: user,
+        ordersArray: sortedOrdersArray,
+      });
     }
 
     //

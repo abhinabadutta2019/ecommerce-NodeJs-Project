@@ -17,12 +17,18 @@
   <!--  -->
   <% } %>
   <!--  -->
+  <% if (ordersArray[i].status!="cancelled") { %>
+  <!--  -->
   <button
     id="cancelOrderId"
     onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
   >
     cancel order
   </button>
+  <!--  -->
+  <% } %>
+  <!--  -->
+
   <!--  -->
   <p>order total:<%= ordersArray[i].cartValue %></p>
   <p>order status:<%= ordersArray[i].status %></p>
