@@ -77,7 +77,7 @@ const job = schedule.scheduleJob(rule, async function () {
 ///////////////////////////////////////////////////////
 //---/order
 //create
-router.post("/createOrder", postmanUser, async (req, res) => {
+router.post("/createOrder", browserUser, async (req, res) => {
   //
   try {
     //
@@ -105,21 +105,6 @@ router.post("/createOrder", postmanUser, async (req, res) => {
     }
 
     //
-    // const update
-    //
-    const pushAddressToUser = await User.findOneAndUpdate(
-      { _id: user._id },
-      { $push: { address: [address] } },
-      { returnOriginal: false }
-    );
-    //
-    if (pushAddressToUser) {
-      //
-      messageArray.push("address added to user");
-    }
-    //
-
-    ////////////////////////////////
     const cartUserId = cart.userId;
     //
     // console.log(cartUserId, "cartUserId");
