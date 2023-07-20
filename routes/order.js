@@ -294,16 +294,24 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
 
     //
     // sorted by latest to- oldest date
-    const sortedOrdersArray = ordersArray.sort(function (a, b) {
-      //
-      const c = Date.parse(a.createdAt);
-      const d = Date.parse(b.createdAt);
-
-      //
-      return d - c;
-    });
     //
-    res.render("order", { user: user, ordersArray: sortedOrdersArray });
+    if (ordersArray.length > 1) {
+      //
+      // sorted by latest to- oldest date
+      const sortedOrdersArray = ordersArray.sort(function (a, b) {
+        //
+        const c = Date.parse(a.createdAt);
+        const d = Date.parse(b.createdAt);
+
+        //
+        return d - c;
+      });
+      //
+      return res.render("order", { user: user, ordersArray: ordersArray });
+    }
+
+    //
+    res.render("order", { user: user, ordersArray: ordersArray });
     //
   } catch (err) {
     console.log(err);
@@ -413,22 +421,38 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
     }
 
     // sorted by latest to- oldest date
-    const sortedOrdersArray = ordersArray.sort(function (a, b) {
-      //
-      const c = Date.parse(a.createdAt);
-      const d = Date.parse(b.createdAt);
-      //
-      // console.log(c, "c");
-      // console.log(d, "d");
-      //
-      return d - c;
-    });
+    // const sortedOrdersArray = ordersArray.sort(function (a, b) {
+    //   //
+    //   const c = Date.parse(a.createdAt);
+    //   const d = Date.parse(b.createdAt);
+    //   //
+    //   // console.log(c, "c");
+    //   // console.log(d, "d");
+    //   //
+    //   return d - c;
+    // });
     //
+    if (ordersArray.length > 1) {
+      //
+      // sorted by latest to- oldest date
+      const sortedOrdersArray = ordersArray.sort(function (a, b) {
+        //
+        const c = Date.parse(a.createdAt);
+        const d = Date.parse(b.createdAt);
+
+        //
+        return d - c;
+      });
+      //
+      return res.render("adminOnly/allOrders.ejs", {
+        ordersArray: sortedOrdersArray,
+      });
+    }
     // console.log(sortedOrdersArray, "sortedOrdersArray");
     //
     // res.json({ ordersArray: sortedOrdersArray });
     //
-    res.render("adminOnly/allOrders.ejs", { ordersArray: sortedOrdersArray });
+    res.render("adminOnly/allOrders.ejs", { ordersArray: ordersArray });
   } catch (err) {
     console.log(err);
     res.json(err);
