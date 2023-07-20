@@ -262,9 +262,11 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
 
+      // console.log(oneOrder, "oneOrder");
+
       //
       const orderPopulate = await Order.populate(oneOrder, {
-        path: " userId products.productId ",
+        path: " userId products.productId address",
       });
       //
       // console.log(orderPopulate, "orderPopulate");
@@ -274,9 +276,12 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
 
       //
 
+      //
+
       //adding values
       orderFuncValue._id = orderPopulate._id;
-      orderFuncValue.address = orderPopulate.address;
+      //updated for address
+      orderFuncValue.address = orderPopulate.address.address;
       orderFuncValue.status = orderPopulate.status;
       ordersArray.push(orderFuncValue);
     }
