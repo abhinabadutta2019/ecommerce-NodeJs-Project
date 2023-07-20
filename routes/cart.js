@@ -85,7 +85,7 @@ router.get("/createCart", browserUser, async (req, res) => {
     });
 
     //
-    console.log(cartPopulate, "cartPopulate");
+    // console.log(cartPopulate, "cartPopulate");
 
     //calling the function -- cartProductDetails()
     const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
@@ -94,8 +94,27 @@ router.get("/createCart", browserUser, async (req, res) => {
 
     //
     // console.log(cartFuncValue, "cartFuncValue");
+    ////////////////////////////////////////////////////////
     //
+    const cartUserId = cartPopulate.userId._id;
 
+    //
+    // console.log(cartUserId, "cartUserId");
+    const allAddress = await Address.find({});
+
+    //
+    let addressArray = [];
+    //
+    for (let i = 0; i < allAddress.length; i++) {
+      const oneAddress = allAddress[i];
+      //
+      if (oneAddress.userId.toString() == cartUserId.toString()) {
+        //
+        addressArray.push(oneAddress);
+      }
+    }
+    //
+    console.log(addressArray, "addressArray");
     //
     //
     messageArray.push("cart has products");
@@ -107,6 +126,7 @@ router.get("/createCart", browserUser, async (req, res) => {
       username: cartFuncValue.cartOwnerUsername,
       // ownerId: cartFuncValue.cartOwnerUserId,
       cart: cartFuncValue.cartArray,
+      addressArray: addressArray,
     });
     //
     // return res.json({
