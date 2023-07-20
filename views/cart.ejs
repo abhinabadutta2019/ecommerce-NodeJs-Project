@@ -19,18 +19,30 @@
 <!--  -->
 <% if (addressArray.length>0) { %>
 <!--  -->
+<p>Select address from dropdown</p>
 <!--  -->
-<% for( let k = 0; k < addressArray.length; k++ ) { %>
-<!--  -->
-<p>address location:<%= addressArray[k].address %></p>
-<!--  -->
-<% } %>
+<!-- for dropdown -->
+<select id="addressSelect">
+  <!--  -->
+  <% for( let k = 0; k < addressArray.length; k++ ) { %>
+  <!--  -->
+  <option value="<%= addressArray[k].address %>">
+    <!--  -->
+    <%= addressArray[k].address %>
+    <!--  -->
+  </option>
+  <!--  -->
+  <% } %>
+  <!--  -->
+</select>
 
 <!--  -->
 <% } else{%>
 <p>No previous address saved, fill address and order</p>
 <%}%>
 <!--  -->
+<br />
+<br />
 <label for="address">Order address</label>
 <br />
 <input type="text" id="orderAddress" required />
