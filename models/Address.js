@@ -8,14 +8,10 @@ const addressSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  addressDetail: [
-    {
-      location: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  address: {
+    type: String,
+    required: true,
+  },
 });
 
 const Address = mongoose.model("Address", addressSchema);

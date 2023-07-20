@@ -78,7 +78,7 @@ const job = schedule.scheduleJob(rule, async function () {
 ///////////////////////////////////////////////////////
 //---/order
 //create
-router.post("/createOrder", browserUser, async (req, res) => {
+router.post("/createOrder", postmanUser, async (req, res) => {
   //
   try {
     //
@@ -104,6 +104,18 @@ router.post("/createOrder", browserUser, async (req, res) => {
       //
       return res.json({ message: messageArray });
     }
+    ///////////for address//////////////////
+
+    const newAddress = new Address({
+      userId: user._id,
+      address: address,
+    });
+    //
+    const addressSaved = await newAddress.save();
+    //
+    const savedAddressId = addressSaved._id;
+
+    /////////////////////////////////////////////////
 
     //
     const cartUserId = cart.userId;
@@ -143,7 +155,7 @@ router.post("/createOrder", browserUser, async (req, res) => {
       userId: cartUserId,
       products: cartProdArray,
       amount: totalAmt,
-      address: address,
+      address: savedAddressId,
     });
     //
     const order = await newOrder.save();

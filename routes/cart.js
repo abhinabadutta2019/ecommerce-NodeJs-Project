@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
+const Address = require("../models/Address");
 //
 const { postmanUser } = require("../middleware/postmanUser");
 //
@@ -84,13 +85,17 @@ router.get("/createCart", browserUser, async (req, res) => {
     });
 
     //
-    // console.log(cartPopulate, "cartPopulate");
+    console.log(cartPopulate, "cartPopulate");
 
     //calling the function -- cartProductDetails()
     const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
 
     //
+
+    //
     // console.log(cartFuncValue, "cartFuncValue");
+    //
+
     //
     //
     messageArray.push("cart has products");
