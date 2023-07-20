@@ -278,18 +278,34 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
 
       //
 
-      //adding values
+      //adding values to orderFuncValue-- object
       orderFuncValue._id = orderPopulate._id;
       //updated for address
       orderFuncValue.address = orderPopulate.address.address;
       orderFuncValue.status = orderPopulate.status;
+      //pushing orderFuncValue object to --- ordersArray
+      //
+      orderFuncValue.createdAt = orderPopulate.createdAt; //created at
       ordersArray.push(orderFuncValue);
     }
     // console.log(ordersArray, "ordersArray");
     //
     // res.json({ user: user, ordersArray: ordersArray });
+
     //
-    res.render("order", { user: user, ordersArray: ordersArray });
+    // sorted by latest to- oldest date
+    const sortedOrdersArray = ordersArray.sort(function (a, b) {
+      //
+      const c = Date.parse(a.createdAt);
+      const d = Date.parse(b.createdAt);
+      //
+      // console.log(c, "c");
+      // console.log(d, "d");
+      //
+      return d - c;
+    });
+    //
+    res.render("order", { user: user, ordersArray: sortedOrdersArray });
     //
   } catch (err) {
     console.log(err);
@@ -382,7 +398,7 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
       //
       //
       const orderPopulate = await Order.populate(oneOrder, {
-        path: " userId products.productId ",
+        path: " userId products.productId address",
       });
       //
       // console.log(orderPopulate, "orderPopulate");
@@ -391,7 +407,7 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
       //
 
       //adding values
-      orderFuncValue.address = orderPopulate.address;
+      orderFuncValue.address = orderPopulate.address.address; //address string
       orderFuncValue.status = orderPopulate.status;
       orderFuncValue._id = orderPopulate._id;
       orderFuncValue.createdAt = orderPopulate.createdAt; //created at
