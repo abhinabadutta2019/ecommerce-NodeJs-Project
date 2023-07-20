@@ -17,6 +17,20 @@
 <!--  -->
 <% if (cart.length>0) { %>
 <!--  -->
+<% if (addressArray.length>0) { %>
+<!--  -->
+<!--  -->
+<% for( let k = 0; k < addressArray.length; k++ ) { %>
+<!--  -->
+<p>address location:<%= addressArray[k].address %></p>
+<!--  -->
+<% } %>
+
+<!--  -->
+<% } else{%>
+<p>No previous address saved, fill address and order</p>
+<%}%>
+<!--  -->
 <label for="address">Order address</label>
 <br />
 <input type="text" id="orderAddress" required />
@@ -31,6 +45,10 @@
 <br />
 <!--  -->
 <% if (cart.length>0) { %>
+
+<!--  -->
+
+<!--  -->
 <!--  -->
 <% for( let i = 0; i < cart.length; i++ ) { %>
 
