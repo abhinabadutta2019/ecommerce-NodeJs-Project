@@ -78,13 +78,13 @@ const job = schedule.scheduleJob(rule, async function () {
 ///////////////////////////////////////////////////////
 //---/order
 //create
-router.post("/createOrder", postmanUser, async (req, res) => {
+router.post("/createOrder", browserUser, async (req, res) => {
   //
   try {
     //
     const messageArray = [];
     //
-    const address = req.body.address;
+    const address = req.body.address || req.body.addressId;
     //
     console.log(address, "address");
     //
@@ -105,16 +105,36 @@ router.post("/createOrder", postmanUser, async (req, res) => {
       return res.json({ message: messageArray });
     }
     ///////////for address//////////////////
-
-    const newAddress = new Address({
-      userId: user._id,
-      address: address,
-    });
+    let savedAddressId;
+    if (req.body.address) {
+      const newAddress = new Address({
+        userId: user._id,
+        address: address,
+      });
+      //
+      const addressSaved = await newAddress.save();
+      //
+      savedAddressId = addressSaved._id;
+    }
     //
-    const addressSaved = await newAddress.save();
-    //
-    const savedAddressId = addressSaved._id;
+    else if (req.body.addressId) {
+      console.log(req.body.addressId, "req.body.addressId>>");
+      //
+      // const checkingId = mongoose.isValidObjectId(req.body.addressId);
 
+      //
+      const addressDetails = await Address.findOne({ _id: req.body.addressId });
+      //
+      if (!addressDetails) {
+        //
+        messageArray.push("address not found in array");
+        return res.json({ message: messageArray });
+      }
+
+      // console.log(addressDetails, "addressDetails");
+      //
+      savedAddressId = addressDetails._id;
+    }
     /////////////////////////////////////////////////
 
     //

@@ -26,15 +26,23 @@
   <!--  -->
   <% for( let k = 0; k < addressArray.length; k++ ) { %>
   <!--  -->
-  <option value="<%= addressArray[k].address %>">
+  <option
+    value="<%= addressArray[k].address %>"
+    id="<%= addressArray[k]._id %>"
+  >
     <!--  -->
     <%= addressArray[k].address %>
     <!--  -->
   </option>
   <!--  -->
+
   <% } %>
   <!--  -->
 </select>
+<br />
+<!--  -->
+<button onclick="finalizeAddressAndOrder()">Finalize address and order</button>
+<!--  -->
 
 <!--  -->
 <% } else{%>
@@ -94,6 +102,39 @@
 <%}%>
 <!--  -->
 <script>
+  //
+  //
+  async function finalizeAddressAndOrder() {
+    try {
+      const dropdown = document.getElementById("addressSelect");
+      const selectedOption = dropdown.options[dropdown.selectedIndex];
+      const selectedId = selectedOption.id;
+      //
+      console.log("Selected ID:", selectedId);
+
+      //
+      const data = { addressId: selectedId };
+      //
+      //
+      const response = await fetch(
+        `${window.location.origin}/order/createOrder`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      //
+      const result = await response.json();
+      console.log(result, "result");
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   //
   async function orderFunc() {
     //
