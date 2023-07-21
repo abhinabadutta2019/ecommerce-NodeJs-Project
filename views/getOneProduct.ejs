@@ -19,19 +19,13 @@
     <!--  -->
 
     <p>this item count in cart : <%= getCountInCart%></p>
-
-    <!--  -->
-    <% if ( product.productLeft > 0) { %>
-    <!--  -->
     <!--  -->
     <label for="count">mention count</label>
     <br />
     <input type="number" id="itemCountID" required />
+    <!--  -->
     <br />
     <!--  -->
-    <button id="addToCartId" onclick="addToCartButton('<%= product._id%>')">
-      add to cart
-    </button>
     <button
       id="removeFromCartId"
       onclick="removeFromCartFunc('<%= product._id%>')"
@@ -39,8 +33,19 @@
       remove from cart
     </button>
     <!--  -->
+    <% if ( product.productLeft > 0) { %>
+    <!--  -->
+    <!--  -->
+
+    <!--  -->
+    <button id="addToCartId" onclick="addToCartButton('<%= product._id%>')">
+      add to cart
+    </button>
+    <!--  -->
+
+    <!--  -->
     <% } else{%>
-    <p>cant buy, product ot of stock</p>
+    <p>cant buy, product out of stock</p>
     <%}%>
 
     <br />

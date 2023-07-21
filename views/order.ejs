@@ -46,6 +46,9 @@
     <li>price:<%= ordersArray[i].cartArray[j].price %></li>
     <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
     <!--  -->
+    <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
+    <!--  -->
+    <!--  -->
     <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
     <!--  -->
     <img
@@ -55,7 +58,18 @@
       height="150"
     />
     <!--  -->
+
     <% } %>
+    <!--  -->
+    <br />
+
+    <button
+      id="viewProdId"
+      onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
+    >
+      view product
+    </button>
+    <!--  -->
     <!--  -->
   </div>
   <br />
@@ -73,6 +87,15 @@
 <%}%>
 <!--  -->
 <script>
+  //
+  async function viewProdFunc(productId) {
+    //
+    try {
+      window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //
 
   async function oneOrderCancelFunc(orderId) {
