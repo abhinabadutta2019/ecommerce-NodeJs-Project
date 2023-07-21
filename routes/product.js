@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Product = require("../models/Product");
+const Cart = require("../models/Cart");
 //
 const { postmanUser } = require("../middleware/postmanUser");
 //
@@ -55,10 +56,45 @@ router.get("/getOneProduct/:id", browserUser, async (req, res) => {
     if (!product) {
       return res.json({ message: "product not found in database" });
     }
+
+    //
+
+    const user = req.user;
+    // console.log(user, "user")
+    //
+    //- user._id
+
+    const userCart = await Cart.findOne({ userId: user._id });
+    //
+    // console.log(userCart, "userCart");
+    const userCartProds = userCart.products;
+    //
+    // console.log(userCartProds, "userCartProds");
+
+    //
+    let getCountInCart = 0;
+
+    //
+    userCartProds.forEach((oneItem) => {
+      // console.log(oneItem, "oneItem");
+      if (oneItem.productId == req.params.id) {
+        //
+        getCountInCart = getCountInCart + oneItem.quantity;
+      }
+
+      // return getCountInCart;
+    });
+
+    //
+    console.log(getCountInCart, "getCountInCart");
+
     //
     // res.json({ product: product });
     //
-    res.render("getOneProduct", { product: product });
+    res.render("getOneProduct", {
+      product: product,
+      getCountInCart: getCountInCart,
+    });
   } catch (err) {
     console.log(err);
     res.json(err);
