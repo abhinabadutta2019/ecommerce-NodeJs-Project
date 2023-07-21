@@ -11,13 +11,24 @@
 <h3>Own Details</h3>
 
 <div>
-  <p>username:<%= user.username %></p>
-  <!-- if user is admin -->
-  <% if (user.isAdmin==true) { %>
-  <p>admin:<%= user.isAdmin %></p>
-  <% } %>
-  <!-- update password -->
+  <!--  -->
+  <div>
+    <!--  -->
+    <% if (user.imagePath!=null) { %>
+    <img src="<%= user.imagePath %>" alt="image" width="200" height="200" />
+    <% } %>
+  </div>
 
+  <!--  -->
+  <div>
+    <p>username:<%= user.username %></p>
+    <!-- if user is admin -->
+    <% if (user.isAdmin==true) { %>
+    <p>admin:<%= user.isAdmin %></p>
+    <% } %>
+  </div>
+  <!-- update password -->
+  <hr />
   <div>
     <p>update password</p>
     <label for="password">Password</label>
@@ -25,10 +36,66 @@
     <!-- form Button -->
     <button id="updatePassButton" onclick="updatePassFunc()">Submit</button>
   </div>
+  <br />
+  <hr />
+  <!-- update profile image -->
+  <form action="#">
+    <!--  -->
+    <label for="imageUpload">Image</label>
+    <input type="file" id="profileImageId" name="file" />
+    <!--  -->
+  </form>
+  <button id="updateProfileImage" onclick="updateImgFunc()">
+    update image
+  </button>
+  <!--  -->
+  <!--  -->
   <!--  -->
 </div>
 <!--  -->
 <script>
+  //
+  async function updateImgFunc() {
+    //
+    try {
+      const imageUpload = document.getElementById("profileImageId");
+      //this line was important - to upload image from browser
+      const imageFile = imageUpload.files[0];
+      //
+      let data = new FormData();
+      //
+      data.append("file", imageFile);
+      //
+      const response = await fetch(
+        `${window.location.origin}/user/updateUserPic`,
+        {
+          method: "PUT",
+
+          body: data,
+        }
+      );
+      //
+      const result = await response.json();
+      //
+      console.log(result, "result");
+      //
+      if (result.message) {
+        // console.log(result.message);
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+          //redirect
+          if (oneMessage == "image updated") {
+            window.location.href = window.location.href;
+          }
+        }
+      }
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  //
   async function updatePassFunc() {
     try {
       const password = document.getElementById("updatePassId").value;

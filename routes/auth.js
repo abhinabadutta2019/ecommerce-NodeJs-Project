@@ -42,6 +42,8 @@ router.get("/login", async (req, res) => {
 
 ////////////////////////////////////////////////////////////
 //create / regester- user
+//---photoPath: "/images/defaultImage.jpg"
+//
 router.post("/register", async (req, res) => {
   const messageArray = [];
 
@@ -61,8 +63,9 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       username: req.body.username,
       password: hashedValue,
+      imagePath: "/images/defaultImage.jpg",
       //
-      isAdmin: req.body.isAdmin,
+      // isAdmin: req.body.isAdmin,
     });
     //
     const user = await newUser.save();

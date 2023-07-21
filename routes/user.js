@@ -14,6 +14,10 @@ const { hashPass } = require("../helper/utlis");
 const { browserUser } = require("../middleware/browserUser");
 const { browserAdmin } = require("../middleware/browserAdmin");
 //
+const multer = require("../middleware/multer");
+const aws = require("../helper/s3");
+require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+//
 
 //---/user
 //for frontend
@@ -167,6 +171,58 @@ router.get("/getOneUser/:id", browserAdmin, async (req, res) => {
     res.json(err);
   }
 });
+//
+//update user imagepath
+
+router.put(
+  "/updateUserPic",
+  multer.single("file"),
+  browserUser,
+  async (req, res) => {
+    //
+    try {
+      //
+      const messageArray = [];
+
+      //
+      const user = req.user;
+      //
+      if (!user) {
+        messageArray.push("user not present");
+        return res.json(messageArray);
+      }
+      //
+      const file = req.file;
+      //
+      if (!file) {
+        messageArray.push("no file uploaded");
+        return res.json({ message: messageArray });
+      }
+      //
+      const uploadResponse = await aws.uploadFileToS3(file);
+      //
+      const updatedImage = await User.findByIdAndUpdate(
+        user._id,
+        {
+          $set: { imagePath: uploadResponse.Location },
+        },
+        { new: true }
+      );
+      //
+      if (!updatedImage) {
+        messageArray.push("image not updated");
+        return res.json({ message: messageArray });
+      }
+      //
+      messageArray.push("image updated");
+      res.json({ updatedImage: updatedImage, message: messageArray });
+      //
+    } catch (err) {
+      console.log(err);
+      res.json(err);
+    }
+  }
+);
 
 //
 module.exports = router;
