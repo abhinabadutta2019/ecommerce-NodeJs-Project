@@ -6,9 +6,77 @@
   <li>title:<%= product.title%></li>
   <li>price:<%= product.price%></li>
   <br />
+  <!--  -->
+  <br />
+  <!--  -->
   <% if (product.imagePath != null) { %>
 
   <img src="<%= product.imagePath %>" alt="image" width="200" height="150" />
 
   <% } %>
+  <br />
+  <div>
+    <!--  -->
+
+    <label for="count">mention count</label>
+    <br />
+    <input type="number" id="itemCountID" required />
+    <br />
+    <button id="addToCartId" onclick="addToCartButton('<%= product._id%>')">
+      add to cart
+    </button>
+    <button
+      id="removeFromCartId"
+      onclick="removeFromCartFunc('<%= product._id%>')"
+    >
+      remove from cart
+    </button>
+    <br />
+  </div>
 </div>
+
+<script>
+  //
+  async function removeFromCartFunc(productId) {
+    //
+    try {
+      const response = await fetch(
+        `${window.location.origin}/cart/removeFromCart/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify(data),
+        }
+      );
+      //
+      //
+      const result = await response.json();
+      console.log(result, "result");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //
+  //
+  async function addToCartButton(productId) {
+    //
+
+    const response = await fetch(
+      `${window.location.origin}/cart/addToCart/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      }
+    );
+
+    //
+    const result = await response.json();
+
+    console.log(result, "result");
+  }
+</script>
