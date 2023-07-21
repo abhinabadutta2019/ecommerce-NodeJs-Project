@@ -95,6 +95,10 @@
   remove from cart
 </button>
 <!--  -->
+<button id="viewProdId" onclick="viewProdFunc('<%= cart[i]._id%>')">
+  view product
+</button>
+<!--  -->
 <% } %>
 <!--  -->
 <% }else{%>
@@ -103,6 +107,14 @@
 <!--  -->
 <script>
   //
+  async function viewProdFunc(productId) {
+    //
+    try {
+      window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //
   async function finalizeAddressAndOrder() {
     try {
