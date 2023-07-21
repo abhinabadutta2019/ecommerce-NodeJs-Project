@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/User");
+const Cart = require("../models/Cart");
+const Product = require("../models/Product");
+const Order = require("../models/Order");
+const Address = require("../models/Address");
 //
 const jwt = require("jsonwebtoken");
 //
@@ -111,7 +115,8 @@ router.put("/updatePassword", browserUser, async (req, res) => {
   }
 });
 
-//
+//delete user
+// also deletes all orders , and cart of that user
 router.delete("/deleteUser/:id", browserAdmin, async (req, res) => {
   //
   try {
@@ -124,8 +129,41 @@ router.delete("/deleteUser/:id", browserAdmin, async (req, res) => {
     //
 
     const userId = req.params.id;
+
+    //delete the cart of that user
+    // const deleteUserCart = await Cart.findOneAndDelete({ userId: userId });
+
+    // console.log(deleteUserCart, "deleteUserCart");
+    //
+    // if (!deleteUserCart) {
+    //   messageArray.push("cart not found");
+    // }
+    //
+    // const deleteOrder = await Order.deleteMany({
+    //   userId: userId,
+    // });
+    //
+    // console.log(deleteProducts, "deleteProducts");
+    //
+
+    // if (!deleteOrder) {
+    //   messageArray.push("Order unable to delete");
+    // }
+
+    //
+    const deleteAddress = await Address.deleteMany({
+      userId: userId,
+    });
+
+    if (!deleteAddress) {
+      messageArray.push("address unable to delete");
+    }
+
     // console.log(user, "user");
     const deletedUser = await User.findByIdAndDelete(userId);
+
+    //
+
     //
     //
     messageArray.push("user deleted");

@@ -402,26 +402,40 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
     //
     const ordersArray = [];
     //
+    console.log(orders.length, "orders.length");
+    //
     for (let i = 0; i < orders.length; i++) {
       const oneOrder = orders[i];
+      //
+
       //
       //
       const orderPopulate = await Order.populate(oneOrder, {
         path: " userId products.productId address",
       });
-      //
-      // console.log(orderPopulate, "orderPopulate");
-      //
-      const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
-      //
 
-      //adding values
-      orderFuncValue.address = orderPopulate.address.address; //address string
-      orderFuncValue.status = orderPopulate.status;
-      orderFuncValue._id = orderPopulate._id;
-      orderFuncValue.createdAt = orderPopulate.createdAt; //created at
-      ordersArray.push(orderFuncValue);
+      ////if userId, address.. is not null
+      //
+      if (
+        orderPopulate.userId ||
+        orderPopulate.address ||
+        orderPopulate.products.productId
+      ) {
+        console.log(orderPopulate, "orderPopulate");
+        //
+        const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
+        //
+
+        //adding values
+        orderFuncValue.address = orderPopulate.address.address; //address string
+        orderFuncValue.status = orderPopulate.status;
+        orderFuncValue._id = orderPopulate._id;
+        orderFuncValue.createdAt = orderPopulate.createdAt; //created at
+        ordersArray.push(orderFuncValue);
+      }
     }
+
+    console.log(ordersArray.length, "ordersArray.length");
 
     // sorted by latest to- oldest date
     // const sortedOrdersArray = ordersArray.sort(function (a, b) {

@@ -530,6 +530,8 @@ router.get("/getAllUserCarts", browserAdmin, async (req, res) => {
     let filledCarts = [];
     //
 
+    console.log(carts.length, "carts.length");
+
     for (let i = 0; i < carts.length; i++) {
       const oneUserCart = carts[i];
       //
@@ -539,10 +541,13 @@ router.get("/getAllUserCarts", browserAdmin, async (req, res) => {
           path: " userId",
         });
 
-        // my func
-        const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
-        //
-        emptyCarts.push(cartNoProdFunc);
+        //if userId is not null
+        if (cartPopulating.userId) {
+          // my func
+          const cartNoProdFunc = await cartDetailsNoProd(cartPopulating);
+          //
+          emptyCarts.push(cartNoProdFunc);
+        }
       }
       //
       if (oneUserCart.products.length > 0) {
@@ -550,17 +555,23 @@ router.get("/getAllUserCarts", browserAdmin, async (req, res) => {
         const cartPopulate = await Cart.populate(oneUserCart, {
           path: " userId products.productId ",
         });
-        //
-        const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
-        //
-        // console.log(cartPopulate, "cartPopulate");
 
-        // console.log(cartFuncValue, "cartFuncValue");
+        //if userId, products.productId is not null
         //
-        filledCarts.push(cartFuncValue);
+        if (cartPopulate.userId || cartPopulate.products.productId) {
+          const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
+          //
+          // console.log(cartPopulate, "cartPopulate");
+
+          // console.log(cartFuncValue, "cartFuncValue");
+          //
+          filledCarts.push(cartFuncValue);
+        }
       }
     }
-
+    //
+    console.log(filledCarts.length, "filledCarts.length");
+    console.log(emptyCarts.length, "emptyCarts.length");
     //
     res.render("adminOnly/allUserCarts", {
       filledCarts: filledCarts,
