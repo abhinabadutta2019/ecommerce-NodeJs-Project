@@ -334,23 +334,28 @@ router.put(
 );
 
 //delete a product
-router.delete("/delete/:id", browserAdmin, async (req, res) => {
+router.put("/hide/:id", browserAdmin, async (req, res) => {
   //
   try {
     //
     // console.log(req.params.id, "req.params.id");
     //
-    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    // const deletedProduct = await Product.findByIdAndDelete(req.params.id);
     //
+    const hideProduct = await Product.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { productLeft: 0 } },
+      { returnOriginal: false }
+    );
 
-    if (!deletedProduct) {
+    if (!hideProduct) {
       //
       return res.json({
-        message: "this product not found in database to delete",
+        message: "this product not found in database to hide",
       });
     }
 
-    res.json({ message: "product deleted", deletedProduct: deletedProduct });
+    res.json({ message: "product hidden", deletedProduct: hideProduct });
     //
   } catch (err) {
     console.log(err);

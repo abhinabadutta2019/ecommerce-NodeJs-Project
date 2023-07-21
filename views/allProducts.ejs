@@ -39,6 +39,11 @@
   <% for( let i = 0; i < allProducts.length; i++ ) { %>
 
   <div>
+    <% if (!( allProducts[i].productLeft < 1)) { %>
+    <!--  -->
+
+    <!--  -->
+
     <li>title:<%= allProducts[i].title%></li>
     <li>price:<%= allProducts[i].price%></li>
     <!--  -->
@@ -87,6 +92,7 @@
   </div>
   <!--  -->
   <br />
+  <% } %>
   <!--  -->
   <% } %>
   <!--  -->
@@ -115,9 +121,9 @@
   async function deleteProductfunc(productId) {
     //
     const response = await fetch(
-      `${window.location.origin}/product/delete/${productId}`,
+      `${window.location.origin}/product/hide/${productId}`,
       {
-        method: "DELETE",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

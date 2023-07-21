@@ -131,24 +131,23 @@ router.delete("/deleteUser/:id", browserAdmin, async (req, res) => {
     const userId = req.params.id;
 
     //delete the cart of that user
-    // const deleteUserCart = await Cart.findOneAndDelete({ userId: userId });
+    const deleteUserCart = await Cart.findOneAndDelete({ userId: userId });
 
-    // console.log(deleteUserCart, "deleteUserCart");
-    //
-    // if (!deleteUserCart) {
-    //   messageArray.push("cart not found");
-    // }
-    //
-    // const deleteOrder = await Order.deleteMany({
-    //   userId: userId,
-    // });
-    //
-    // console.log(deleteProducts, "deleteProducts");
-    //
+    console.log(deleteUserCart, "deleteUserCart");
 
-    // if (!deleteOrder) {
-    //   messageArray.push("Order unable to delete");
-    // }
+    if (!deleteUserCart) {
+      messageArray.push("cart not found");
+    }
+
+    const deleteOrder = await Order.deleteMany({
+      userId: userId,
+    });
+
+    // console.log(deleteOrder, "deleteOrder");
+
+    if (!deleteOrder) {
+      messageArray.push("Order unable to delete");
+    }
 
     //
     const deleteAddress = await Address.deleteMany({
