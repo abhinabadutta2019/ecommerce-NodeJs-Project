@@ -191,6 +191,11 @@ router.put("/addToCart/:id", browserUser, async (req, res) => {
     // count(number) of product to add to cart
     const quantityToAdd = req.body.quantity || 1;
 
+    // console.log(req.body, "req.body");
+
+    //
+    // console.log(quantityToAdd, "quantityToAdd");
+
     //
     const product = await Product.findOne({ _id: req.params.id });
 
@@ -219,7 +224,7 @@ router.put("/addToCart/:id", browserUser, async (req, res) => {
       // oneCartProd.quantity + quantityToAdd
       const latestCountCanBe = oneCartProd.quantity + quantityToAdd;
       //
-      console.log(latestCountCanBe, "latestCountCanBe");
+      // console.log(latestCountCanBe, "latestCountCanBe");
       //
       if (oneCartProd.productId.toString() == product._id.toString()) {
         //
