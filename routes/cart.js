@@ -558,7 +558,10 @@ router.get("/getAllUserCarts", browserAdmin, async (req, res) => {
 
         //if userId, products.productId is not null
         //
-        if (cartPopulate.userId || cartPopulate.products.productId) {
+        if (
+          cartPopulate.userId
+          //|| cartPopulate.products.productId
+        ) {
           const cartFuncValue = await cartProductDetailsFunc(cartPopulate);
           //
           // console.log(cartPopulate, "cartPopulate");

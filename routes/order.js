@@ -418,8 +418,8 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
       //
       if (
         orderPopulate.userId ||
-        orderPopulate.address ||
-        orderPopulate.products.productId
+        orderPopulate.address
+        //|| orderPopulate.products.productId
       ) {
         console.log(orderPopulate, "orderPopulate");
         //
