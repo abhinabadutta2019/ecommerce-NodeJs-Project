@@ -1,12 +1,55 @@
 <%- include('../partials/userHeader') %>
-
-<ul>
-  <h3>
+<!--  -->
+<!--  -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!--  -->
+  <div class="container">
     <!--  -->
-    <li><a href="/user/getAllUser">all user details</a></li>
-    <li><a href="/product/createProduct">create product</a></li>
-    <li><a href="/cart/getAllUserCarts">all user carts</a></li>
-    <li><a href="/order/getAllorders">all orders</a></li>
-    <li><a href="/order/getMonthlyIncome">earning details</a></li>
-  </h3>
-</ul>
+    <a class="navbar-brand" href="/order/getAllorders"></a>
+    <!--  -->
+    <!--  -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!--  -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!--  -->
+      <ul class="nav navbar-nav px-5">
+        <!-- 1 -->
+        <li class="nav-item">
+          <!--  -->
+          <a class="nav-link" href="/user/getAllUser">all user details</a>
+        </li>
+        <!-- 2 -->
+        <li class="nav-item">
+          <a class="nav-link" href="/product/createProduct">create product</a>
+        </li>
+        <!-- 3 -->
+        <li class="nav-item">
+          <a class="nav-link" href="/cart/getAllUserCarts">all user carts</a>
+        </li>
+        <!-- 4 -->
+        <li class="nav-item">
+          <a class="nav-link" href="/order/getAllorders">all orders</a>
+        </li>
+        <!--  5-->
+        <li class="nav-item">
+          <a class="nav-link" href="/order/getMonthlyIncome">earning details</a>
+        </li>
+        <!--  -->
+      </ul>
+
+      <!--  -->
+    </div>
+    <!--  -->
+  </div>
+  <!--  -->
+</nav>
