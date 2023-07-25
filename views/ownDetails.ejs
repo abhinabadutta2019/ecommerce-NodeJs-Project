@@ -9,6 +9,10 @@
 <%}%>
 
 <h3>Own Details</h3>
+<!-- for alert -->
+<!-- Add the alertContainer div inside the body -->
+<div id="alertContainer"></div>
+<!--  -->
 
 <div>
   <!--  -->
@@ -51,9 +55,35 @@
   <!--  -->
   <!--  -->
   <!--  -->
+
+  <!--  -->
 </div>
 <!--  -->
 <script>
+  //
+  // Function to display a Bootstrap alert
+  // Function to display a Bootstrap alert with a close button
+  function showBootstrapAlert(message, alertType) {
+    const alertContainer = document.getElementById("alertContainer");
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add(
+      "alert",
+      `alert-${alertType}`,
+      "mt-2",
+      "alert-dismissible",
+      "fade",
+      "show"
+    );
+
+    // Add the close button
+    alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    ${message}
+  `;
+
+    alertContainer.appendChild(alertDiv);
+  }
+  //////////////////////////////
   //
   async function updateImgFunc() {
     //
@@ -83,6 +113,15 @@
         // console.log(result.message);
         for (let i = 0; i < result.message.length; i++) {
           const oneMessage = result.message[i];
+          //
+          // console.log(oneMessage, "oneMessage");
+          //alert
+          // alert(oneMessage);
+
+          //alert bootstrap
+          showBootstrapAlert(oneMessage, "primary");
+          //
+
           //redirect
           if (oneMessage == "image updated") {
             window.location.href = window.location.href;
@@ -120,6 +159,9 @@
         // console.log(result.message);
         for (let i = 0; i < result.message.length; i++) {
           const oneMessage = result.message[i];
+          //
+          //alert bootstrap
+          showBootstrapAlert(oneMessage, "primary");
           //
           if (oneMessage == "password updated") {
             window.location.href = `${window.location.origin}/auth/login`;
