@@ -223,6 +223,8 @@ router.post("/createOrder", browserUser, async (req, res) => {
       }
     }
     //
+
+    //
     res.json({ message: messageArray, order: order });
   } catch (err) {
     console.log(err);
@@ -310,11 +312,16 @@ router.get("/getYourOrders", browserUser, async (req, res) => {
       return res.render("order", {
         user: user,
         ordersArray: sortedOrdersArray,
+        message: messageArray,
       });
     }
 
     //
-    res.render("order", { user: user, ordersArray: ordersArray });
+    res.render("order", {
+      user: user,
+      ordersArray: ordersArray,
+      message: messageArray,
+    });
     //
   } catch (err) {
     console.log(err);

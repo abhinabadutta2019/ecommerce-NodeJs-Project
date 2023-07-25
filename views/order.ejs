@@ -87,6 +87,43 @@
 <%}%>
 <!--  -->
 <script>
+  ///////////////////////////////
+  // window.onload = async function () {
+  //   //
+  //   try {
+  //     //
+  //     const response = await fetch(
+  //       `${window.location.origin}/order/getYourOrders`
+  //     );
+  //     //
+  //     const result = await response.json();
+  //     //
+  //     console.log(result.message, "result");
+  //     //
+  //     // if (result.message) {
+  //     //   //
+  //     //   for (let i = 0; i < result.message.length; i++) {
+  //     //     const oneMessage = result.message[i];
+  //     //     //
+  //     //     // if (oneMessage == "order cancelled") {
+  //     //     //   window.location.href = window.location.href;
+  //     //     // }
+  //     //     // alert(oneMessage);
+  //     //     console.log(oneMessage);
+  //     //   }
+  //     // }
+
+  //     //
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   // alert("hi");
+  //   // for (let index = 0; index < message.length; index++) {
+  //   //   // const element = array[index];
+  //   //   console.log(message[index]);
+  //   // }
+  // };
+  ///////////////////////////////
   //
   async function viewProdFunc(productId) {
     //
@@ -121,6 +158,10 @@
         //
         for (let i = 0; i < result.message.length; i++) {
           const oneMessage = result.message[i];
+          //
+          // console.log();
+          //
+          alert(oneMessage);
           //
           if (oneMessage == "order cancelled") {
             window.location.href = window.location.href;
