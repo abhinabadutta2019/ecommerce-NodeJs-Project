@@ -6,6 +6,11 @@
       <!--  -->
       <h1 class="text-dark fw-bold text-center">🐸e-commerceApp Register</h1>
       <!--  -->
+      <!--  -->
+      <!-- for alert -->
+      <!-- Add the alertContainer div inside the body -->
+      <div id="alertContainer"></div>
+      <!--  -->
       <div class="bg-white shadow rounded p-3 input-group-lg">
         <form action="#">
           <!-- username -->
@@ -47,7 +52,6 @@
       <hr />
 
       <p class="text-dark text-center">Alredy registered? then login</p>
-      <p />
 
       <!--login page  button from register page -->
       <div class="mt-3 text-center">
@@ -62,6 +66,37 @@
 
 <!--  -->
 <script>
+  //
+  // Function to display a Bootstrap alert
+  // Function to display a Bootstrap alert with a close button
+  function showBootstrapAlert(message, alertType) {
+    const alertContainer = document.getElementById("alertContainer");
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add(
+      "alert",
+      `alert-${alertType}`,
+      "mt-2",
+      "alert-dismissible",
+      "fade",
+      "show"
+    );
+
+    // Add the close button
+    alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    ${message}
+  `;
+
+    alertContainer.appendChild(alertDiv);
+    //
+    //
+    // Automatically close the alert after 2 seconds
+    setTimeout(function () {
+      alertDiv.remove(); // Remove the alert from the DOM
+    }, 2000);
+  }
+  //
+  //
   //
   async function onButtontoLoginPage() {
     try {
@@ -98,13 +133,24 @@
       //
       console.log(result, "result");
       //
+      //alert
+      // await showBootstrapAlert(oneMessage, "primary");
+      //
       if (result.message) {
         // console.log(result.message);
         for (let i = 0; i < result.message.length; i++) {
           const oneMessage = result.message[i];
           //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //
           if (oneMessage == "registration success") {
-            window.location.href = `${window.location.origin}/product/getAllProducts`;
+            // window.location.href = `${window.location.origin}/product/getAllProducts`;
+            //
+            await setTimeout(() => {
+              //
+              window.location.href = `${window.location.origin}/product/getAllProducts`;
+            }, 2000);
           }
         }
       }
