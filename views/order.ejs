@@ -3,6 +3,11 @@
 <!--  -->
 
 <h3><%= user.username %> Order page</h3>
+<!--  -->
+<!-- for alert -->
+<!-- Add the alertContainer div inside the body -->
+<div id="alertContainer"></div>
+<!--  -->
 
 <% if (ordersArray.length>0) { %>
 <!--  -->
@@ -88,42 +93,29 @@
 <!--  -->
 <script>
   ///////////////////////////////
-  // window.onload = async function () {
-  //   //
-  //   try {
-  //     //
-  //     const response = await fetch(
-  //       `${window.location.origin}/order/getYourOrders`
-  //     );
-  //     //
-  //     const result = await response.json();
-  //     //
-  //     console.log(result.message, "result");
-  //     //
-  //     // if (result.message) {
-  //     //   //
-  //     //   for (let i = 0; i < result.message.length; i++) {
-  //     //     const oneMessage = result.message[i];
-  //     //     //
-  //     //     // if (oneMessage == "order cancelled") {
-  //     //     //   window.location.href = window.location.href;
-  //     //     // }
-  //     //     // alert(oneMessage);
-  //     //     console.log(oneMessage);
-  //     //   }
-  //     // }
+  // Function to display a Bootstrap alert
+  // Function to display a Bootstrap alert with a close button
+  function showBootstrapAlert(message, alertType) {
+    const alertContainer = document.getElementById("alertContainer");
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add(
+      "alert",
+      `alert-${alertType}`,
+      "mt-2",
+      "alert-dismissible",
+      "fade",
+      "show"
+    );
 
-  //     //
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   // alert("hi");
-  //   // for (let index = 0; index < message.length; index++) {
-  //   //   // const element = array[index];
-  //   //   console.log(message[index]);
-  //   // }
-  // };
-  ///////////////////////////////
+    // Add the close button
+    alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    ${message}
+  `;
+
+    alertContainer.appendChild(alertDiv);
+  }
+  /////////////////////////////////
   //
   async function viewProdFunc(productId) {
     //
@@ -162,7 +154,10 @@
           // console.log();
           //
           //
-          alert(oneMessage);
+          // alert(oneMessage);
+          //
+          //alert bootstrap
+          showBootstrapAlert(oneMessage, "primary");
           //
           if (oneMessage == "order cancelled") {
             window.location.href = window.location.href;
