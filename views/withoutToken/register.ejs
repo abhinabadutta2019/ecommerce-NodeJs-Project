@@ -1,21 +1,75 @@
 <%- include('../partials/headerWithoutNav') %>
 
-<h2>Register</h2>
-<form action="#">
-  <!-- username -->
-  <label for="username">Username</label>
-  <input type="text" id="registerUsername" required />
-  <br />
-  <!-- password -->
-  <label for="password">Password</label>
-  <input type="password" id="registerPassword" required />
-</form>
-<!--  -->
-<!-- form Button -->
-<button id="registerButton" onclick="onRegisterButton()">Submit</button>
+<div class="container mt-5 pt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 width:100%">
+      <!--  -->
+      <h1 class="text-dark fw-bold text-center">🐸e-commerceApp Register</h1>
+      <!--  -->
+      <div class="bg-white shadow rounded p-3 input-group-lg">
+        <form action="#">
+          <!-- username -->
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="registerUsername"
+              required
+            />
+          </div>
+          <!-- password -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="registerPassword"
+              required
+            />
+          </div>
+          <!--  -->
+        </form>
+
+        <!--form ends  -->
+      </div>
+      <!-- form Button -->
+      <div class="mt-3">
+        <button
+          class="btn btn-success w-100"
+          id="registerButton"
+          onclick="onRegisterButton()"
+        >
+          Submit
+        </button>
+      </div>
+      <!-- form submit button ends-->
+      <hr />
+
+      <p class="text-dark text-center">Alredy registered? then login</p>
+      <p />
+
+      <!--login page  button from register page -->
+      <div class="mt-3 text-center">
+        <button class="btn btn-info w-50" onclick="onButtontoLoginPage()">
+          Login
+        </button>
+      </div>
+      <!--  -->
+    </div>
+  </div>
+</div>
 
 <!--  -->
 <script>
+  //
+  async function onButtontoLoginPage() {
+    try {
+      window.location.href = `${window.location.origin}/auth/login`;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //
 
   //
