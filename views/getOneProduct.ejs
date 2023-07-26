@@ -118,10 +118,8 @@
         for (let i = 0; i < result.message.length; i++) {
           const oneMessage = result.message[i];
           //
-          // console.log(oneMessage, "oneMessage");
+
           //alert
-          // alert(oneMessage);
-          //
           await showBootstrapAlert(oneMessage, "primary");
 
           // redirect
@@ -129,13 +127,6 @@
             //
             window.location.href = window.location.href;
           }, 2000);
-
-          //
-
-          //redirect
-          // if (oneMessage == "image updated") {
-          //   window.location.href = window.location.href;
-          // }
         }
         //
       }
@@ -170,27 +161,15 @@
       //
       for (let i = 0; i < result.message.length; i++) {
         const oneMessage = result.message[i];
-        //
-        // console.log(oneMessage, "oneMessage");
+
         //alert
-        // alert(oneMessage);
-        //
         await showBootstrapAlert(oneMessage, "primary");
 
-        //
-        // redirect
-
-        //
+        //redirect
         await setTimeout(() => {
           //
           window.location.href = window.location.href;
         }, 2000);
-        //
-
-        //redirect
-        // if (oneMessage == "image updated") {
-        //   window.location.href = window.location.href;
-        // }
       }
       //
     }
