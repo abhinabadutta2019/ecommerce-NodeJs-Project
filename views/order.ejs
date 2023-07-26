@@ -158,11 +158,15 @@
 
           // alert(oneMessage);
           //
-          //alert bootstrap
-          showBootstrapAlert(oneMessage, "primary");
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
           //
           if (oneMessage == "order cancelled") {
-            window.location.href = window.location.href;
+            // window.location.href = window.location.href;
+            await setTimeout(() => {
+              //
+              window.location.href = window.location.href;
+            }, 2000);
           }
         }
       }

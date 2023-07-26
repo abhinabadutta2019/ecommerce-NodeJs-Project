@@ -119,18 +119,18 @@
         // console.log(result.message);
         for (let i = 0; i < result.message.length; i++) {
           const oneMessage = result.message[i];
-          //
-          // console.log(oneMessage, "oneMessage");
-          //alert
-          // alert(oneMessage);
-          //
-          showBootstrapAlert(oneMessage, "primary");
 
-          //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
 
           //redirect
           if (oneMessage == "image updated") {
-            window.location.href = window.location.href;
+            // window.location.href = window.location.href;
+            // redirect
+            await setTimeout(() => {
+              //
+              window.location.href = window.location.href;
+            }, 2000);
           }
         }
       }
@@ -167,10 +167,16 @@
           const oneMessage = result.message[i];
           //
           //alert bootstrap
-          showBootstrapAlert(oneMessage, "primary");
+          await showBootstrapAlert(oneMessage, "primary");
           //
           if (oneMessage == "password updated") {
-            window.location.href = `${window.location.origin}/auth/login`;
+            // window.location.href = `${window.location.origin}/auth/login`;
+            //
+            // redirect
+            await setTimeout(() => {
+              //
+              window.location.href = `${window.location.origin}/auth/login`;
+            }, 2000);
           }
         }
       }

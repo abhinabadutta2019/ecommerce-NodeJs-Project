@@ -3,6 +3,11 @@
 <!--  -->
 <h3><%= username %> Cart</h3>
 <!--  -->
+<!--  -->
+<!-- for alert -->
+<!-- Add the alertContainer div inside the body -->
+<div id="alertContainer"></div>
+<!--  -->
 
 <% if (cart.length>0) { %>
 <!--  -->
@@ -107,6 +112,37 @@
 <!--  -->
 <script>
   //
+  // Function to display a Bootstrap alert
+  // Function to display a Bootstrap alert with a close button
+  function showBootstrapAlert(message, alertType) {
+    const alertContainer = document.getElementById("alertContainer");
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add(
+      "alert",
+      `alert-${alertType}`,
+      "mt-2",
+      "alert-dismissible",
+      "fade",
+      "show"
+    );
+
+    // Add the close button
+    alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    ${message}
+  `;
+
+    alertContainer.appendChild(alertDiv);
+    //
+    //
+    // Automatically close the alert after 2 seconds
+    setTimeout(function () {
+      alertDiv.remove(); // Remove the alert from the DOM
+    }, 2000);
+  }
+
+  //
+  //
   async function viewProdFunc(productId) {
     //
     try {
@@ -142,6 +178,28 @@
       const result = await response.json();
       console.log(result, "result");
       //
+      //"new order created"
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          // alert(oneMessage);
+          //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //
+          if (oneMessage == "new order created") {
+            // window.location.href = window.location.href;
+            await setTimeout(() => {
+              //
+              window.location.href = `${window.location.origin}/order/getYourOrders`;
+            }, 2000);
+          }
+        }
+      }
+      //
     } catch (err) {
       console.log(err);
     }
@@ -169,6 +227,29 @@
       //
       const result = await response.json();
       console.log(result, "result");
+      //
+      //
+      //"new order created"
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          // alert(oneMessage);
+          //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //
+          if (oneMessage == "new order created") {
+            // window.location.href = window.location.href;
+            await setTimeout(() => {
+              //
+              window.location.href = `${window.location.origin}/order/getYourOrders`;
+            }, 2000);
+          }
+        }
+      }
     } catch (err) {
       console.log(err);
     }
@@ -189,6 +270,27 @@
       //
       const result = await response.json();
       console.log(result, "result");
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          // alert(oneMessage);
+          //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //
+          if (oneMessage == "all products removed from cart") {
+            // window.location.href = window.location.href;
+            await setTimeout(() => {
+              //
+              window.location.href = window.location.href;
+            }, 2000);
+          }
+        }
+      }
+      //
     } catch (err) {
       console.log(err);
     }
@@ -211,6 +313,23 @@
 
       const result = await response.json();
       console.log(result, "result");
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //
+
+          await setTimeout(() => {
+            //
+            window.location.href = window.location.href;
+          }, 2000);
+        }
+      }
+      //
     } catch (err) {
       console.log(err);
     }
@@ -233,6 +352,23 @@
       //
       const result = await response.json();
       console.log(result, "result");
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //
+
+          await setTimeout(() => {
+            //
+            window.location.href = window.location.href;
+          }, 2000);
+        }
+      }
+      //
     } catch (err) {
       console.log(err);
     }

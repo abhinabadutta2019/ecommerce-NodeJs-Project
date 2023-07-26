@@ -379,6 +379,8 @@ router.put("/hide/:id", browserAdmin, async (req, res) => {
     // console.log(req.params.id, "req.params.id");
     //
     // const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+
+    const messageArray = [];
     //
     const hideProduct = await Product.findByIdAndUpdate(
       { _id: req.params.id },
@@ -388,12 +390,16 @@ router.put("/hide/:id", browserAdmin, async (req, res) => {
 
     if (!hideProduct) {
       //
+      messageArray.push("this product not found in database to hide");
+      //
       return res.json({
-        message: "this product not found in database to hide",
+        message: messageArray,
       });
     }
-
-    res.json({ message: "product hidden", deletedProduct: hideProduct });
+    //
+    messageArray.push("product hidden");
+    //
+    res.json({ message: messageArray, deletedProduct: hideProduct });
     //
   } catch (err) {
     console.log(err);
