@@ -82,6 +82,12 @@
   `;
 
     alertContainer.appendChild(alertDiv);
+    //
+    //
+    // Automatically close the alert after 2 seconds
+    setTimeout(function () {
+      alertDiv.remove(); // Remove the alert from the DOM
+    }, 2000);
   }
   //////////////////////////////
   //
@@ -117,9 +123,9 @@
           // console.log(oneMessage, "oneMessage");
           //alert
           // alert(oneMessage);
-
-          //alert bootstrap
+          //
           showBootstrapAlert(oneMessage, "primary");
+
           //
 
           //redirect
