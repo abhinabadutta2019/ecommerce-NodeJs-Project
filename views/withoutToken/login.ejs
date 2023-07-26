@@ -1,21 +1,82 @@
-<%- include('../partials/beforeLoginHeader') %>
-
-<h2>Login</h2>
-
-<form action="#">
-  <!-- Register -->
-  <label for="username">Username</label>
-  <input type="text" id="loginUsername" required />
-  <br />
-  <!-- password -->
-  <label for="password">Password</label>
-  <input type="password" id="loginPassword" required />
-</form>
-<!-- form Button -->
-<button id="loginButton" onclick="onLoginButton()">Submit</button>
+<%- include('../partials/headerWithoutNav') %>
 
 <!--  -->
+<!--  -->
+
+<div class="container mt-5 pt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 width:100%">
+      <!--  -->
+
+      <h1 class="text-dark fw-bold text-center">🦝e-commerceApp Login</h1>
+      <!--  -->
+      <div class="bg-white shadow rounded p-3 input-group-lg">
+        <!-- form -->
+        <form action="#">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="loginUsername"
+              required
+            />
+          </div>
+
+          <!-- password -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="loginPassword"
+              required
+            />
+          </div>
+        </form>
+      </div>
+
+      <div class="mt-3">
+        <!-- form Button -->
+
+        <button
+          class="btn btn-secondary w-100"
+          id="loginButton"
+          onclick="onLoginButton()"
+        >
+          Submit
+        </button>
+        <!-- register button -->
+        <hr />
+
+        <p class="text-dark text-center">
+          To login into the app, first register
+        </p>
+
+        <div class="text-center">
+          <button class="btn btn-dark w-50" onclick="toRegisterPage()">
+            Register
+          </button>
+        </div>
+        <!-- modal -------------------------------->
+
+        <!-- modal ends -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+
 <script>
+  //
+  async function toRegisterPage() {
+    try {
+      window.location.href = `${window.location.origin}/auth/register`;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   //
   async function onLoginButton() {
     //
