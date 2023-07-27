@@ -1,55 +1,142 @@
-<%- include('../partials/userHeader') %>
-<!--  -->
-<!--  -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!--  -->
-  <div class="container">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecommerce App</title>
     <!--  -->
-    <a class="navbar-brand" href="/order/getAllorders"></a>
-    <!--  -->
-    <!--  -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!--  -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <!--  -->
-      <ul class="nav navbar-nav px-5">
-        <!-- 1 -->
-        <li class="nav-item">
-          <!--  -->
-          <a class="nav-link" href="/user/getAllUser">all user details</a>
-        </li>
-        <!-- 2 -->
-        <li class="nav-item">
-          <a class="nav-link" href="/product/createProduct">create product</a>
-        </li>
-        <!-- 3 -->
-        <li class="nav-item">
-          <a class="nav-link" href="/cart/getAllUserCarts">all user carts</a>
-        </li>
-        <!-- 4 -->
-        <li class="nav-item">
-          <a class="nav-link" href="/order/getAllorders">all orders</a>
-        </li>
-        <!--  5-->
-        <li class="nav-item">
-          <a class="nav-link" href="/order/getMonthlyIncome">earning details</a>
-        </li>
-        <!--  -->
-      </ul>
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
 
-      <!--  -->
-    </div>
     <!--  -->
-  </div>
-  <!--  -->
-</nav>
+  </head>
+  <body>
+    <!--  -->
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container">
+        <!--  -->
+        <a class="navbar-brand px-5" href="/product/getAllProducts"
+          >🐸ecommerceApp</a
+        >
+        <!--  -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--  -->
+        <!--  -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <!--  -->
+          <ul class="nav navbar-nav px-5">
+            <!--  -->
+            <li class="nav-item">
+              <!--  -->
+              <a class="nav-link" href="/user/getOwnDetail">own details</a>
+              <!--  -->
+            </li>
+            <!--  -->
+            <li class="nav-item">
+              <!--  -->
+              <a class="nav-link" href="/product/getAllProducts"
+                >all products</a
+              >
+              <!--  -->
+            </li>
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <li class="nav-item">
+              <!--  -->
+              <a class="nav-link" href="/cart/createCart">view cart</a>
+              <!--  -->
+            </li>
+            <!--  -->
+            <!--  -->
+            <li class="nav-item">
+              <!--  -->
+              <a class="nav-link" href="/order/getYourOrders">view orders</a>
+              <!--  -->
+            </li>
+            <!--  -->
+            <!--  -->
+            <li class="nav-item">
+              <!--  -->
+              <a class="nav-link" href="/auth/logout">logout</a>
+              <!--  -->
+            </li>
+            <!--admin starts  -->
+            <!--  -->
+            <li class="nav-item dropdown">
+              <!--  -->
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Admin Only</a
+              >
+              <!--  -->
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <!--  -->
+                <a class="dropdown-item" href="/user/getAllUser"
+                  >all user details</a
+                >
+                <!--  -->
+                <a class="dropdown-item" href="/product/createProduct"
+                  >create product</a
+                >
+                <!--  -->
+                <!-- <div class="dropdown-divider"></div> -->
+                <!--  -->
+                <a class="dropdown-item" href="/cart/getAllUserCarts"
+                  >all user carts</a
+                >
+                <!--  -->
+                <a class="dropdown-item" href="/order/getAllorders"
+                  >all orders</a
+                >
+                <!--  -->
+                <a class="dropdown-item" href="/order/getMonthlyIncome"
+                  >earning details</a
+                >
+                <!--  -->
+              </div>
+              <!--  -->
+            </li>
+            <!--  -->
+
+            <!--  -->
+          </ul>
+          <!--  -->
+        </div>
+        <!--  -->
+      </div>
+    </nav>
+    <!--  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!--  -->
+  </body>
+</html>
