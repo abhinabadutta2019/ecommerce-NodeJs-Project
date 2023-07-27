@@ -99,7 +99,7 @@
                 <h5 class="card-title"><%= allProducts[i].title %></h5>
                 <p class="card-text">Price: $<%= allProducts[i].price %></p>
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-secondary"
                   onclick="viewProduct('<%= allProducts[i]._id %>')"
                 >
                   View Product
@@ -113,7 +113,7 @@
                 <% if (user.isAdmin == true) { %>
                 <!-- update -->
                 <button
-                  class="btn btn-warning"
+                  class="btn btn-secondary"
                   onclick="updateProductfunc('<%= allProducts[i]._id %>')"
                 >
                   Edit Product
