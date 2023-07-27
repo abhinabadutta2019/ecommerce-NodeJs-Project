@@ -2,6 +2,11 @@
 <!--  -->
 <h3>Update product</h3>
 <!--  -->
+<!-- for alert -->
+<!-- Add the alertContainer div inside the body -->
+<div id="alertContainer"></div>
+<!--  -->
+<!--  -->
 <h5>Update product details</h5>
 <form action="#">
   <!-- title -->
@@ -38,11 +43,44 @@
 
 <script>
   //
+  // Function to display a Bootstrap alert
+  // Function to display a Bootstrap alert with a close button
+  function showBootstrapAlert(message, alertType) {
+    const alertContainer = document.getElementById("alertContainer");
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add(
+      "alert",
+      `alert-${alertType}`,
+      "mt-2",
+      "alert-dismissible",
+      "fade",
+      "show"
+    );
+
+    // Add the close button
+    alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    ${message}
+  `;
+
+    alertContainer.appendChild(alertDiv);
+    //
+    //
+    // Automatically close the alert after 2 seconds
+    setTimeout(function () {
+      alertDiv.remove(); // Remove the alert from the DOM
+    }, 2000);
+  }
+  //
+  //
   const urlLocation = window.location.href;
   const urlLocationSplit = urlLocation.split("/");
 
   const urlId = urlLocationSplit[5];
   console.log(urlId, "urlId");
+
+  //
+
   //
   async function updateImgFunc() {
     //
@@ -67,6 +105,31 @@
       const result = await response.json();
       //
       console.log(result, "result");
+      //
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          //
+          //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //--- "new product created"
+          //
+          // if (oneMessage == "new product created") {
+          //   // window.location.href = window.location.href;
+          //   //
+          //   await setTimeout(() => {
+          //     //
+          //     window.location.href = window.location.href;
+          //   }, 2000);
+          // }
+          //
+        }
+      }
+      //
     } catch (err) {
       console.log(err);
     }
@@ -129,6 +192,29 @@
       const result = await response.json();
       //
       console.log(result, "result");
+      //
+      if (result.message) {
+        //
+        for (let i = 0; i < result.message.length; i++) {
+          const oneMessage = result.message[i];
+
+          //
+          //
+          //alert
+          await showBootstrapAlert(oneMessage, "primary");
+          //--- "new product created"
+          //
+          // if (oneMessage == "new product created") {
+          //   // window.location.href = window.location.href;
+          //   //
+          //   await setTimeout(() => {
+          //     //
+          //     window.location.href = window.location.href;
+          //   }, 2000);
+          // }
+          //
+        }
+      }
       //
     } catch (err) {
       console.log(err);

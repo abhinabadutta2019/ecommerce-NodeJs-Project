@@ -219,7 +219,7 @@ router.post(
   }
 );
 /////////////////////////////////
-// prettier-ignore
+
 //update all details (except imagepath)
 router.put("/update/:id", browserAdmin, async (req, res) => {
   //
@@ -235,84 +235,85 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
     }
 
     //
-   
 
     //
     // let updatedProduct;
     //categories
-    if (req.body.categories ) {
+    if (req.body.categories) {
       //
       const updatedCategories = await Product.findByIdAndUpdate(
         req.params.id,
         {
-          categories:req.body.categories,
+          categories: req.body.categories,
         },
         { new: true }
       );
       //
       if (updatedCategories) {
-        messageArray.push("categories updated")
+        messageArray.push("categories updated");
       }
     }
     //title
-    if (req.body.title ) {
+    if (req.body.title) {
       //
-     
+
       // return res.json({ message: messageArray });
       //
       const updatedTitle = await Product.findByIdAndUpdate(
         req.params.id,
         {
-          title:req.body.title,
+          title: req.body.title,
         },
         { new: true }
       );
 
       if (updatedTitle) {
-        messageArray.push("title updated")
+        messageArray.push("title updated");
       }
-
     }
     //
-    if (req.body.productLeft ) {
+    if (req.body.productLeft) {
       //
-     
+
       // return res.json({ message: messageArray });
       //
       const updatedProductLeft = await Product.findByIdAndUpdate(
         req.params.id,
         {
-          productLeft:req.body.productLeft,
+          productLeft: req.body.productLeft,
         },
         { new: true }
       );
 
+      //if no -data added to input fields
       if (updatedProductLeft) {
-        messageArray.push("productLeft updated")
+        messageArray.push("productLeft updated");
       }
-
     }
     //
-    if (req.body.price ) {
+    if (req.body.price) {
       //
-     
+
       // return res.json({ message: messageArray });
       //
       const updatedPrice = await Product.findByIdAndUpdate(
         req.params.id,
         {
-          price:req.body.price,
+          price: req.body.price,
         },
         { new: true }
       );
 
       if (updatedPrice) {
-        messageArray.push("productLeft updated")
+        messageArray.push("productLeft updated");
       }
-
     }
 
- 
+    //
+    if (messageArray.length < 1) {
+      //
+      messageArray.push("no ducument added in input fiedls ");
+    }
 
     res.json({ message: messageArray });
   } catch (err) {
