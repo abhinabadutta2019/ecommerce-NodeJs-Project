@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+  <% for (let i = 0; i < allProducts.length; i++) { %> <% if
+  (!(allProducts[i].productLeft < 1)) { %>
+  <div class="col-lg-6">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <% if (allProducts[i].imagePath != null) { %>
+          <img
+            src="<%= allProducts[i].imagePath %>"
+            alt="image"
+            class="img-fluid"
+          />
+          <% } %>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%= allProducts[i].title %></h5>
+            <p class="card-text">Price: <%= allProducts[i].price %></p>
+            <button
+              class="btn btn-primary"
+              onclick="viewProduct('<%= allProducts[i]._id %>')"
+            >
+              View Product
+            </button>
+            <button
+              class="btn btn-success"
+              onclick="addToCartButton('<%= allProducts[i]._id %>')"
+            >
+              Add to Cart
+            </button>
+            <% if (user.isAdmin == true) { %>
+            <!-- update -->
+            <button
+              class="btn btn-warning"
+              onclick="updateProductfunc('<%= allProducts[i]._id %>')"
+            >
+              Edit Product
+            </button>
+            <!-- delete -->
+            <button
+              class="btn btn-danger"
+              onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
+            >
+              Delete Product
+            </button>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+  </div>
+  <% } %> <% } %>
+</div>
