@@ -141,16 +141,18 @@ router.post(
 
       console.log(req.body, "req.body");
 
-      if (req.body.categories.length < 3) {
+      //
+      if (req.body.title.length < 3) {
+        messageArray.push("title is too small");
+        return res.json({ message: messageArray });
+      }
+      //
+      else if (req.body.categories.length < 3) {
         //
         messageArray.push("categories is too small");
         return res.json({ message: messageArray });
       }
       //
-      else if (req.body.title.length < 3) {
-        messageArray.push("title is too small");
-        return res.json({ message: messageArray });
-      }
 
       //
       const file = req.file;
@@ -201,11 +203,17 @@ router.post(
       });
     } catch (err) {
       //
+
       if (err.code == 11000) {
         messageArray.push("duplicate product title");
         return res.json({ message: messageArray });
+      } else if (err._message == "Product validation failed") {
+        //
+        messageArray.push("Product validation failed");
+        return res.json({ message: messageArray });
       }
       console.log(err);
+      // console.log(err._message, "err._message");
       res.json(err);
     }
   }
