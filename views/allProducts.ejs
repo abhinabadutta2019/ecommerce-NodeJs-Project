@@ -25,248 +25,253 @@
 
 <% if (allProducts.length>0) { %>
 <!--search  -->
-<div>
-  <label for="search">search</label>
-  <input type="text" id="searchId" required />
-  <!--  -->
-  <!-- form Button -->
-  <button id="searchButton" onclick="onSearchButton()">Submit</button>
+<div class="col-lg-12 text-center mt-3">
+  <label for="search"></label>
+  <input type="text" id="searchId" style="width: 500px" required />
+  <button id="searchButton" class="btn btn-success" onclick="onSearchButton()">
+    Search
+  </button>
 </div>
 <!-- show catagories -->
 <!--  -->
-<div>
-  <h4>product categories</h4>
-  <h4><a href="/product/productsByCategory/avengers">avengers</a></h4>
-  <h4>
-    <a href="/product/productsByCategory/lord of the rings"
-      >lord of the rings</a
+<div class="col-lg-12 mt-3 text-center">
+  <h4>Product Categories:</h4>
+  <div class="btn-group" role="group" aria-label="Product Categories">
+    <a
+      href="/product/productsByCategory/avengers"
+      class="btn btn-outline-success"
+      >Avengers</a
     >
-  </h4>
+    <a
+      href="/product/productsByCategory/lord%20of%20the%20rings"
+      class="btn btn-outline-success"
+      >Lord of the Rings</a
+    >
+    <!-- Add more categories as needed -->
+  </div>
 </div>
 <!--  -->
 
 <br />
 <!--  -->
 
-<!--  -->
+<!--  this line helping to give -2 cards in same line-->
 <div class="row justify-content-center">
-<!--  -->
-<!-- loop to show allProducts-->
-<% for( let i = 0; i < allProducts.length; i++ ) { %>
+  <!--  -->
+  <!-- loop to show allProducts-->
+  <% for( let i = 0; i < allProducts.length; i++ ) { %>
 
-<!-- if productLeft=0, dont show product   -->
-<% if (!( allProducts[i].productLeft < 1)) { %>
-<!--  -->
-<div class="col-lg-6">
-<!-- start -2-s -->
-<div class="card mb-3">
-  <!-- start -2-e -->
-  <!-- start -3-s -->
-  <div class="row g-0">
-    <!-- start -3-e -->
-    <!-- image starts here-->
-    <div class="col-md-4">
-      <% if (allProducts[i].imagePath != null) { %>
-      <img
-        src="<%= allProducts[i].imagePath %>"
-        alt="image"
-        class="img-fluid"
-      />
-      <% } %>
-    </div>
-    <!-- image ends here -->
-    <!-- card image ends -->
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><%= allProducts[i].title %></h5>
-        <p class="card-text">Price: <%= allProducts[i].price %></p>
-        <button
-          class="btn btn-primary"
-          onclick="viewProduct('<%= allProducts[i]._id %>')"
-        >
-          View Product
-        </button>
-        <button
-          class="btn btn-success"
-          onclick="addToCartButton('<%= allProducts[i]._id %>')"
-        >
-          Add to Cart
-        </button>
-        <% if (user.isAdmin == true) { %>
-        <!-- update -->
-        <button
-          class="btn btn-warning"
-          onclick="updateProductfunc('<%= allProducts[i]._id %>')"
-        >
-          Edit Product
-        </button>
-        <!-- delete -->
-        <button
-          class="btn btn-danger"
-          onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
-        >
-          Delete Product
-        </button>
-        <% } %>
-      </div>
-    </div>
-    <!--  -->
-    <!--  -->
+  <!-- if productLeft=0, dont show product   -->
+  <% if (!( allProducts[i].productLeft < 1)) { %>
+  <!--  -->
+  <div class="col-lg-6">
+    <!-- start -2-s -->
+    <div class="card mb-3">
+      <!-- start -2-e -->
+      <!-- start -3-s -->
+      <div class="row g-0">
+        <!-- start -3-e -->
+        <!-- image starts here-->
+        <div class="col-md-4">
+          <% if (allProducts[i].imagePath != null) { %>
+          <img
+            src="<%= allProducts[i].imagePath %>"
+            alt="image"
+            class="img-fluid"
+          />
+          <% } %>
+        </div>
+        <!-- image ends here -->
+        <!-- card image ends -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%= allProducts[i].title %></h5>
+            <p class="card-text">Price: $<%= allProducts[i].price %></p>
+            <button
+              class="btn btn-primary"
+              onclick="viewProduct('<%= allProducts[i]._id %>')"
+            >
+              View Product
+            </button>
+            <button
+              class="btn btn-success"
+              onclick="addToCartButton('<%= allProducts[i]._id %>')"
+            >
+              Add to Cart
+            </button>
+            <% if (user.isAdmin == true) { %>
+            <!-- update -->
+            <button
+              class="btn btn-warning"
+              onclick="updateProductfunc('<%= allProducts[i]._id %>')"
+            >
+              Edit Product
+            </button>
+            <!-- delete -->
+            <button
+              class="btn btn-danger"
+              onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
+            >
+              Delete Product
+            </button>
+            <% } %>
+          </div>
+        </div>
+        <!--  -->
+        <!--  -->
         <!-- end 3-s-->
-  </div>
-  <!-- end 3-e -->
-    <!--  -->
-    <!-- end 2-s-->
-  </div>
-  <!-- end 2-e -->
+      </div>
+      <!-- end 3-e -->
+      <!--  -->
+      <!-- end 2-s-->
+    </div>
+    <!-- end 2-e -->
     <!-- end-s -->
-</div>
-    <!-- end-e -->
-    <% } %>
-    <!--  -->
-    <% } %>
-    <!--  -->
-    <% }else{%>
-    <p>No product found</p>
-    <%}%>
   </div>
-    <!--  -->
+  <!-- end-e -->
+  <% } %>
+  <!--  -->
+  <% } %>
+  <!--  -->
+  <% }else{%>
+  <p>No product found</p>
+  <%}%>
+</div>
+<!--  -->
 
-    <!--  -->
+<!--  -->
 
-    <!--  -->
+<!--  -->
 
-    <script>
-      //
-      // Function to display a Bootstrap alert
-      // Function to display a Bootstrap alert with a close button
-      function showBootstrapAlert(message, alertType) {
-        const alertContainer = document.getElementById("alertContainer");
-        const alertDiv = document.createElement("div");
-        alertDiv.classList.add(
-          "alert",
-          `alert-${alertType}`,
-          "mt-2",
-          "alert-dismissible",
-          "fade",
-          "show"
-        );
+<script>
+  //
+  // Function to display a Bootstrap alert
+  // Function to display a Bootstrap alert with a close button
+  function showBootstrapAlert(message, alertType) {
+    const alertContainer = document.getElementById("alertContainer");
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add(
+      "alert",
+      `alert-${alertType}`,
+      "mt-2",
+      "alert-dismissible",
+      "fade",
+      "show"
+    );
 
-        // Add the close button
-        alertDiv.innerHTML = `
+    // Add the close button
+    alertDiv.innerHTML = `
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     ${message}
   `;
 
-        alertContainer.appendChild(alertDiv);
+    alertContainer.appendChild(alertDiv);
+    //
+    //
+    // Automatically close the alert after 2 seconds
+    setTimeout(function () {
+      alertDiv.remove(); // Remove the alert from the DOM
+    }, 2000);
+  }
+
+  //
+  async function onSearchButton() {
+    //
+    try {
+      //
+      const searchValue = document.getElementById("searchId").value;
+      //
+      // console.log(searchValue, "searchValue");
+      //
+      window.location.href = `${window.location.origin}/product/searchByTitle/${searchValue}`;
+      //
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //
+  async function deleteProductfunc(productId) {
+    //
+    const response = await fetch(
+      `${window.location.origin}/product/hide/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      }
+    );
+
+    //
+    const result = await response.json();
+
+    console.log(result, "result");
+
+    //
+    if (result.message) {
+      //
+      for (let i = 0; i < result.message.length; i++) {
+        const oneMessage = result.message[i];
+
+        //alert
+        await showBootstrapAlert(oneMessage, "primary");
         //
-        //
-        // Automatically close the alert after 2 seconds
-        setTimeout(function () {
-          alertDiv.remove(); // Remove the alert from the DOM
+
+        await setTimeout(() => {
+          //
+          window.location.href = window.location.href;
         }, 2000);
       }
+    }
+    //
+  }
+  //
+  async function updateProductfunc(productId) {
+    //
+    window.location.href = `${window.location.origin}/product/updateProduct/${productId}`;
+  }
+  //
+  async function viewProduct(productId) {
+    //just redirect
 
-      //
-      async function onSearchButton() {
-        //
-        try {
-          //
-          const searchValue = document.getElementById("searchId").value;
-          //
-          // console.log(searchValue, "searchValue");
-          //
-          window.location.href = `${window.location.origin}/product/searchByTitle/${searchValue}`;
-          //
-        } catch (err) {
-          console.log(err);
-        }
+    window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
+  }
+  //
+  async function addToCartButton(productId) {
+    //
+
+    const response = await fetch(
+      `${window.location.origin}/cart/addToCart/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
       }
+    );
+
+    //
+    const result = await response.json();
+
+    console.log(result, "result");
+    //
+    if (result.message) {
       //
-      async function deleteProductfunc(productId) {
-        //
-        const response = await fetch(
-          `${window.location.origin}/product/hide/${productId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // body: JSON.stringify(data),
-          }
-        );
+      for (let i = 0; i < result.message.length; i++) {
+        const oneMessage = result.message[i];
 
+        //alert
+        await showBootstrapAlert(oneMessage, "primary");
         //
-        const result = await response.json();
 
-        console.log(result, "result");
-
-        //
-        if (result.message) {
+        await setTimeout(() => {
           //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
-
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
-            //
-
-            await setTimeout(() => {
-              //
-              window.location.href = window.location.href;
-            }, 2000);
-          }
-        }
-        //
+          window.location.href = window.location.href;
+        }, 2000);
       }
-      //
-      async function updateProductfunc(productId) {
-        //
-        window.location.href = `${window.location.origin}/product/updateProduct/${productId}`;
-      }
-      //
-      async function viewProduct(productId) {
-        //just redirect
-
-        window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
-      }
-      //
-      async function addToCartButton(productId) {
-        //
-
-        const response = await fetch(
-          `${window.location.origin}/cart/addToCart/${productId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // body: JSON.stringify(data),
-          }
-        );
-
-        //
-        const result = await response.json();
-
-        console.log(result, "result");
-        //
-        if (result.message) {
-          //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
-
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
-            //
-
-            await setTimeout(() => {
-              //
-              window.location.href = window.location.href;
-            }, 2000);
-          }
-        }
-        //
-      }
-    </script>
-  </div>
-</div>
+    }
+    //
+  }
+</script>
