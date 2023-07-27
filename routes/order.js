@@ -428,7 +428,7 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
         orderPopulate.address
         //|| orderPopulate.products.productId
       ) {
-        console.log(orderPopulate, "orderPopulate");
+        // console.log(orderPopulate, "orderPopulate");
         //
         const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
         //
@@ -442,7 +442,7 @@ router.get("/getAllOrders", browserAdmin, async (req, res) => {
       }
     }
 
-    console.log(ordersArray.length, "ordersArray.length");
+    // console.log(ordersArray.length, "ordersArray.length");
 
     // sorted by latest to- oldest date
     // const sortedOrdersArray = ordersArray.sort(function (a, b) {
@@ -610,7 +610,7 @@ router.get("/getMonthlyIncome", browserAdmin, async (req, res) => {
           splitOrderCreated[3]
         );
         //
-        console.log(monthYearString, "monthYearString");
+        // console.log(monthYearString, "monthYearString");
         //
         if (!(monthYearString in incomeMonthlyObj)) {
           incomeMonthlyObj[monthYearString] = amountOfOrder;

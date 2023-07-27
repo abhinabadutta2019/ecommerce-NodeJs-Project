@@ -67,6 +67,7 @@ router.get("/createCart", browserUser, async (req, res) => {
       // console.log(cart, "cart after");
       //
       return res.render("cart", {
+        user: user,
         message: messageArray,
         username: cartNoProdFunc.cartOwnerUsername,
         cartValue: cartNoProdFunc.cartValue,
@@ -121,6 +122,7 @@ router.get("/createCart", browserUser, async (req, res) => {
 
     //
     return res.render("cart", {
+      user: user,
       message: messageArray,
       cartValue: cartFuncValue.cartValue,
       username: cartFuncValue.cartOwnerUsername,

@@ -92,6 +92,7 @@ router.get("/getOneProduct/:id", browserUser, async (req, res) => {
     // res.json({ product: product });
     //
     res.render("getOneProduct", {
+      user: user,
       product: product,
       getCountInCart: getCountInCart,
     });

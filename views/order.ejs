@@ -1,4 +1,12 @@
+<% if (user.isAdmin==true) { %>
+<!--  -->
+<%- include('./partials/adminHeader') %>
+<!--  -->
+<% }else{%>
+<!--  -->
 <%- include('./partials/userHeader') %>
+<!--  -->
+<%}%>
 
 <!--  -->
 
