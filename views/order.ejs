@@ -36,30 +36,50 @@
         <!-- <div class="row g-0"> -->
         <!--  -->
         <div>
-          <!-- Order Summary -->
           <h5>Order Summary</h5>
-          <!--  -->
-          <% if (ordersArray[i].status=="cancelled") { %>
-          <!--  -->
-          <h5>
-            order cancelled your payment would be refunded to your account
-          </h5>
-          <!--  -->
-          <% } %>
-          <!--  -->
-
-          <!--  -->
-
           <!--  -->
           <p>order total:<%= ordersArray[i].cartValue %></p>
           <p>order status:<%= ordersArray[i].status %></p>
           <p>deliverd address:<%= ordersArray[i].address %></p>
           <p>orderd on:<%= ordersArray[i].createdAt %></p>
+          <!--  -->
+          <!--  -->
+          <% if (ordersArray[i].status === "cancelled") { %>
+          <h6>
+            Order Cancelled - Your payment will be refunded to your account
+          </h6>
+          <% } else { %>
+          <button
+            id="cancelOrderId"
+            onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
+          >
+            Cancel Order
+          </button>
+          <% } %>
           <br />
           <!--  -->
-          <p>product details</p>
+
+          <!--  -->
+          <!-- Order Summary -->
+
+          <!--  -->
+          <!-- Product Details -->
+          <h5>Product Details</h5>
           <!--  -->
           <% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
+          <!--  -->
+          <!-- product image -->
+          <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
+          <!--  -->
+          <img
+            src="<%= ordersArray[i].cartArray[j].imagePath %>"
+            alt="image"
+            width="200"
+            height="150"
+          />
+          <!--  -->
+
+          <% } %>
           <!--  -->
 
           <div>
@@ -70,17 +90,7 @@
             <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
             <!--  -->
             <!--  -->
-            <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
-            <!--  -->
-            <img
-              src="<%= ordersArray[i].cartArray[j].imagePath %>"
-              alt="image"
-              width="200"
-              height="150"
-            />
-            <!--  -->
 
-            <% } %>
             <!--  -->
             <br />
 
@@ -94,18 +104,6 @@
             <!--  -->
           </div>
           <br />
-
-          <!--  -->
-          <% if (ordersArray[i].status!="cancelled") { %>
-          <!--  -->
-          <button
-            id="cancelOrderId"
-            onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
-          >
-            cancel order
-          </button>
-          <!--  -->
-          <% } %>
 
           <!--  -->
           <% } %>
