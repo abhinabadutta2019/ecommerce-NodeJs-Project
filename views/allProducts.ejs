@@ -64,94 +64,94 @@
   <br />
   <!--  -->
   <!--  -->
-  <div class="container">
+  <!-- <div class="container"> -->
+  <!--  -->
+  <!--  this line helping to give -2 cards in same line-->
+  <div class="row justify-content-center">
     <!--  -->
-    <!--  this line helping to give -2 cards in same line-->
-    <div class="row justify-content-center">
-      <!--  -->
-      <!-- loop to show allProducts-->
-      <% for( let i = 0; i < allProducts.length; i++ ) { %>
+    <!-- loop to show allProducts-->
+    <% for( let i = 0; i < allProducts.length; i++ ) { %>
 
-      <!-- if productLeft=0, dont show product   -->
-      <% if (!( allProducts[i].productLeft < 1)) { %>
-      <!--  -->
-      <div class="col-lg-6">
-        <!-- start -2-s -->
-        <div class="card mb-3">
-          <!-- start -2-e -->
-          <!-- start -3-s -->
-          <div class="row g-0">
-            <!-- start -3-e -->
-            <!-- image starts here-->
-            <div class="col-md-4">
-              <% if (allProducts[i].imagePath != null) { %>
-              <img
-                src="<%= allProducts[i].imagePath %>"
-                alt="image"
-                class="img-fluid"
-              />
+    <!-- if productLeft=0, dont show product   -->
+    <% if (!( allProducts[i].productLeft < 1)) { %>
+    <!--  -->
+    <div class="col-lg-4">
+      <!-- start -2-s -->
+      <div class="card mt-5 mb-5">
+        <!-- start -2-e -->
+        <!-- start -3-s -->
+        <div class="row g-0">
+          <!-- start -3-e -->
+          <!-- image starts here-->
+          <div class="col-md-12">
+            <% if (allProducts[i].imagePath != null) { %>
+            <img
+              src="<%= allProducts[i].imagePath %>"
+              alt="image"
+              class="img-fluid"
+            />
+            <% } %>
+          </div>
+          <!-- image ends here -->
+          <!-- card image ends -->
+          <div class="col-md-12">
+            <div class="card-body">
+              <h5 class="card-title"><%= allProducts[i].title %></h5>
+              <p class="card-text">Price: $<%= allProducts[i].price %></p>
+              <button
+                class="btn btn-secondary"
+                onclick="viewProduct('<%= allProducts[i]._id %>')"
+              >
+                View Product
+              </button>
+              <button
+                class="btn btn-success"
+                onclick="addToCartButton('<%= allProducts[i]._id %>')"
+              >
+                Add to Cart
+              </button>
+              <% if (user.isAdmin == true) { %>
+              <!-- update -->
+              <button
+                class="btn btn-secondary"
+                onclick="updateProductfunc('<%= allProducts[i]._id %>')"
+              >
+                Edit Product
+              </button>
+              <!-- delete -->
+              <button
+                class="btn btn-danger"
+                onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
+              >
+                Delete Product
+              </button>
               <% } %>
             </div>
-            <!-- image ends here -->
-            <!-- card image ends -->
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title"><%= allProducts[i].title %></h5>
-                <p class="card-text">Price: $<%= allProducts[i].price %></p>
-                <button
-                  class="btn btn-secondary"
-                  onclick="viewProduct('<%= allProducts[i]._id %>')"
-                >
-                  View Product
-                </button>
-                <button
-                  class="btn btn-success"
-                  onclick="addToCartButton('<%= allProducts[i]._id %>')"
-                >
-                  Add to Cart
-                </button>
-                <% if (user.isAdmin == true) { %>
-                <!-- update -->
-                <button
-                  class="btn btn-secondary"
-                  onclick="updateProductfunc('<%= allProducts[i]._id %>')"
-                >
-                  Edit Product
-                </button>
-                <!-- delete -->
-                <button
-                  class="btn btn-danger"
-                  onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
-                >
-                  Delete Product
-                </button>
-                <% } %>
-              </div>
-            </div>
-            <!--  -->
-            <!--  -->
-            <!-- end 3-s-->
           </div>
-          <!-- end 3-e -->
           <!--  -->
-          <!-- end 2-s-->
+          <!--  -->
+          <!-- end 3-s-->
         </div>
-        <!-- end 2-e -->
-        <!-- end-s -->
+        <!-- end 3-e -->
+        <!--  -->
+        <!-- end 2-s-->
       </div>
-      <!-- end-e -->
-      <% } %>
-      <!--  -->
-      <% } %>
-      <!--  -->
-      <% }else{%>
-      <div class="col-lg-12 text-center">
-        <p>No product found</p>
-      </div>
-      <%}%>
+      <!-- end 2-e -->
+      <!-- end-s -->
     </div>
+    <!-- end-e -->
+    <% } %>
     <!--  -->
+    <% } %>
+    <!--  -->
+    <% }else{%>
+    <div class="col-lg-12 text-center">
+      <p>No product found</p>
+    </div>
+    <%}%>
   </div>
+  <!--  -->
+  <!-- </div> -->
   <!--  -->
 
   <!--  -->
