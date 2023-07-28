@@ -17,449 +17,515 @@
   <br /><br />
   <br />
   <!--  -->
-  <h5 class="text-center">Cart Value:$<%= cartValue %></h5>
-  <!--  -->
-  <!-- for alert -->
-  <!-- Add the alertContainer div inside the body -->
-  <div class="text-center" id="alertContainer"></div>
-  <!--  -->
-  <div class="text-center">
-    <br />
-    <br />
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-4">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+            <h5 class="text-center">Cart Value:$<%= cartValue %></h5>
+
+            <!--  -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <!-- for alert -->
+    <!-- Add the alertContainer div inside the body -->
+    <div class="text-center" id="alertContainer"></div>
+    <!--  -->
+    <!-- <div class="text-center"> -->
+    <!-- <br />
+    <br /> -->
     <!-- <br /> -->
     <!--  -->
     <% if (cart.length>0) { %>
-    <!--  -->
-
-    <div class="text-center">
-      <% if (addressArray.length>0) { %>
-      <!--  -->
-      <h5>Select address from dropdown</h5>
-      <!--  -->
-      <!-- for dropdown -->
-
-      <select id="addressSelect">
-        <!--  -->
-        <% for( let k = 0; k < addressArray.length; k++ ) { %>
-        <!--  -->
-        <option
-          value="<%= addressArray[k].address %>"
-          id="<%= addressArray[k]._id %>"
-        >
-          <!--  -->
-          <%= addressArray[k].address %>
-          <!--  -->
-        </option>
-        <!--  -->
-
-        <% } %>
-        <!--  -->
-      </select>
-
-      <!-- <br /> -->
-      <!--  -->
-      <button class="btn btn-success" onclick="finalizeAddressAndOrder()">
-        Finalize address and order
-      </button>
-      <!--  -->
-      <!-- </div> -->
-      <!--  -->
-      <% } else{%>
-      <p>No previous address saved, fill address and order</p>
-      <%}%>
-      <!--  -->
-      <br />
-      <br />
-      <!--  -->
-      <h5>Add new order address</h5>
-      <label for="address">Order address</label>
-      <br />
-      <input type="text" id="orderAddress" required />
-      <!-- <br /> -->
-      <!--  -->
-      <button class="btn btn-success" id="orderButtonId" onclick="orderFunc()">
-        Order Now
-      </button>
-
-      <br />
-
-      <!--  -->
-      <br />
-
-      <button
-        class="btn btn-secondary"
-        id="removeAllId"
-        onclick="removeAllButtonFunc()"
-      >
-        remove all item
-      </button>
-      <!--  -->
-      <% } %>
-
-      <!--  -->
-    </div>
-    <!--  -->
-    <% if (cart.length>0) { %>
 
     <!--  -->
-
-    <!--  -->
-
-    <br />
-    <br />
-    <br />
-
-    <h5>Product Details</h5>
-    <!--  -->
-    <% for( let i = 0; i < cart.length; i++ ) { %>
 
     <div class="row justify-content-center">
       <!--  -->
-      <div class="col-lg-6">
+      <div class="col-lg-10">
         <!--  -->
         <div class="card mt-5 mb-5">
           <!--  -->
           <div class="card-body">
             <!--  -->
-            <!-- Product Details -->
-            <!-- <h5>Product Details</h5> -->
-            <!--  -->
             <div class="row g-0 align-items-center">
               <!--  -->
-              <div class="col-md-4">
+
+              <!-- <div class="text-center"> -->
+              <div class="col-md-6">
                 <!--  -->
-                <% if (cart[i].imagePath!=null) { %>
+                <% if (addressArray.length>0) { %>
+
                 <!--  -->
-                <img
-                  src="<%= cart[i].imagePath %>"
-                  alt="image"
-                  class="img-fluid"
-                />
+
                 <!--  -->
-                <% } %>
+                <h5>Select address from dropdown</h5>
                 <!--  -->
-              </div>
-              <!--  -->
-              <div class="col-md-8">
-                <!--  -->
-                <p>title:<%= cart[i].title %></p>
-                <p>price:$<%= cart[i].price %></p>
-                <p>quantity:<%= cart[i].quantity %></p>
-                <!--  -->
-                <!-- </div> -->
-                <!--  -->
+                <!-- for dropdown -->
+
+                <select id="addressSelect">
+                  <!--  -->
+                  <% for( let k = 0; k < addressArray.length; k++ ) { %>
+                  <!--  -->
+                  <option
+                    value="<%= addressArray[k].address %>"
+                    id="<%= addressArray[k]._id %>"
+                  >
+                    <!--  -->
+                    <%= addressArray[k].address %>
+                    <!--  -->
+                  </option>
+                  <!--  -->
+
+                  <% } %>
+                  <!--  -->
+                </select>
 
                 <br />
                 <!--  -->
                 <button
-                  class="btn btn-secondary"
-                  id="addToCartId"
-                  onclick="addToCartFunc('<%= cart[i]._id%>')"
+                  class="btn btn-success"
+                  onclick="finalizeAddressAndOrder()"
                 >
-                  add more
+                  <i class="fas fa-shopping-cart"></i>
+                  Finalize address and order
                 </button>
+                <!--  -->
+                <!-- </div> -->
+                <!--  -->
+                <% } else{%>
+                <p>No previous address saved, fill address and order</p>
+                <%}%>
+              </div>
+              <!--  -->
+              <!-- <br />
+              <br /> -->
+              <!--  -->
+              <div class="col-md-6">
+                <!--  -->
+                <h5>Add new order address</h5>
+                <label for="address">Order address</label>
+                <br />
+                <input type="text" id="orderAddress" required />
+
+                <!-- <br /> -->
+                <!--  -->
+                <button
+                  class="btn btn-success"
+                  id="orderButtonId"
+                  onclick="orderFunc()"
+                >
+                  <i class="fas fa-shopping-cart"></i>
+                  Order Now
+                </button>
+                <!--  -->
+                <br />
+                <br />
+                <!--  -->
+                <p>Remember you would lose, all saved items</p>
                 <!--  -->
                 <button
                   class="btn btn-secondary"
-                  id="removeFromCartId"
-                  onclick="removeFromCartFunc('<%= cart[i]._id%>')"
+                  id="removeAllId"
+                  onclick="removeAllButtonFunc()"
                 >
-                  remove
+                  remove all item
                 </button>
+              </div>
+              <!-- <br /> -->
+
+              <!--  -->
+              <!-- <br /> -->
+              <!-- <div class="col-md-2">
+              <button
+                class="btn btn-secondary"
+                id="removeAllId"
+                onclick="removeAllButtonFunc()"
+              >
+                remove all item
+              </button>
+            </div> -->
+              <!--  -->
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+        <% } %>
+
+        <!--  -->
+      </div>
+      <!--  -->
+      <% if (cart.length>0) { %>
+
+      <!--  -->
+
+      <!--  -->
+
+      <br />
+      <br />
+      <br />
+
+      <h5 class="text-center">Product Details</h5>
+      <!--  -->
+      <% for( let i = 0; i < cart.length; i++ ) { %>
+
+      <div class="row justify-content-center">
+        <!--  -->
+        <div class="col-lg-6">
+          <!--  -->
+          <div class="card mt-5 mb-5">
+            <!--  -->
+            <div class="card-body">
+              <!--  -->
+              <!-- Product Details -->
+              <!-- <h5>Product Details</h5> -->
+              <!--  -->
+              <div class="row g-0 align-items-center">
                 <!--  -->
-                <button
-                  id="viewProdId"
-                  class="btn btn-secondary"
-                  onclick="viewProdFunc('<%= cart[i]._id%>')"
-                >
-                  view item
-                </button>
+                <div class="col-md-4">
+                  <!--  -->
+                  <% if (cart[i].imagePath!=null) { %>
+                  <!--  -->
+                  <img
+                    src="<%= cart[i].imagePath %>"
+                    alt="image"
+                    class="img-fluid"
+                  />
+                  <!--  -->
+                  <% } %>
+                  <!--  -->
+                </div>
+                <!--  -->
+                <div class="col-md-8">
+                  <!--  -->
+                  <p>title:<%= cart[i].title %></p>
+                  <p>price:$<%= cart[i].price %></p>
+                  <p>quantity:<%= cart[i].quantity %></p>
+                  <!--  -->
+                  <!-- </div> -->
+                  <!--  -->
+
+                  <br />
+                  <!--  -->
+                  <button
+                    class="btn btn-secondary"
+                    id="addToCartId"
+                    onclick="addToCartFunc('<%= cart[i]._id%>')"
+                  >
+                    add more
+                  </button>
+                  <!--  -->
+                  <button
+                    class="btn btn-secondary"
+                    id="removeFromCartId"
+                    onclick="removeFromCartFunc('<%= cart[i]._id%>')"
+                  >
+                    remove
+                  </button>
+                  <!--  -->
+                  <button
+                    id="viewProdId"
+                    class="btn btn-secondary"
+                    onclick="viewProdFunc('<%= cart[i]._id%>')"
+                  >
+                    view item
+                  </button>
+                  <!--  -->
+                </div>
+
                 <!--  -->
               </div>
-
               <!--  -->
             </div>
             <!--  -->
           </div>
-          <!--  -->
         </div>
+        <!--  -->
       </div>
       <!--  -->
-    </div>
-    <!--  -->
-    <hr />
-    <!--  -->
-    <% } %>
-    <!--  -->
-    <% }else{%>
-    <p class="text-center">No product in cart</p>
-    <%}%>
-  </div>
-  <!--  -->
+      <hr />
+      <!--  -->
+      <% } %>
+      <!--  -->
+      <% }else{%>
+      <p class="text-center">No product in cart</p>
+      <%}%>
+      <!-- </div> -->
+      <!--  -->
 
-  <!--  -->
-  <script>
-    //
-    // Function to display a Bootstrap alert
-    // Function to display a Bootstrap alert with a close button
-    function showBootstrapAlert(message, alertType) {
-      const alertContainer = document.getElementById("alertContainer");
-      const alertDiv = document.createElement("div");
-      alertDiv.classList.add(
-        "alert",
-        `alert-${alertType}`,
-        "mt-2",
-        "alert-dismissible",
-        "fade",
-        "show"
-      );
+      <!--  -->
+      <script>
+        //
+        // Function to display a Bootstrap alert
+        // Function to display a Bootstrap alert with a close button
+        function showBootstrapAlert(message, alertType) {
+          const alertContainer = document.getElementById("alertContainer");
+          const alertDiv = document.createElement("div");
+          alertDiv.classList.add(
+            "alert",
+            `alert-${alertType}`,
+            "mt-2",
+            "alert-dismissible",
+            "fade",
+            "show"
+          );
 
-      // Add the close button
-      alertDiv.innerHTML = `
+          // Add the close button
+          alertDiv.innerHTML = `
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     ${message}
   `;
 
-      alertContainer.appendChild(alertDiv);
-      //
-      //
-      // Automatically close the alert after 2 seconds
-      setTimeout(function () {
-        alertDiv.remove(); // Remove the alert from the DOM
-      }, 2000);
-    }
-
-    //
-    //
-    async function viewProdFunc(productId) {
-      //
-      try {
-        window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    //
-    async function finalizeAddressAndOrder() {
-      try {
-        const dropdown = document.getElementById("addressSelect");
-        const selectedOption = dropdown.options[dropdown.selectedIndex];
-        const selectedId = selectedOption.id;
-        //
-        console.log("Selected ID:", selectedId);
-
-        //
-        const data = { addressId: selectedId };
-        //
-        //
-        const response = await fetch(
-          `${window.location.origin}/order/createOrder`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-        //
-        const result = await response.json();
-        console.log(result, "result");
-        //
-        //"new order created"
-        //
-        if (result.message) {
+          alertContainer.appendChild(alertDiv);
           //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
+          //
+          // Automatically close the alert after 2 seconds
+          setTimeout(function () {
+            alertDiv.remove(); // Remove the alert from the DOM
+          }, 2000);
+        }
 
-            // alert(oneMessage);
-            //
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
-            //
-            if (oneMessage == "new order created") {
-              // window.location.href = window.location.href;
-              await setTimeout(() => {
-                //
-                window.location.href = `${window.location.origin}/order/getYourOrders`;
-              }, 2000);
-            }
+        //
+        //
+        async function viewProdFunc(productId) {
+          //
+          try {
+            window.location.href = `${window.location.origin}/product/getOneProduct/${productId}`;
+          } catch (err) {
+            console.log(err);
           }
         }
         //
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    //
-    async function orderFunc() {
-      //
-      try {
-        //
-        const address = document.getElementById("orderAddress").value;
-        //
-        const data = { address: address };
-        //
-        const response = await fetch(
-          `${window.location.origin}/order/createOrder`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-        //
-        const result = await response.json();
-        console.log(result, "result");
-        //
-        //
-        //"new order created"
-        //
-        if (result.message) {
-          //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
-
-            // alert(oneMessage);
+        async function finalizeAddressAndOrder() {
+          try {
+            const dropdown = document.getElementById("addressSelect");
+            const selectedOption = dropdown.options[dropdown.selectedIndex];
+            const selectedId = selectedOption.id;
             //
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
-            //
-            if (oneMessage == "new order created") {
-              // window.location.href = window.location.href;
-              await setTimeout(() => {
-                //
-                window.location.href = `${window.location.origin}/order/getYourOrders`;
-              }, 2000);
-            }
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    //
-    async function removeAllButtonFunc() {
-      try {
-        const response = await fetch(
-          `${window.location.origin}/cart/removeAllFromCart`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // body: JSON.stringify(data),
-          }
-        );
-        //
-        const result = await response.json();
-        console.log(result, "result");
-        //
-        if (result.message) {
-          //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
+            console.log("Selected ID:", selectedId);
 
-            // alert(oneMessage);
             //
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
+            const data = { addressId: selectedId };
             //
-            if (oneMessage == "all products removed from cart") {
-              // window.location.href = window.location.href;
-              await setTimeout(() => {
-                //
-                window.location.href = window.location.href;
-              }, 2000);
-            }
-          }
-        }
-        //
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    //
-    async function addToCartFunc(productId) {
-      //
-      try {
-        const response = await fetch(
-          `${window.location.origin}/cart/addToCart/${productId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // body: JSON.stringify(data),
-          }
-        );
-        //
-
-        const result = await response.json();
-        console.log(result, "result");
-        //
-        if (result.message) {
-          //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
-
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
             //
-
-            await setTimeout(() => {
+            const response = await fetch(
+              `${window.location.origin}/order/createOrder`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              }
+            );
+            //
+            const result = await response.json();
+            console.log(result, "result");
+            //
+            //"new order created"
+            //
+            if (result.message) {
               //
-              window.location.href = window.location.href;
-            }, 2000);
+              for (let i = 0; i < result.message.length; i++) {
+                const oneMessage = result.message[i];
+
+                // alert(oneMessage);
+                //
+                //alert
+                await showBootstrapAlert(oneMessage, "primary");
+                //
+                if (oneMessage == "new order created") {
+                  // window.location.href = window.location.href;
+                  await setTimeout(() => {
+                    //
+                    window.location.href = `${window.location.origin}/order/getYourOrders`;
+                  }, 2000);
+                }
+              }
+            }
+            //
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
+        //
+        async function orderFunc() {
+          //
+          try {
+            //
+            const address = document.getElementById("orderAddress").value;
+            //
+            const data = { address: address };
+            //
+            const response = await fetch(
+              `${window.location.origin}/order/createOrder`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              }
+            );
+            //
+            const result = await response.json();
+            console.log(result, "result");
+            //
+            //
+            //"new order created"
+            //
+            if (result.message) {
+              //
+              for (let i = 0; i < result.message.length; i++) {
+                const oneMessage = result.message[i];
+
+                // alert(oneMessage);
+                //
+                //alert
+                await showBootstrapAlert(oneMessage, "primary");
+                //
+                if (oneMessage == "new order created") {
+                  // window.location.href = window.location.href;
+                  await setTimeout(() => {
+                    //
+                    window.location.href = `${window.location.origin}/order/getYourOrders`;
+                  }, 2000);
+                }
+              }
+            }
+          } catch (err) {
+            console.log(err);
           }
         }
         //
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    //
-    async function removeFromCartFunc(productId) {
-      //
-      try {
-        const response = await fetch(
-          `${window.location.origin}/cart/removeFromCart/${productId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // body: JSON.stringify(data),
-          }
-        );
-        //
-        //
-        const result = await response.json();
-        console.log(result, "result");
-        //
-        if (result.message) {
-          //
-          for (let i = 0; i < result.message.length; i++) {
-            const oneMessage = result.message[i];
+        async function removeAllButtonFunc() {
+          try {
+            const response = await fetch(
+              `${window.location.origin}/cart/removeAllFromCart`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                // body: JSON.stringify(data),
+              }
+            );
+            //
+            const result = await response.json();
+            console.log(result, "result");
+            //
+            if (result.message) {
+              //
+              for (let i = 0; i < result.message.length; i++) {
+                const oneMessage = result.message[i];
 
-            //alert
-            await showBootstrapAlert(oneMessage, "primary");
+                // alert(oneMessage);
+                //
+                //alert
+                await showBootstrapAlert(oneMessage, "primary");
+                //
+                if (oneMessage == "all products removed from cart") {
+                  // window.location.href = window.location.href;
+                  await setTimeout(() => {
+                    //
+                    window.location.href = window.location.href;
+                  }, 2000);
+                }
+              }
+            }
+            //
+          } catch (err) {
+            console.log(err);
+          }
+        }
+        //
+        async function addToCartFunc(productId) {
+          //
+          try {
+            const response = await fetch(
+              `${window.location.origin}/cart/addToCart/${productId}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                // body: JSON.stringify(data),
+              }
+            );
             //
 
-            await setTimeout(() => {
+            const result = await response.json();
+            console.log(result, "result");
+            //
+            if (result.message) {
               //
-              window.location.href = window.location.href;
-            }, 2000);
+              for (let i = 0; i < result.message.length; i++) {
+                const oneMessage = result.message[i];
+
+                //alert
+                await showBootstrapAlert(oneMessage, "primary");
+                //
+
+                await setTimeout(() => {
+                  //
+                  window.location.href = window.location.href;
+                }, 2000);
+              }
+            }
+            //
+          } catch (err) {
+            console.log(err);
           }
         }
         //
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  </script>
+        async function removeFromCartFunc(productId) {
+          //
+          try {
+            const response = await fetch(
+              `${window.location.origin}/cart/removeFromCart/${productId}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                // body: JSON.stringify(data),
+              }
+            );
+            //
+            //
+            const result = await response.json();
+            console.log(result, "result");
+            //
+            if (result.message) {
+              //
+              for (let i = 0; i < result.message.length; i++) {
+                const oneMessage = result.message[i];
+
+                //alert
+                await showBootstrapAlert(oneMessage, "primary");
+                //
+
+                await setTimeout(() => {
+                  //
+                  window.location.href = window.location.href;
+                }, 2000);
+              }
+            }
+            //
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      </script>
+    </div>
+  </div>
 </div>
