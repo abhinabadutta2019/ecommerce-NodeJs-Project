@@ -8,115 +8,141 @@
 <!--  -->
 <%}%>
 
-<!--  -->
-<h3><%= username %> Cart</h3>
-<!--  -->
-<!--  -->
-<!-- for alert -->
-<!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
-<!--  -->
-
-<% if (cart.length>0) { %>
-<!--  -->
-<button id="removeAllId" onclick="removeAllButtonFunc()">
-  remove all item
-</button>
-<!--  -->
-<% } %>
-<br />
-<br />
-<br />
-<!--  -->
-<% if (cart.length>0) { %>
-<!--  -->
-<% if (addressArray.length>0) { %>
-<!--  -->
-<p>Select address from dropdown</p>
-<!--  -->
-<!-- for dropdown -->
-<select id="addressSelect">
-  <!--  -->
-  <% for( let k = 0; k < addressArray.length; k++ ) { %>
-  <!--  -->
-  <option
-    value="<%= addressArray[k].address %>"
-    id="<%= addressArray[k]._id %>"
-  >
-    <!--  -->
-    <%= addressArray[k].address %>
-    <!--  -->
-  </option>
-  <!--  -->
-
-  <% } %>
-  <!--  -->
-</select>
-<br />
-<!--  -->
-<button onclick="finalizeAddressAndOrder()">Finalize address and order</button>
-<!--  -->
-
-<!--  -->
-<% } else{%>
-<p>No previous address saved, fill address and order</p>
-<%}%>
-<!--  -->
-<br />
-<br />
-<label for="address">Order address</label>
-<br />
-<input type="text" id="orderAddress" required />
-<br />
-<!--  -->
-<button id="orderButtonId" onclick="orderFunc()">Order Now</button>
-<!--  -->
-<% } %>
-<!--  -->
-<br />
-<h5>Cart Value:<%= cartValue %></h5>
-<br />
-<!--  -->
-<% if (cart.length>0) { %>
-
-<!--  -->
-
-<!--  -->
-<!--  -->
-<% for( let i = 0; i < cart.length; i++ ) { %>
-
+<!-- <div class="row justify-content-center"> -->
 <div>
-  <li>title:<%= cart[i].title %></li>
-  <li>price:<%= cart[i].price %></li>
-  <li>quantity:<%= cart[i].quantity %></li>
+  <!--  -->
+  <!--  -->
+  <h3 class="text-center"><%= username %> Cart</h3>
+  <!--  -->
+  <!--  -->
+  <!-- for alert -->
+  <!-- Add the alertContainer div inside the body -->
+  <div id="alertContainer"></div>
   <!--  -->
 
-  <% if (cart[i].imagePath!=null) { %>
+  <% if (cart.length>0) { %>
   <!--  -->
-  <img src="<%= cart[i].imagePath %>" alt="image" width="200" height="150" />
+  <button id="removeAllId" onclick="removeAllButtonFunc()">
+    remove all item
+  </button>
+  <!--  -->
+  <% } %>
+  <br />
+  <br />
+  <br />
+  <!--  -->
+  <% if (cart.length>0) { %>
+  <!--  -->
+  <% if (addressArray.length>0) { %>
+  <!--  -->
+  <p>Select address from dropdown</p>
+  <!--  -->
+  <!-- for dropdown -->
+  <select id="addressSelect">
+    <!--  -->
+    <% for( let k = 0; k < addressArray.length; k++ ) { %>
+    <!--  -->
+    <option
+      value="<%= addressArray[k].address %>"
+      id="<%= addressArray[k]._id %>"
+    >
+      <!--  -->
+      <%= addressArray[k].address %>
+      <!--  -->
+    </option>
+    <!--  -->
+
+    <% } %>
+    <!--  -->
+  </select>
+  <br />
+  <!--  -->
+  <button onclick="finalizeAddressAndOrder()">
+    Finalize address and order
+  </button>
+  <!--  -->
+
+  <!--  -->
+  <% } else{%>
+  <p>No previous address saved, fill address and order</p>
+  <%}%>
+  <!--  -->
+  <br />
+  <br />
+  <label for="address">Order address</label>
+  <br />
+  <input type="text" id="orderAddress" required />
+  <br />
+  <!--  -->
+  <button id="orderButtonId" onclick="orderFunc()">Order Now</button>
   <!--  -->
   <% } %>
   <!--  -->
+  <br />
+  <h5>Cart Value:<%= cartValue %></h5>
+  <br />
+  <!--  -->
+  <% if (cart.length>0) { %>
+
+  <!--  -->
+
+  <!--  -->
+  <!--  -->
+  <% for( let i = 0; i < cart.length; i++ ) { %>
+
+  <div class="col-lg-6">
+    <!--  -->
+    <div class="card mt-5 mb-5">
+      <!--  -->
+      <div class="card-body">
+        <!--  -->
+        <li>title:<%= cart[i].title %></li>
+        <li>price:<%= cart[i].price %></li>
+        <li>quantity:<%= cart[i].quantity %></li>
+        <!--  -->
+
+        <% if (cart[i].imagePath!=null) { %>
+        <!--  -->
+        <img
+          src="<%= cart[i].imagePath %>"
+          alt="image"
+          width="200"
+          height="150"
+        />
+        <!--  -->
+        <% } %>
+        <!--  -->
+
+        <br />
+        <!--  -->
+        <button id="addToCartId" onclick="addToCartFunc('<%= cart[i]._id%>')">
+          add to cart
+        </button>
+        <!--  -->
+        <button
+          id="removeFromCartId"
+          onclick="removeFromCartFunc('<%= cart[i]._id%>')"
+        >
+          remove from cart
+        </button>
+        <!--  -->
+        <button id="viewProdId" onclick="viewProdFunc('<%= cart[i]._id%>')">
+          view product
+        </button>
+      </div>
+      <!--  -->
+    </div>
+  </div>
+
+  <!--  -->
+  <% } %>
+  <!--  -->
+  <% }else{%>
+  <p>No product in cart</p>
+  <%}%>
 </div>
-<br />
 <!--  -->
-<button id="addToCartId" onclick="addToCartFunc('<%= cart[i]._id%>')">
-  add to cart
-</button>
-<!--  -->
-<button id="removeFromCartId" onclick="removeFromCartFunc('<%= cart[i]._id%>')">
-  remove from cart
-</button>
-<!--  -->
-<button id="viewProdId" onclick="viewProdFunc('<%= cart[i]._id%>')">
-  view product
-</button>
-<!--  -->
-<% } %>
-<!--  -->
-<% }else{%>
-<p>No product in cart</p>
-<%}%>
+
 <!--  -->
 <script>
   //
