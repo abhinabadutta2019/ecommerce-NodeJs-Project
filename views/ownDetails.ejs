@@ -7,57 +7,89 @@
 <%- include('./partials/userHeader') %>
 <!--  -->
 <%}%>
-
-<h3>Own Details</h3>
-<!-- for alert -->
-<!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
-<!--  -->
-
-<div>
-  <!--  -->
-  <div>
+<!-- bootstarp-1 -->
+<div class="row justify-content-center">
+  <!-- bootstarp-2 -->
+  <div class="col-lg-4 text-center width:100%">
     <!--  -->
-    <% if (user.imagePath!=null) { %>
-    <img src="<%= user.imagePath %>" alt="image" width="200" height="200" />
-    <% } %>
-  </div>
+    <div class="bg-white shadow rounded mt-3 pb-3">
+      <!--  -->
+      <!--  -->
+      <h3 class="text-center">Own Details</h3>
+      <!-- for alert -->
+      <!-- Add the alertContainer div inside the body -->
+      <div id="alertContainer"></div>
+      <!--  -->
 
-  <!--  -->
-  <div>
-    <p>username:<%= user.username %></p>
-    <!-- if user is admin -->
-    <% if (user.isAdmin==true) { %>
-    <p>admin:<%= user.isAdmin %></p>
-    <% } %>
-  </div>
-  <!-- update password -->
-  <hr />
-  <div>
-    <p>update password</p>
-    <label for="password">Password</label>
-    <input type="password" id="updatePassId" required />
-    <!-- form Button -->
-    <button id="updatePassButton" onclick="updatePassFunc()">Submit</button>
-  </div>
-  <br />
-  <hr />
-  <!-- update profile image -->
-  <form action="#">
-    <!--  -->
-    <label for="imageUpload">Image</label>
-    <input type="file" id="profileImageId" name="file" />
-    <!--  -->
-  </form>
-  <button id="updateProfileImage" onclick="updateImgFunc()">
-    update image
-  </button>
-  <!--  -->
-  <!--  -->
-  <!--  -->
+      <div>
+        <!--  -->
+        <div>
+          <!--  -->
+          <% if (user.imagePath!=null) { %>
+          <!--  -->
+          <div class="d-flex">
+            <!--  -->
+            <img src="<%= user.imagePath %>" alt="image" class="img-fluid" />
+            <% } %>
+            <!--  -->
+          </div>
+        </div>
 
-  <!--  -->
+        <!--  -->
+        <div>
+          <p>username:<%= user.username %></p>
+          <!-- if user is admin -->
+          <% if (user.isAdmin==true) { %>
+          <p>admin:<%= user.isAdmin %></p>
+          <% } %>
+        </div>
+        <!-- update password -->
+        <hr />
+        <div>
+          <p>update password</p>
+          <label for="password">Password</label>
+          <input type="password" id="updatePassId" required />
+          <!-- form Button -->
+          <button
+            class="btn btn-secondary"
+            id="updatePassButton"
+            onclick="updatePassFunc()"
+          >
+            Submit
+          </button>
+        </div>
+        <br />
+        <hr />
+        <!-- update profile image -->
+        <p>update profile image</p>
+        <form action="#">
+          <!--  -->
+          <label for="imageUpload">Image</label>
+          <input type="file" id="profileImageId" name="file" />
+          <!--  -->
+        </form>
+
+        <button
+          class="btn btn-secondary"
+          id="updateProfileImage"
+          onclick="updateImgFunc()"
+        >
+          update image
+        </button>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+
+        <!--  -->
+      </div>
+
+      <!--  -->
+    </div>
+    <!--  -->
+  </div>
+  <!-- Bootstrap 2 -->
 </div>
+<!-- Bootstrap 1 -->
 <!--  -->
 <script>
   //
