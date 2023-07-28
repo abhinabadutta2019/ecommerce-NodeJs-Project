@@ -8,6 +8,8 @@
 <!--  -->
 <%}%>
 
+<!-- <div class="container"> -->
+<!--  -->
 <div class="row justify-content-center">
   <!--  -->
   <!--  -->
@@ -15,7 +17,7 @@
   <!--  -->
   <!--  -->
 
-  <h3><%= user.username %> Order page</h3>
+  <h3 class="text-center"><%= user.username %> Order page</h3>
   <!--  -->
   <!-- for alert -->
   <!-- Add the alertContainer div inside the body -->
@@ -25,7 +27,7 @@
   <% if (ordersArray.length>0) { %>
   <!--  -->
   <!-- <h4>order details</h4> -->
-  <h4>order details</h4>
+  <!-- <h4>order details</h4> -->
   <% for( let i = 0; i < ordersArray.length; i++ ) { %>
   <!--  -->
   <div class="col-lg-6">
@@ -38,18 +40,21 @@
         <div>
           <h5>Order Summary</h5>
           <!--  -->
-          <p>order total:$<%= ordersArray[i].cartValue %></p>
-          <p>order status:<%= ordersArray[i].status %></p>
-          <p>deliverd address:<%= ordersArray[i].address %></p>
-          <p>orderd on:<%= ordersArray[i].createdAt %></p>
+          <p><strong> order total </strong>:$<%= ordersArray[i].cartValue %></p>
+          <p><strong> order status </strong>:<%= ordersArray[i].status %></p>
+          <p><strong>deliverd address</strong>:<%= ordersArray[i].address %></p>
+          <p><strong>orderd on </strong>:<%= ordersArray[i].createdAt %></p>
           <!--  -->
           <!--  -->
           <% if (ordersArray[i].status === "cancelled") { %>
           <h6>
-            Order Cancelled - Your payment will be refunded to your account
+            <strong>
+              Order Cancelled - Your payment will be refunded to your account
+            </strong>
           </h6>
           <% } else { %>
           <button
+            class="btn btn-dark"
             id="cancelOrderId"
             onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
           >
@@ -85,9 +90,17 @@
             <!--  -->
 
             <div class="col-md-8">
-              <li>title:<%= ordersArray[i].cartArray[j].title %></li>
-              <li>price:$<%= ordersArray[i].cartArray[j].price %></li>
-              <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
+              <li>
+                <strong>title</strong>:<%= ordersArray[i].cartArray[j].title %>
+              </li>
+              <li>
+                <strong>price </strong>:$<%= ordersArray[i].cartArray[j].price
+                %>
+              </li>
+              <li>
+                <strong>quantity </strong>:<%=
+                ordersArray[i].cartArray[j].quantity %>
+              </li>
               <!--  -->
               <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
               <!--  -->
@@ -97,6 +110,7 @@
               <br />
 
               <button
+                class="btn btn-secondary"
                 id="viewProdId"
                 onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
               >
@@ -123,14 +137,17 @@
 
   <!--  -->
   <% }else{%>
-  <p>No orders made by you</p>
+  <br />
+  <br />
+  <h5 class="text-center">No orders made by you</h5>
   <%}%>
 
   <!--  -->
-  <!-- </div> -->
-
-  <!--  -->
 </div>
+
+<!--  -->
+<!-- </div> -->
+
 <!--  -->
 <script>
   ///////////////////////////////
