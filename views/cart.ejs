@@ -13,28 +13,31 @@
   <!--  -->
   <!--  -->
   <h3 class="text-center"><%= username %> Cart</h3>
+
+  <br /><br />
+  <br />
   <!--  -->
   <h5 class="text-center">Cart Value:$<%= cartValue %></h5>
   <!--  -->
   <!-- for alert -->
   <!-- Add the alertContainer div inside the body -->
-  <div id="alertContainer"></div>
+  <div class="text-center" id="alertContainer"></div>
   <!--  -->
   <div class="text-center">
-    <% if (cart.length>0) { %>
+    <!-- <% if (cart.length>0) { %> -->
     <!--  -->
-    <button
+    <!-- <button
       class="btn btn-secondary"
       id="removeAllId"
       onclick="removeAllButtonFunc()"
     >
       remove all item
-    </button>
+    </button> -->
     <!--  -->
-    <% } %>
+    <!-- <% } %> -->
     <br />
     <br />
-    <br />
+    <!-- <br /> -->
     <!--  -->
     <% if (cart.length>0) { %>
     <!--  -->
@@ -88,12 +91,25 @@
       <button class="btn btn-success" id="orderButtonId" onclick="orderFunc()">
         Order Now
       </button>
+
+      <br />
+
+      <!--  -->
+      <br />
+
+      <button
+        class="btn btn-secondary"
+        id="removeAllId"
+        onclick="removeAllButtonFunc()"
+      >
+        remove all item
+      </button>
       <!--  -->
       <% } %>
       <!--  -->
-      <br />
+      <!-- <br /> -->
       <!-- <h5>Cart Value:$<%= cartValue %></h5> -->
-      <br />
+      <!-- <br /> -->
 
       <!--  -->
     </div>
@@ -141,9 +157,9 @@
               <!--  -->
               <div class="col-md-8">
                 <!--  -->
-                <li>title:<%= cart[i].title %></li>
-                <li>price:$<%= cart[i].price %></li>
-                <li>quantity:<%= cart[i].quantity %></li>
+                <p>title:<%= cart[i].title %></p>
+                <p>price:$<%= cart[i].price %></p>
+                <p>quantity:<%= cart[i].quantity %></p>
                 <!--  -->
                 <!-- </div> -->
                 <!--  -->
