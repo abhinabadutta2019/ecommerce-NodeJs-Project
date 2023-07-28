@@ -9,95 +9,114 @@
 <%}%>
 
 <!--  -->
-
-<h3><%= user.username %> Order page</h3>
-<!--  -->
-<!-- for alert -->
-<!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
-<!--  -->
-
-<% if (ordersArray.length>0) { %>
-<!--  -->
-<h4>order details</h4>
-<% for( let i = 0; i < ordersArray.length; i++ ) { %>
-
-<div>
+<div class="row justify-content-center">
   <!--  -->
-  <% if (ordersArray[i].status=="cancelled") { %>
-  <!--  -->
-  <h5>order cancelled your payment would be refunded to your account</h5>
-  <!--  -->
-  <% } %>
-  <!--  -->
-  <% if (ordersArray[i].status!="cancelled") { %>
-  <!--  -->
-  <button
-    id="cancelOrderId"
-    onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
-  >
-    cancel order
-  </button>
-  <!--  -->
-  <% } %>
   <!--  -->
 
+  <h3><%= user.username %> Order page</h3>
   <!--  -->
-  <p>order total:<%= ordersArray[i].cartValue %></p>
-  <p>order status:<%= ordersArray[i].status %></p>
-  <p>deliverd address:<%= ordersArray[i].address %></p>
-  <p>orderd on:<%= ordersArray[i].createdAt %></p>
-  <br />
-  <!--  -->
-  <p>product details</p>
-  <!--  -->
-  <% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
+  <!-- for alert -->
+  <!-- Add the alertContainer div inside the body -->
+  <div id="alertContainer"></div>
   <!--  -->
 
-  <div>
-    <li>title:<%= ordersArray[i].cartArray[j].title %></li>
-    <li>price:<%= ordersArray[i].cartArray[j].price %></li>
-    <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
-    <!--  -->
-    <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
-    <!--  -->
-    <!--  -->
-    <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
-    <!--  -->
-    <img
-      src="<%= ordersArray[i].cartArray[j].imagePath %>"
-      alt="image"
-      width="200"
-      height="150"
-    />
-    <!--  -->
+  <% if (ordersArray.length>0) { %>
+  <!--  -->
+  <h4>order details</h4>
+  <% for( let i = 0; i < ordersArray.length; i++ ) { %>
+  <!--  -->
+  <div class="col-lg-4">
+    <!-- bootstrap -->
+    <div class="card mt-5 mb-5">
+      <!--  -->
+      <div class="row g-0">
+        <!--  -->
+        <div>
+          <!--  -->
+          <% if (ordersArray[i].status=="cancelled") { %>
+          <!--  -->
+          <h5>
+            order cancelled your payment would be refunded to your account
+          </h5>
+          <!--  -->
+          <% } %>
+          <!--  -->
+          <% if (ordersArray[i].status!="cancelled") { %>
+          <!--  -->
+          <button
+            id="cancelOrderId"
+            onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
+          >
+            cancel order
+          </button>
+          <!--  -->
+          <% } %>
+          <!--  -->
 
-    <% } %>
-    <!--  -->
-    <br />
+          <!--  -->
+          <p>order total:<%= ordersArray[i].cartValue %></p>
+          <p>order status:<%= ordersArray[i].status %></p>
+          <p>deliverd address:<%= ordersArray[i].address %></p>
+          <p>orderd on:<%= ordersArray[i].createdAt %></p>
+          <br />
+          <!--  -->
+          <p>product details</p>
+          <!--  -->
+          <% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
+          <!--  -->
 
-    <button
-      id="viewProdId"
-      onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
-    >
-      view product
-    </button>
-    <!--  -->
-    <!--  -->
+          <div>
+            <li>title:<%= ordersArray[i].cartArray[j].title %></li>
+            <li>price:<%= ordersArray[i].cartArray[j].price %></li>
+            <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
+            <!--  -->
+            <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
+            <!--  -->
+            <!--  -->
+            <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
+            <!--  -->
+            <img
+              src="<%= ordersArray[i].cartArray[j].imagePath %>"
+              alt="image"
+              width="200"
+              height="150"
+            />
+            <!--  -->
+
+            <% } %>
+            <!--  -->
+            <br />
+
+            <button
+              id="viewProdId"
+              onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
+            >
+              view product
+            </button>
+            <!--  -->
+            <!--  -->
+          </div>
+          <br />
+
+          <!--  -->
+          <% } %>
+        </div>
+      </div>
+      <!-- boottsrap 2 -->
+    </div>
+    <!-- bootstrap 1-->
   </div>
-  <br />
+
+  <hr />
+  <% } %>
 
   <!--  -->
-  <% } %>
+  <% }else{%>
+  <p>No orders made by you</p>
+  <%}%>
+
+  <!--  -->
 </div>
-
-<hr />
-<% } %>
-
-<!--  -->
-<% }else{%>
-<p>No orders made by you</p>
-<%}%>
 <!--  -->
 <script>
   ///////////////////////////////
