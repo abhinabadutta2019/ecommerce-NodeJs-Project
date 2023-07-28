@@ -1,56 +1,79 @@
 <div class="row justify-content-center">
-  <% for (let i = 0; i < allProducts.length; i++) { %> <% if
-  (!(allProducts[i].productLeft < 1)) { %>
+  <!-- User Order Page -->
+  <h3><%= user.username %> Order page</h3>
+  <!-- Alert Container -->
+  <div id="alertContainer"></div>
+
+  <% if (ordersArray.length > 0) { %>
+  <h4>Order Details</h4>
+  <% for (let i = 0; i < ordersArray.length; i++) { %>
+  <!-- Order Card -->
   <div class="col-lg-6">
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <% if (allProducts[i].imagePath != null) { %>
-          <img
-            src="<%= allProducts[i].imagePath %>"
-            alt="image"
-            class="img-fluid"
-          />
-          <% } %>
-        </div>
-        <!-- card image ends -->
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title"><%= allProducts[i].title %></h5>
-            <p class="card-text">Price: <%= allProducts[i].price %></p>
-            <button
-              class="btn btn-primary"
-              onclick="viewProduct('<%= allProducts[i]._id %>')"
-            >
-              View Product
-            </button>
-            <button
-              class="btn btn-success"
-              onclick="addToCartButton('<%= allProducts[i]._id %>')"
-            >
-              Add to Cart
-            </button>
-            <% if (user.isAdmin == true) { %>
-            <!-- update -->
-            <button
-              class="btn btn-warning"
-              onclick="updateProductfunc('<%= allProducts[i]._id %>')"
-            >
-              Edit Product
-            </button>
-            <!-- delete -->
-            <button
-              class="btn btn-danger"
-              onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
-            >
-              Delete Product
-            </button>
+    <div class="card mt-5 mb-5">
+      <div class="card-body">
+        <!-- Order Summary -->
+        <h5>Order Summary</h5>
+        <p>Order Total: <%= ordersArray[i].cartValue %></p>
+        <p>Order Status: <%= ordersArray[i].status %></p>
+        <p>Delivered Address: <%= ordersArray[i].address %></p>
+        <p>Ordered On: <%= ordersArray[i].createdAt %></p>
+        <% if (ordersArray[i].status === "cancelled") { %>
+        <h6>Order Cancelled - Your payment will be refunded to your account</h6>
+        <% } else { %>
+        <button
+          id="cancelOrderId"
+          onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
+        >
+          Cancel Order
+        </button>
+        <% } %>
+        <br />
+
+        <!-- Product Details -->
+        <h5>Product Details</h5>
+        <% for (let j = 0; j < ordersArray[i].cartArray.length; j++) { %>
+        <div class="row g-0 align-items-center">
+          <div class="col-md-4">
+            <% if (ordersArray[i].cartArray[j].imagePath != null) { %>
+            <img
+              src="<%= ordersArray[i].cartArray[j].imagePath %>"
+              alt="image"
+              class="img-fluid"
+            />
             <% } %>
           </div>
+          <div class="col-md-8">
+            <ul>
+              <li>Title: <%= ordersArray[i].cartArray[j].title %></li>
+              <li>Price: <%= ordersArray[i].cartArray[j].price %></li>
+              <li>Quantity: <%= ordersArray[i].cartArray[j].quantity %></li>
+              <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
+              <% if (ordersArray[i].cartArray[j].imagePath != null) { %>
+              <img
+                src="<%= ordersArray[i].cartArray[j].imagePath %>"
+                alt="image"
+                width="200"
+                height="150"
+              />
+              <% } %>
+              <br />
+              <button
+                id="viewProdId"
+                onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id %>')"
+              >
+                View Product
+              </button>
+            </ul>
+          </div>
         </div>
-        <!-- card content ends -->
+        <br />
+        <% } %>
       </div>
     </div>
   </div>
-  <% } %> <% } %>
+  <!-- End of Order Card -->
+  <hr />
+  <% } %> <% } else { %>
+  <p>No orders made by you</p>
+  <% } %>
 </div>

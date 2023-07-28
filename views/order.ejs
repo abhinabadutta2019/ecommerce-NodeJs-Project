@@ -38,7 +38,7 @@
         <div>
           <h5>Order Summary</h5>
           <!--  -->
-          <p>order total:<%= ordersArray[i].cartValue %></p>
+          <p>order total:$<%= ordersArray[i].cartValue %></p>
           <p>order status:<%= ordersArray[i].status %></p>
           <p>deliverd address:<%= ordersArray[i].address %></p>
           <p>orderd on:<%= ordersArray[i].createdAt %></p>
@@ -60,51 +60,54 @@
           <!--  -->
 
           <!--  -->
-          <!-- Order Summary -->
-
-          <!--  -->
           <!-- Product Details -->
           <h5>Product Details</h5>
           <!--  -->
           <% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
           <!--  -->
-          <!-- product image -->
-          <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
-          <!--  -->
-          <img
-            src="<%= ordersArray[i].cartArray[j].imagePath %>"
-            alt="image"
-            width="200"
-            height="150"
-          />
-          <!--  -->
-
-          <% } %>
-          <!--  -->
-
-          <div>
-            <li>title:<%= ordersArray[i].cartArray[j].title %></li>
-            <li>price:<%= ordersArray[i].cartArray[j].price %></li>
-            <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
+          <div class="row g-0 align-items-center">
             <!--  -->
-            <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
-            <!--  -->
+            <div class="col-md-4">
+              <!--  -->
+              <!-- product image -->
+              <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
+              <!--  -->
+              <img
+                src="<%= ordersArray[i].cartArray[j].imagePath %>"
+                alt="image"
+                class="img-fluid"
+              />
+              <!--  -->
+
+              <% } %>
+              <!--  -->
+            </div>
             <!--  -->
 
-            <!--  -->
+            <div class="col-md-8">
+              <li>title:<%= ordersArray[i].cartArray[j].title %></li>
+              <li>price:$<%= ordersArray[i].cartArray[j].price %></li>
+              <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
+              <!--  -->
+              <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
+              <!--  -->
+              <!--  -->
+
+              <!--  -->
+              <br />
+
+              <button
+                id="viewProdId"
+                onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
+              >
+                view product
+              </button>
+              <!--  -->
+              <!--  -->
+            </div>
             <br />
-
-            <button
-              id="viewProdId"
-              onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
-            >
-              view product
-            </button>
-            <!--  -->
             <!--  -->
           </div>
-          <br />
-
           <!--  -->
           <% } %>
         </div>
