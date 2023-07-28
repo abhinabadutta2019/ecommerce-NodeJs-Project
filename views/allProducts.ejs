@@ -86,54 +86,58 @@
           <div class="row g-0">
             <!-- start -3-e -->
             <!-- image starts here-->
-            <div class="col-md-12">
-              <% if (allProducts[i].imagePath != null) { %>
-              <img
-                src="<%= allProducts[i].imagePath %>"
-                alt="image"
-                class="img-fluid"
-              />
-              <% } %>
-            </div>
+            <!-- <div class="d-flex"> -->
+            <!-- <div class="flex-fill"> -->
+            <!-- <div class="col-md-12"> -->
+            <% if (allProducts[i].imagePath != null) { %>
+            <img
+              src="<%= allProducts[i].imagePath %>"
+              alt="image"
+              class="img-fluid"
+            />
+            <% } %>
+            <!--  -->
+            <!-- </div> -->
+            <!-- </div> -->
             <!-- image ends here -->
             <!-- card image ends -->
-            <div class="col-md-12">
-              <div class="card-body">
-                <h5 class="card-title"><%= allProducts[i].title %></h5>
-                <p class="card-text">Price: $<%= allProducts[i].price %></p>
-                <button
-                  class="btn btn-secondary"
-                  onclick="viewProduct('<%= allProducts[i]._id %>')"
-                >
-                  View Product
-                </button>
-                <button
-                  class="btn btn-success"
-                  onclick="addToCartButton('<%= allProducts[i]._id %>')"
-                >
-                  <!--this adds cart symbol  -->
-                  <i class="fas fa-shopping-cart"></i>
-                  <!--  -->
-                  Add to Cart
-                </button>
-                <% if (user.isAdmin == true) { %>
-                <!-- update -->
-                <button
-                  class="btn btn-secondary"
-                  onclick="updateProductfunc('<%= allProducts[i]._id %>')"
-                >
-                  Edit Product
-                </button>
-                <!-- delete -->
-                <button
-                  class="btn btn-dark"
-                  onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
-                >
-                  Delete Product
-                </button>
-                <% } %>
-              </div>
+            <!-- <div class="col-md-12"> -->
+            <div class="card-body">
+              <h5 class="card-title"><%= allProducts[i].title %></h5>
+              <p class="card-text">Price: $<%= allProducts[i].price %></p>
+              <button
+                class="btn btn-secondary"
+                onclick="viewProduct('<%= allProducts[i]._id %>')"
+              >
+                View Product
+              </button>
+              <button
+                class="btn btn-success"
+                onclick="addToCartButton('<%= allProducts[i]._id %>')"
+              >
+                <!--this adds cart symbol  -->
+                <i class="fas fa-shopping-cart"></i>
+                <!--  -->
+                Add to Cart
+              </button>
+              <% if (user.isAdmin == true) { %>
+              <!-- update -->
+              <button
+                class="btn btn-secondary"
+                onclick="updateProductfunc('<%= allProducts[i]._id %>')"
+              >
+                Edit Product
+              </button>
+              <!-- delete -->
+              <button
+                class="btn btn-dark"
+                onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
+              >
+                Delete Product
+              </button>
+              <% } %>
             </div>
+            <!-- </div> -->
             <!--  -->
             <!--  -->
             <!-- end 3-s-->
