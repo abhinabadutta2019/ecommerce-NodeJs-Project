@@ -63,7 +63,7 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       username: req.body.username,
       password: hashedValue,
-      imagePath: "/images/defaultImage.jpg",
+      imagePath: "/images/defaultImage.webp",
       //
       // isAdmin: req.body.isAdmin,
     });
