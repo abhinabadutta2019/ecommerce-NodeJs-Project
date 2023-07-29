@@ -1,36 +1,76 @@
 <%- include('../partials/adminHeader') %>
 
-<h3><%= username %> Cart -- Admin view</h3>
+<!--  -->
+<div class="row justify-content-center">
+  <!--  -->
+  <div class="col-lg-8">
+    <!--  -->
+    <div class="card mt-5 mb-5">
+      <!--  -->
+      <div class="card-body">
+        <!--  -->
+        <div class="row g-0 align-items-center">
+          <!--  -->
+          <div class="col-md-6">
+            <h3><%= username %> Cart</h3>
+            (Admin view)
+          </div>
+
+          <div class="col-md-4">
+            <h5>Cart Value:$<%= cartValue %></h5>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <% if (cart.length>0) { %>
 <!--  -->
 
 <!--  -->
 
 <br />
-<h5>Cart Value:<%= cartValue %></h5>
-<br />
-<!--  -->
-<% for( let i = 0; i < cart.length; i++ ) { %>
-<!--  -->
-<div>
-  <li>title:<%= cart[i].title %></li>
-  <li>price:<%= cart[i].price %></li>
-  <li>quantity:<%= cart[i].quantity %></li>
+<div class="row justify-content-center">
   <!--  -->
+  <div class="col-lg-8">
+    <!--  -->
+    <div class="card mt-5 mb-5">
+      <!--  -->
+      <div class="card-body">
+        <!--  -->
+        <div class="row g-0 align-items-center">
+          <!--  -->
+          <% for( let i = 0; i < cart.length; i++ ) { %>
+          <!--  -->
 
-  <% if (cart[i].imagePath!=null) { %>
-  <!--  -->
-  <img src="<%= cart[i].imagePath %>" alt="image" width="200" height="150" />
-  <!--  -->
-  <% } %>
-  <!--  -->
+          <!--  -->
+
+          <div class="col-md-4">
+            <% if (cart[i].imagePath!=null) { %>
+            <!--  -->
+            <img src="<%= cart[i].imagePath %>" alt="image" class="img-fluid" />
+            <!--  -->
+            <% } %>
+          </div>
+
+          <div class="col-md-6 mx-5">
+            <!--  -->
+            <h5><%= cart[i].title %></h5>
+            <li>price:$<%= cart[i].price %></li>
+            <li>quantity:<%= cart[i].quantity %></li>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <% } %>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <!--  -->
-<!--  -->
-<% } %>
-<!--  -->
-
-<!--  -->
 <% }else{%>
-<p>No product in cart</p>
+<h5 class="text-center">No product in cart</h5>
 <%}%>
