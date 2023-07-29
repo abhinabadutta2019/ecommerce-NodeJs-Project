@@ -1,10 +1,10 @@
 <%- include('../partials/adminHeader') %>
 <!--  -->
-<h3>All orders</h3>
+<h3 class="text-center">All orders</h3>
 
 <!-- for alert -->
 <!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
+<div class="text-center" id="alertContainer"></div>
 <!--  -->
 <!--  -->
 
@@ -13,51 +13,85 @@
 <!--  -->
 <% for( let i = 0; i < ordersArray.length; i++ ) { %>
 <!--  -->
-<% if (ordersArray[i].status!="cancelled") { %>
-<!--  -->
-<button
-  id="cancelOrderId"
-  onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
->
-  cancel order
-</button>
-<!--  -->
-<% } %>
-<!--  -->
-<p>orderd by:<%= ordersArray[i].cartOwnerUsername %></p>
-<p>order value:<%= ordersArray[i].cartValue %></p>
-<p>delivery address:<%= ordersArray[i].address %></p>
-<p>status:<%= ordersArray[i].status %></p>
-<p>orderd on:<%= ordersArray[i].createdAt %></p>
-<!--  -->
-<% if (ordersArray[i].cartArray.length>0) { %>
-<!--  -->
-<% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
-<!--  -->
-<li>item title:<%= ordersArray[i].cartArray[j].title %></li>
-<li>price:<%= ordersArray[i].cartArray[j].price %></li>
-<li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
-<!--  -->
-<% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
-<!--  -->
-<img
-  src="<%= ordersArray[i].cartArray[j].imagePath %>"
-  alt="image"
-  width="200"
-  height="150"
-/>
-<!--  -->
-<% } %>
-<!--  -->
-<br />
-<!--  -->
-<% } %>
-<!--  -->
-<!--  -->
-<!--  -->
-<% } %>
-<!--  -->
-<hr />
+<div>
+  <!--  -->
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+
+            <!--  -->
+            <div class="col-md-6">
+              <h4>orderd by:<%= ordersArray[i].cartOwnerUsername %></h4>
+            </div>
+            <div class="col-md-6">
+              <h4>order value:$<%= ordersArray[i].cartValue %></h4>
+            </div>
+            <br /><br />
+            <h6>status:<%= ordersArray[i].status %></h6>
+            <p>delivery address:<%= ordersArray[i].address %></p>
+
+            <p>orderd on:<%= ordersArray[i].createdAt %></p>
+            <!--  -->
+            <% if (ordersArray[i].cartArray.length>0) { %>
+            <!--  -->
+            <% for( let j = 0; j < ordersArray[i].cartArray.length; j++ ) { %>
+            <!--  -->
+
+            <div class="col-md-4">
+              <!--  -->
+              <% if (ordersArray[i].cartArray[j].imagePath!=null) { %>
+              <!--  -->
+              <img
+                src="<%= ordersArray[i].cartArray[j].imagePath %>"
+                alt="image"
+                class="img-fluid"
+              />
+              <!--  -->
+              <% } %>
+            </div>
+            <!--  -->
+            <div class="col-md-8 px-3">
+              <h6><%= ordersArray[i].cartArray[j].title %></h6>
+              <li>price:$<%= ordersArray[i].cartArray[j].price %></li>
+              <li>quantity:<%= ordersArray[i].cartArray[j].quantity %></li>
+              <!--  -->
+            </div>
+            <br />
+            <!--  -->
+            <% } %>
+            <!-- ------------------ -->
+            <!--  -->
+            <!--  -->
+            <% } %>
+            <!-- ---------------- -->
+            <div class="text-center">
+              <!--  -->
+              <% if (ordersArray[i].status!="cancelled") { %>
+              <!-- cancellation button -->
+              <button
+                class="btn btn-secondary"
+                id="cancelOrderId"
+                onclick="oneOrderCancelFunc('<%= ordersArray[i]._id %>')"
+              >
+                cancel order
+              </button>
+              <!--  -->
+              <% } %>
+            </div>
+            <!-- <hr /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <% } %>
 <!--  -->
 <!--  -->
