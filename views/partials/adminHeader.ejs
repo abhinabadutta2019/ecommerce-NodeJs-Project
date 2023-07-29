@@ -48,6 +48,45 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <!--  -->
           <ul class="nav navbar-nav px-5">
+            <!-- admin only -->
+            <li class="nav-item dropdown">
+              <!--  -->
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Admin Only</a
+              >
+              <!--  -->
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <!--  -->
+                <a class="dropdown-item" href="/user/getAllUser">All Users</a>
+                <!--  -->
+                <a class="dropdown-item" href="/product/createProduct"
+                  >Create Product</a
+                >
+                <!--  -->
+                <!-- <div class="dropdown-divider"></div> -->
+                <!--  -->
+                <a class="dropdown-item" href="/cart/getAllUserCarts"
+                  >All Carts</a
+                >
+                <!--  -->
+                <a class="dropdown-item" href="/order/getAllorders"
+                  >All Orders</a
+                >
+                <!--  -->
+                <a class="dropdown-item" href="/order/getMonthlyIncome"
+                  >Earnings Details</a
+                >
+                <!--  -->
+              </div>
+              <!--  -->
+            </li>
             <!--  -->
             <li class="nav-item">
               <!--  -->
@@ -79,51 +118,12 @@
             <!--  -->
             <li class="nav-item">
               <!--  -->
-              <a class="nav-link" href="/auth/logout">Logout</a>
+              <a class="nav-link" href="/auth/logout"> Logout</a>
               <!--  -->
             </li>
             <!--admin starts  -->
             <!--  -->
-            <li class="nav-item dropdown">
-              <!--  -->
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Admin Only</a
-              >
-              <!--  -->
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <!--  -->
-                <a class="dropdown-item" href="/user/getAllUser"
-                  >all user details</a
-                >
-                <!--  -->
-                <a class="dropdown-item" href="/product/createProduct"
-                  >create product</a
-                >
-                <!--  -->
-                <!-- <div class="dropdown-divider"></div> -->
-                <!--  -->
-                <a class="dropdown-item" href="/cart/getAllUserCarts"
-                  >all user carts</a
-                >
-                <!--  -->
-                <a class="dropdown-item" href="/order/getAllorders"
-                  >all orders</a
-                >
-                <!--  -->
-                <a class="dropdown-item" href="/order/getMonthlyIncome"
-                  >earning details</a
-                >
-                <!--  -->
-              </div>
-              <!--  -->
-            </li>
+
             <!--  -->
 
             <!--  -->
