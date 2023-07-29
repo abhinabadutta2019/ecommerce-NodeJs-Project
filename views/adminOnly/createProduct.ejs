@@ -1,37 +1,85 @@
 <%- include('../partials/adminHeader') %>
 <!--  -->
-<h3>Create product</h3>
+<h3 class="text-center">Create product</h3>
 <!--  -->
 <!--  -->
 <!-- for alert -->
 <!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
+<div class="text-center" id="alertContainer"></div>
 <!--  -->
-<!--  -->
-<form action="#">
-  <!-- title -->
-  <label for="title">title</label>
-  <input type="text" id="productTitle" required />
-  <br />
-  <!-- productLeft -->
-  <label for="productLeft">product left</label>
-  <input type="number" id="productLeftId" required />
-  <br />
-  <!--  price-->
-  <label for="price">price</label>
-  <input type="number" id="priceId" required />
-  <br />
-  <!-- categories -->
-  <label for="categories">categories</label>
-  <input type="text" id="categoriesId" required />
-  <br />
+<div>
   <!--  -->
-  <label for="imageUpload">Image</label>
-  <input type="file" id="productImageId" name="file" />
-  <!--  -->
-</form>
-<!-- form Button -->
-<button id="createProdButton" onclick="createProdFunc()">Submit</button>
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <div class="bg-white shadow rounded p-3 input-group-lg">
+            <!--  -->
+            <div class="row g-0 align-items-center">
+              <!--  -->
+              <div class="col-lg-6 width:100%">
+                <!--  -->
+
+                <!--  -->
+                <form action="#">
+                  <!-- title -->
+                  <div class="width:100%">
+                    <label for="title">title</label>
+                    <br />
+                    <input type="text" id="productTitle" required />
+                  </div>
+                  <br />
+                  <!-- productLeft -->
+                  <div>
+                    <label for="productLeft">product left</label>
+                    <br />
+                    <input type="number" id="productLeftId" required />
+                  </div>
+                  <br />
+                  <!--  price-->
+                  <div>
+                    <label for="price">price</label>
+                    <br />
+                    <input type="number" id="priceId" required />
+                  </div>
+                  <br />
+                  <!-- categories -->
+                  <div>
+                    <label for="categories">categories</label>
+                    <br />
+                    <input type="text" id="categoriesId" required />
+                  </div>
+                  <br />
+                  <!--  -->
+                  <div>
+                    <label for="imageUpload">Image</label>
+                    <br />
+                    <input type="file" id="productImageId" name="file" />
+                  </div>
+                  <!--  -->
+                </form>
+                <!-- form Button -->
+                <br /><br /><br />
+                <hr />
+                <button
+                  class="btn btn-secondary"
+                  id="createProdButton"
+                  onclick="createProdFunc()"
+                >
+                  Submit
+                </button>
+              </div>
+              <!--  -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!--  -->
 <script>
   //
