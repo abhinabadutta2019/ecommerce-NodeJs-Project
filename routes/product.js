@@ -306,7 +306,7 @@ router.put("/update/:id", browserAdmin, async (req, res) => {
       );
 
       if (updatedPrice) {
-        messageArray.push("productLeft updated");
+        messageArray.push("product price updated");
       }
     }
 
@@ -372,8 +372,10 @@ router.put(
         { new: true }
       );
       //
+      messageArray.push("product image updated");
+      //
 
-      res.json({ updatedProduct: updatedProduct });
+      res.json({ message: messageArray, updatedProduct: updatedProduct });
     } catch (err) {
       console.log(err);
       res.json(err);
