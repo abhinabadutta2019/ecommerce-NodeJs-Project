@@ -21,7 +21,7 @@
   <!--  -->
   <!-- for alert -->
   <!-- Add the alertContainer div inside the body -->
-  <div id="alertContainer"></div>
+  <div class="text-center" id="alertContainer"></div>
   <!--  -->
 
   <% if (ordersArray.length>0) { %>
@@ -100,10 +100,7 @@
 
             <div class="col-md-8">
               <div class="mx-3 px-3">
-                <p>
-                  <strong>title</strong>:<%= ordersArray[i].cartArray[j].title
-                  %>
-                </p>
+                <h6><%= ordersArray[i].cartArray[j].title %></h6>
                 <p>
                   <strong>price </strong>:$<%= ordersArray[i].cartArray[j].price
                   %>
