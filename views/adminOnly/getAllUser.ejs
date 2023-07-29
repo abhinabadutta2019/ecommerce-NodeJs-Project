@@ -16,21 +16,22 @@
           <div class="row g-0 align-items-center">
             <!--  -->
             <% for( let i = 0; i < getAllUser.length; i++ ) { %>
-            <div>
-              <div class="col-md-6">
-                <p>username:<%= getAllUser[i].username%></p>
-              </div>
-              <div class="col-md-6">
-                <button
-                  id="getOneUserId"
-                  onclick="getOneUserFunc('<%= getAllUser[i]._id%>')"
-                >
-                  user details
-                </button>
-              </div>
-              <!--  -->
+
+            <div class="col-md-6 mt-3">
+              <h5>username:<%= getAllUser[i].username%></h5>
             </div>
-            <br />
+            <div class="col-md-6">
+              <button
+                class="btn btn-secondary mt-3"
+                id="getOneUserId"
+                onclick="getOneUserFunc('<%= getAllUser[i]._id%>')"
+              >
+                user details
+              </button>
+            </div>
+            <!--  -->
+            <hr />
+
             <% } %>
             <!--  -->
           </div>
