@@ -1,20 +1,38 @@
 <%- include('../partials/adminHeader') %>
 <!--  -->
-<h3>Monthly income</h3>
+<h3 class="text-center">Monthly income</h3>
 <!--  -->
 <% if (incomeMonthlyObj) { %>
 <!--  -->
+<div class="row justify-content-center">
+  <!--  -->
+  <div class="col-lg-6">
+    <!--  -->
+    <div class="card mt-5 mb-5">
+      <!--  -->
+      <div class="card-body">
+        <!--  -->
+        <div class="row g-0 align-items-center">
+          <% for( let key of Object.keys(incomeMonthlyObj)) { %>
+          <!--  -->
 
-<% for( let key of Object.keys(incomeMonthlyObj)) { %>
+          <!--  -->
+          <p>Month of <%= key %>:</p>
+          <h6>Total income $<%=incomeMonthlyObj[key]%></h6>
+          <hr />
+          <!--  -->
+          <% } %>
+          <!--  -->
+          <hr />
+          <h4>Total earning : $<%= totalIncome%></h4>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!--  -->
-<li>Month of <%= key %>: Total income <%=incomeMonthlyObj[key]%></li>
-<!--  -->
-<% } %>
-<!--  -->
-<p>Total earning : <%= totalIncome%></p>
-<!--  -->
 <!--  -->
 <% } else{%>
-<p>No income until now</p>
+<h5 class="text-center">No income until now</h5>
 <%}%>
