@@ -9,55 +9,79 @@
 <%}%>
 <!--  -->
 
-<h3><%= product.title%> details</h3>
+<h3 class="text-center"><%= product.title%> details</h3>
 
 <!--  -->
 <!-- for alert -->
 <!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
+<div class="text-center" id="alertContainer"></div>
 <!--  -->
 <!--  -->
 
 <div>
-  <li>title:<%= product.title%></li>
-  <li>price:<%= product.price%></li>
-  <br />
   <!--  -->
-  <br />
-  <!--  -->
-  <% if (product.imagePath != null) { %>
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-5">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+            <!--  -->
+            <% if (product.imagePath != null) { %>
 
-  <img src="<%= product.imagePath %>" alt="image" width="200" height="150" />
+            <img src="<%= product.imagePath %>" alt="image" class="img-fluid" />
 
-  <% } %>
-  <br />
-  <div>
-    <!--  -->
+            <% } %>
+            <!--  -->
+            <div class="col-md-6">
+              <!--  -->
+              <h5>price:$<%= product.price%></h5>
+              <!-- <li>title:<%= product.title%></li> -->
+            </div>
+            <div class="col-md-6">
+              <h6>this item count in cart : <%= getCountInCart%></h6>
+            </div>
+            <!-- <br /> -->
 
-    <p>this item count in cart : <%= getCountInCart%></p>
-    <!--  -->
-    <label for="count">mention count</label>
-    <br />
-    <input type="number" id="itemCountID" required />
-    <!--  -->
-    <br />
-    <!--  -->
-    <button
-      id="removeFromCartId"
-      onclick="removeFromCartFunc('<%= product._id%>')"
-    >
-      remove from cart
-    </button>
-    <!--  -->
-    <% if ( product.productLeft > 0) { %>
-    <!--  -->
-    <!--  -->
+            <!--  -->
+            <label for="count">mention count</label>
+            <br />
+            <input type="number" id="itemCountID" required />
+            <!--  -->
+            <br />
+            <!--  -->
 
-    <!--  -->
-    <button id="addToCartId" onclick="addToCartButton('<%= product._id%>')">
-      add to cart
-    </button>
-    <!--  -->
+            <div>
+              <button
+                class="btn btn-secondary"
+                id="removeFromCartId"
+                onclick="removeFromCartFunc('<%= product._id%>')"
+              >
+                remove from cart
+              </button>
+              <!--  -->
+              <% if ( product.productLeft > 0) { %>
+              <!--  -->
+              <!--  -->
+
+              <!--  -->
+              <button
+                class="btn btn-success"
+                id="addToCartId"
+                onclick="addToCartButton('<%= product._id%>')"
+              >
+                add to cart
+              </button>
+              <!--  -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--  -->
     <% } else{%>
