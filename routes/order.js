@@ -360,17 +360,18 @@ router.get("/getOneUserOrders/:id", browserAdmin, async (req, res) => {
       const oneOrder = orders[i];
       //
       const orderPopulate = await Order.populate(oneOrder, {
-        path: " userId products.productId ",
+        path: " userId products.productId address",
       });
       //
       //
       const orderFuncValue = await cartProductDetailsFunc(orderPopulate);
       //
       //adding values
-      orderFuncValue.address = oneOrder.address;
-      orderFuncValue.status = oneOrder.status;
+      orderFuncValue.address = orderPopulate.address.address;
+      orderFuncValue.status = orderPopulate.status;
       ordersArray.push(orderFuncValue);
 
+      // console.log(orderFuncValue.address, "orderFuncValue.address");
       //
       // console.log(ordersArray, "ordersArray");
     }
