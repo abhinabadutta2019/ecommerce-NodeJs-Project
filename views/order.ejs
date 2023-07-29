@@ -38,10 +38,19 @@
         <!-- <div class="row g-0"> -->
         <!--  -->
         <div>
-          <h5>Order Summary</h5>
+          <h4>Order Summary</h4>
+          <hr />
+
           <!--  -->
-          <p><strong> order total </strong>:$<%= ordersArray[i].cartValue %></p>
-          <p><strong> order status </strong>:<%= ordersArray[i].status %></p>
+
+          <span
+            ><h6>
+              order total:$<%= ordersArray[i].cartValue %>
+              <!-- &nbsp --adds space -->
+              &nbsp &nbsp &nbsp &nbsp order status :<%= ordersArray[i].status %>
+            </h6>
+          </span>
+          <hr />
           <p><strong>deliverd address</strong>:<%= ordersArray[i].address %></p>
           <p><strong>orderd on </strong>:<%= ordersArray[i].createdAt %></p>
           <!--  -->
@@ -90,32 +99,36 @@
             <!--  -->
 
             <div class="col-md-8">
-              <li>
-                <strong>title</strong>:<%= ordersArray[i].cartArray[j].title %>
-              </li>
-              <li>
-                <strong>price </strong>:$<%= ordersArray[i].cartArray[j].price
-                %>
-              </li>
-              <li>
-                <strong>quantity </strong>:<%=
-                ordersArray[i].cartArray[j].quantity %>
-              </li>
+              <div class="mx-3 px-3">
+                <p>
+                  <strong>title</strong>:<%= ordersArray[i].cartArray[j].title
+                  %>
+                </p>
+                <p>
+                  <strong>price </strong>:$<%= ordersArray[i].cartArray[j].price
+                  %>
+                </p>
+                <p>
+                  <strong>quantity </strong>:<%=
+                  ordersArray[i].cartArray[j].quantity %>
+                </p>
+                <br />
+
+                <button
+                  class="btn btn-secondary"
+                  id="viewProdId"
+                  onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
+                >
+                  view product
+                </button>
+              </div>
               <!--  -->
-              <!-- <li>quantity:<%= ordersArray[i].cartArray[j]._id %></li> -->
+
               <!--  -->
               <!--  -->
 
               <!--  -->
-              <br />
 
-              <button
-                class="btn btn-secondary"
-                id="viewProdId"
-                onclick="viewProdFunc('<%= ordersArray[i].cartArray[j]._id%>')"
-              >
-                view product
-              </button>
               <!--  -->
               <!--  -->
             </div>
