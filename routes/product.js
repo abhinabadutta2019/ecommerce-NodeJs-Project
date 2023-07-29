@@ -30,7 +30,7 @@ router.get("/getAllProducts", browserUser, async (req, res) => {
 
     //used this to sort random
     //size: 3 -- oto gulo item dekhabe
-    const allProducts = await Product.aggregate([{ $sample: { size: 3 } }]);
+    const allProducts = await Product.aggregate([{ $sample: { size: 10 } }]);
 
     // res.json({ allProducts: allProducts });
     res.render("allProducts", { allProducts: allProducts, user: user });
