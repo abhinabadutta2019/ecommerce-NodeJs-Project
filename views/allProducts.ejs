@@ -122,19 +122,22 @@
               </button>
               <% if (user.isAdmin == true) { %>
               <!-- update -->
-              <button
-                class="btn btn-secondary"
-                onclick="updateProductfunc('<%= allProducts[i]._id %>')"
-              >
-                Edit Product
-              </button>
-              <!-- delete -->
-              <button
-                class="btn btn-dark"
-                onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
-              >
-                Delete Product
-              </button>
+
+              <div class="mt-3">
+                <button
+                  class="btn btn-secondary"
+                  onclick="updateProductfunc('<%= allProducts[i]._id %>')"
+                >
+                  Edit Product
+                </button>
+                <!-- delete -->
+                <button
+                  class="btn btn-dark"
+                  onclick="deleteProductfunc('<%= allProducts[i]._id %>')"
+                >
+                  Delete Product
+                </button>
+              </div>
               <% } %>
             </div>
             <!-- </div> -->
