@@ -1,28 +1,58 @@
 <%- include('../partials/adminHeader') %>
 
-<h3>get one user</h3>
+<h3 class="text-center">get one user</h3>
 
 <!--  -->
 <!-- for alert -->
 <!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
+<div class="text-center" id="alertContainer"></div>
 <!--  -->
 
 <div>
-  <li>username:<%= oneUser.username%></li>
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+            <h4 class="text-center">username:<%= oneUser.username%></h4>
 
+            <!--  -->
+            <button
+              class="btn btn-secondary mt-3"
+              id="userCartId"
+              onclick="userCartFunc('<%= oneUser._id%>')"
+            >
+              view cart
+            </button>
+
+            <!--  -->
+            <button
+              class="btn btn-secondary mt-3"
+              id="userOrderId"
+              onclick="userOrderFunc('<%= oneUser._id%>')"
+            >
+              view user orders
+            </button>
+            <!--  -->
+            <button
+              class="btn btn-secondary mt-3"
+              id="deleteUserId"
+              onclick="deleteUserFunc('<%= oneUser._id%>')"
+            >
+              Delete user
+            </button>
+            <!--  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--  -->
-  <button id="userCartId" onclick="userCartFunc('<%= oneUser._id%>')">
-    view cart
-  </button>
-  <!--  -->
-  <button id="userOrderId" onclick="userOrderFunc('<%= oneUser._id%>')">
-    view user orders
-  </button>
-  <!--  -->
-  <button id="deleteUserId" onclick="deleteUserFunc('<%= oneUser._id%>')">
-    Delete user
-  </button>
 </div>
 
 <!--  -->
