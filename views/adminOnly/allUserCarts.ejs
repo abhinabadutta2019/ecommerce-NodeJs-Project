@@ -1,67 +1,105 @@
 <%- include('../partials/adminHeader') %>
 
-<h3>All user carts -- Admin view</h3>
+<h3 class="text-center">All user carts -- Admin view</h3>
 
 <!--  -->
 <% if (filledCarts.length>0) { %>
-<!--  -->
-<% for( let i = 0; i < filledCarts.length; i++ ) { %>
-<!--  -->
-<div>cart owner: <%= filledCarts[i].cartOwnerUsername %></div>
-<div>cart value:<%= filledCarts[i].cartValue %></div>
-<br />
-<!--  -->
+<div>
+  <!--  -->
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+            <!--  -->
+            <% for( let i = 0; i < filledCarts.length; i++ ) { %>
+            <!--  -->
+            <div class="col-md-6">
+              <h4>cart owner: <%= filledCarts[i].cartOwnerUsername %></h4>
+            </div>
+            <div class="col-md-6">
+              <h4>cart value:$<%= filledCarts[i].cartValue %></h4>
+            </div>
+            <br />
+            <hr />
+            <!--  -->
 
-<!--  -->
-<% if (filledCarts[i].cartArray.length>0) { %>
-<p>product details</p>
-<!--  -->
-<% for( let j = 0; j < filledCarts[i].cartArray.length; j++ ) { %>
-<!--  -->
-<li>title:<%= filledCarts[i].cartArray[j].title %></li>
-<li>price:<%= filledCarts[i].cartArray[j].price %></li>
-<li>quantity:<%= filledCarts[i].cartArray[j].quantity %></li>
-<!--  -->
-<!--  -->
-<% if (filledCarts[i].cartArray[j].imagePath!=null) { %>
-<!--  -->
-<img
-  src="<%= filledCarts[i].cartArray[j].imagePath %>"
-  alt="image"
-  width="200"
-  height="150"
-/>
-<!--  -->
-<% } %>
-<!--  -->
-<% } %>
-<!--  -->
-<% } %>
-<!--  -->
-<hr />
-<% } %>
+            <!--  -->
+            <% if (filledCarts[i].cartArray.length>0) { %>
+            <br />
+            <h5>product details</h5>
+            <!--  -->
+            <% for( let j = 0; j < filledCarts[i].cartArray.length; j++ ) { %>
 
+            <!--  -->
+            <div class="col-md-4">
+              <!--  -->
+              <% if (filledCarts[i].cartArray[j].imagePath!=null) { %>
+              <!--  -->
+              <img
+                src="<%= filledCarts[i].cartArray[j].imagePath %>"
+                alt="image"
+                class="img-fluid"
+              />
+              <!--  -->
+              <% } %>
+              <!--  -->
+            </div>
+            <!--  -->
+            <div class="col-md-8 px-3">
+              <!--  -->
+              <h6><%= filledCarts[i].cartArray[j].title %></h6>
+              <p>price:$<%= filledCarts[i].cartArray[j].price %></p>
+              <p>quantity:<%= filledCarts[i].cartArray[j].quantity %></p>
+              <!--  -->
+            </div>
+            <!--  -->
+
+            <!--  -->
+            <% } %>
+            <!--  -->
+            <% } %>
+            <!--  -->
+            <hr />
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!--  -->
 <% } else{%>
-<p>No cart with items in it</p>
+<h5 class="text-center">No cart with items in it</h5>
 <%}%>
 <!--  -->
 <!-- empty carts -->
 <!--  -->
 <% if (emptyCarts.length>0) { %>
+
 <!--  -->
-<h4>Empty carts</h4>
+<h4 class="text-center">Empty carts</h4>
+<!-- <hr /> -->
+<br /><br />
+
 <!--  -->
 <% for( let i = 0; i < emptyCarts.length; i++ ) { %>
 <!--  -->
-<!--  -->
-<div>cart owner: <%= emptyCarts[i].cartOwnerUsername %></div>
-<div>cart value:<%= emptyCarts[i].cartValue %></div>
-<br />
+<div class="text-center">
+  <!--  -->
+  <h5>cart owner: <%= emptyCarts[i].cartOwnerUsername %></h5>
+  <div>cart value:<%= emptyCarts[i].cartValue %></div>
+  <hr />
+</div>
 <!--  -->
 <% } %>
 <!--  -->
 <% }else{%>
-<p>No empty cards</p>
+<h5 class="text-center">No empty cards</h5>
 <%}%>
 <!--  -->
