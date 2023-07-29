@@ -1,21 +1,43 @@
 <%- include('../partials/adminHeader') %>
 <!--  -->
-<h3>Get all users</h3>
+<h3 class="text-center">Get all users</h3>
 <!--  -->
 <div>
   <% if (getAllUser.length>0) { %>
   <!--  -->
-  <% for( let i = 0; i < getAllUser.length; i++ ) { %>
-
-  <li>username:<%= getAllUser[i].username%></li>
-  <!-- <%= getAllUser[i].username%> -->
-  <!--  -->
-  <button id="getOneUserId" onclick="getOneUserFunc('<%= getAllUser[i]._id%>')">
-    user details
-  </button>
-  <!--  -->
-  <br />
-  <% } %>
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+            <% for( let i = 0; i < getAllUser.length; i++ ) { %>
+            <div>
+              <div class="col-md-6">
+                <p>username:<%= getAllUser[i].username%></p>
+              </div>
+              <div class="col-md-6">
+                <button
+                  id="getOneUserId"
+                  onclick="getOneUserFunc('<%= getAllUser[i]._id%>')"
+                >
+                  user details
+                </button>
+              </div>
+              <!--  -->
+            </div>
+            <br />
+            <% } %>
+            <!--  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--  -->
   <% }else{%>
   <p>No user found</p>
