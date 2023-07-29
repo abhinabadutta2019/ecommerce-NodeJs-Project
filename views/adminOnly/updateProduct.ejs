@@ -1,46 +1,94 @@
 <%- include('../partials/adminHeader') %>
 <!--  -->
-<h3>Update product</h3>
+<h3 class="text-center">Update product</h3>
 <!--  -->
 <!-- for alert -->
 <!-- Add the alertContainer div inside the body -->
-<div id="alertContainer"></div>
+<div class="text-center" id="alertContainer"></div>
 <!--  -->
 <!--  -->
-<h5>Update product details</h5>
-<form action="#">
-  <!-- title -->
-  <label for="title">title</label>
-  <input type="text" id="productTitle" required />
-  <br />
-  <!-- productLeft -->
-  <label for="productLeft">product left</label>
-  <input type="number" id="productLeftId" required />
-  <br />
-  <!--  price-->
-  <label for="price">price</label>
-  <input type="number" id="priceId" required />
-  <br />
-  <!-- categories -->
-  <label for="categories">categories</label>
-  <input type="text" id="categoriesId" required />
-  <br />
-  <!--  -->
-</form>
-<!-- form Button -->
-<button id="updateProdButton" onclick="updateProdFunc()">Submit</button>
-<!--  -->
-<h5>Update product Image</h5>
-<!--  -->
-<form action="#">
-  <!--  -->
-  <label for="imageUpload">Image</label>
-  <input type="file" id="productImageId" name="file" />
-  <!--  -->
-</form>
-<button id="updateProdImage" onclick="updateImgFunc()">update image</button>
-<!--  -->
+<div>
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <!--  -->
+            <h5 class="text-center">Update product details</h5>
+            <form action="#">
+              <!-- title -->
+              <label for="title">title</label>
+              <br />
+              <input type="text" id="productTitle" required />
+              <br />
+              <!-- productLeft -->
+              <label for="productLeft">product left</label>
+              <br />
+              <input type="number" id="productLeftId" required />
+              <br />
+              <!--  price-->
+              <label for="price">price</label> <br />
+              <input type="number" id="priceId" required />
+              <br />
+              <!-- categories -->
+              <label for="categories">categories</label> <br />
+              <input type="text" id="categoriesId" required />
+              <br />
+              <!--  -->
+            </form>
+            <!-- form Button -->
+            <br />
+            <button
+              class="btn btn-secondary"
+              id="updateProdButton"
+              onclick="updateProdFunc()"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!--  -->
+<div>
+  <div class="row justify-content-center">
+    <!--  -->
+    <div class="col-lg-6">
+      <!--  -->
+      <div class="card mt-5 mb-5">
+        <!--  -->
+        <div class="card-body">
+          <!--  -->
+          <div class="row g-0 align-items-center">
+            <h5 class="text-center">Update product Image</h5>
+            <!--  -->
+            <form action="#">
+              <!--  -->
+              <label for="imageUpload">Image</label>
+              <input type="file" id="productImageId" name="file" />
+              <!--  -->
+            </form>
+            <button
+              class="btn btn-secondary"
+              id="updateProdImage"
+              onclick="updateImgFunc()"
+            >
+              update image
+            </button>
+            <!--  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   //
   // Function to display a Bootstrap alert
