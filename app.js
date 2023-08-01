@@ -49,30 +49,21 @@ app.get("/", (req, res) => {
   }
 });
 
-//testing cookie
-// app.get("/", function (req, res) {
-//   //
-//   //set req.cookies
-//   // req.cookies.title = "abhinabaTesting";
-//   // console.log("Cookies: ", req.cookies);
-
-//   const id = "raja1";
-
-//   res.cookie("abhi-cookie", id);
-
-//   console.log(id);
-
-//   res.json({ id: id });
-// });
-
-//
-app.listen(process.env.PORT, () => {
-  console.log(`Server Started at ${process.env.PORT}`);
-});
-
 //
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/product", productRoutes);
 app.use("/cart", cartRoutes);
 app.use("/order", orderRoutes);
+
+//
+app.use((req, res, next) => {
+  res.status(404).render("withoutToken/404"); // Assuming you have a view called "404.ejs" for the error page
+});
+
+//
+const port = process.env.PORT || 3000;
+//
+app.listen(port, () => {
+  console.log(`Server Started at ${process.env.PORT}`);
+});
